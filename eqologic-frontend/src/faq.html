@@ -1,0 +1,256 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FAQ — Eqologic</title>
+  <meta name="description" content="Questions answered. Everything you need to know about Eqologic products, orders, sustainability, and returns." />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{base:'#F7F5F0',surface:'#EAE6DF',primary:'#0047FF',secondary:'#1A5D1A',text:'#222222',light:'#FFFFFF'}},fontFamily:{display:['Space Grotesk','sans-serif'],sans:['Space Grotesk','sans-serif'],body:['Inter','sans-serif']}}}}</script>
+  <style>
+    body{background-color:#F7F5F0;color:#222222;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    .kicker{font-family:'Inter',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.2em;font-weight:600;}
+    #navbar{transition:background-color 0.4s ease,border-color 0.4s ease;}
+    #navbar.scrolled{background-color:#F7F5F0;border-bottom:1px solid rgba(34,34,34,0.1);}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
+    .reveal.active{opacity:1;transform:translateY(0);}
+    .faq-cat-btn{transition:all 0.2s;}
+    .faq-cat-btn.active{background:#0047FF;color:#fff;border-color:#0047FF;}
+    .faq-answer{display:none;overflow:hidden;}
+    .faq-item.open .faq-answer{display:block;}
+    .faq-item.open .faq-icon{transform:rotate(45deg);}
+    .faq-icon{transition:transform 0.2s;}
+  </style>
+</head>
+<body>
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-5 bg-brand-base border-b border-brand-text/10 transition-all duration-300">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 z-50"><img src="https://static.kite.ai/image/upload/e_trim/h_40/f_auto,q_auto/v1777953211/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/ujr5clhzt7x5kwjxxagx.png" alt="Eqologic" class="h-9 w-auto object-contain" /></a>
+      <div class="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+        <a href="/shop.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Shop</a>
+        <a href="/about.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
+        <a href="/qrash-qourse.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Impact</a>
+      </div>
+      <div class="flex items-center gap-6 z-50">
+        <button id="search-btn" class="text-brand-text hover:text-brand-primary transition-colors" aria-label="Search"><i data-lucide="search" class="w-5 h-5"></i></button>
+        <a href="/login.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors hidden md:flex items-center gap-1.5"><i data-lucide="user" class="w-4 h-4"></i><span>Sign In</span></a>
+        <a href="/cart.html" class="flex items-center gap-2 text-brand-text hover:text-brand-primary transition-colors"><span class="text-sm font-body font-medium hidden md:block">Cart</span><i data-lucide="shopping-bag" class="w-5 h-5"></i></a>
+        <button id="mobile-menu-btn" class="md:hidden text-brand-text"><i data-lucide="menu" class="w-6 h-6"></i></button>
+      </div>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="fixed inset-0 z-[60] bg-brand-base transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
+    <div class="h-20 flex items-center justify-between px-6"><img src="https://static.kite.ai/image/upload/e_trim/h_40/f_auto,q_auto/v1777953211/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/ujr5clhzt7x5kwjxxagx.png" alt="Eqologic" class="h-9 w-auto" /><button id="close-mobile-menu" class="p-2 text-brand-text"><i data-lucide="x" class="w-8 h-8"></i></button></div>
+    <div class="flex-1 flex flex-col justify-center px-12 gap-8">
+      <a href="/shop.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary">Shop</a>
+      <a href="/about.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary">Our Story</a>
+      <a href="/qrash-qourse.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary">Impact</a>
+      <a href="/login.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Sign In</a>
+    </div>
+  </div>
+
+  <!-- SEARCH MODAL -->
+  <div id="search-modal" class="fixed inset-0 z-[70] flex flex-col items-center pt-24 px-4 pointer-events-none opacity-0 transition-opacity duration-200" style="background:rgba(34,34,34,0.6);backdrop-filter:blur(6px);">
+    <div class="w-full max-w-2xl bg-brand-base rounded-2xl shadow-2xl overflow-hidden">
+      <div class="flex items-center gap-3 px-5 py-4 border-b border-brand-text/10">
+        <i data-lucide="search" class="w-5 h-5 text-brand-text/40 flex-shrink-0"></i>
+        <input id="search-input" type="text" placeholder="Search products, pages…" autocomplete="off" class="flex-1 bg-transparent font-body text-base text-brand-text placeholder-brand-text/35 outline-none" />
+        <button id="search-close" class="p-1 text-brand-text/40 hover:text-brand-text transition-colors" aria-label="Close search"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div id="search-results" class="max-h-[60vh] overflow-y-auto py-2"></div>
+    </div>
+  </div>
+
+  <main class="pt-20">
+    <!-- HEADER -->
+    <section class="bg-brand-base py-16 md:py-24 border-b border-brand-text/8">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-12 reveal">
+        <p class="kicker text-brand-primary mb-4 flex items-center gap-3"><span class="w-6 h-px bg-brand-primary"></span>Support</p>
+        <h1 class="font-sans font-bold text-4xl md:text-5xl text-brand-text mb-4">Questions, answered.</h1>
+        <p class="font-body text-brand-text/60 text-lg">If something is not here, reach us directly.</p>
+      </div>
+    </section>
+
+    <!-- CATEGORY NAV -->
+    <section class="bg-brand-base py-8 border-b border-brand-text/8 sticky top-[72px] z-40">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center gap-3 overflow-x-auto">
+        <button class="faq-cat-btn active px-5 py-2 rounded-full border border-brand-primary font-body font-medium text-sm whitespace-nowrap" data-section="products">Products</button>
+        <button class="faq-cat-btn px-5 py-2 rounded-full border border-brand-text/20 text-brand-text/70 font-body font-medium text-sm whitespace-nowrap" data-section="orders">Orders &amp; Delivery</button>
+        <button class="faq-cat-btn px-5 py-2 rounded-full border border-brand-text/20 text-brand-text/70 font-body font-medium text-sm whitespace-nowrap" data-section="sustainability">Sustainability</button>
+        <button class="faq-cat-btn px-5 py-2 rounded-full border border-brand-text/20 text-brand-text/70 font-body font-medium text-sm whitespace-nowrap" data-section="returns">Returns</button>
+      </div>
+    </section>
+
+    <!-- FAQ CONTENT -->
+    <section class="bg-brand-base py-16 md:py-24">
+      <div class="max-w-[860px] mx-auto px-6 md:px-12">
+
+        <!-- PRODUCTS -->
+        <div id="section-products" class="faq-section reveal">
+          <h2 class="font-sans font-bold text-2xl text-brand-text mb-8">Products</h2>
+          <div class="space-y-3">
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">Are the bottles truly food-grade? What does that mean?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Yes. Our bottles use 18/8 stainless steel, which means 18% chromium and 8% nickel. This is the same grade used in surgical instruments and high-quality cookware. It will not leach chemicals into your water, won't impart taste, and won't corrode under normal use. The cap gasket is food-grade silicone, not rubber.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">How long does the insulation actually work in hot Indian weather?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">We test at 42°C ambient temperature. In those conditions, cold water stays cold for a minimum of 18 hours. In a typical air-conditioned office or cooler environment, you'll easily hit the 24-hour mark. Hot liquids stay hot for 12 hours. These are real test numbers, not claims under ideal lab conditions.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">Do the bamboo toothbrushes really have vegan bristles?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Yes. Most bamboo toothbrushes use boar-hair bristles, which are not vegan. Ours use nylon-6 bristles with a charcoal infusion. They're synthetic, durable, and clean effectively without any animal byproduct. The handle is 100% bamboo and compostable. The bristles should be removed and disposed of separately before composting the handle.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">How do I care for the copper tongue cleaner?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Rinse under running water after each use. Occasionally scrub with a small amount of salt and lime juice to remove any tarnish — copper naturally oxidises and the tarnish is harmless, but if you prefer it bright, a 30-second salt-lime scrub restores it immediately. Do not use harsh chemical cleaners on it. Store dry.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">Can I put carbonated drinks or hot coffee in the Core Bottle?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Yes to hot coffee — it works brilliantly and stays hot for 12 hours. For carbonated drinks, we recommend not fully sealing the lid immediately after filling, as pressure can build. Let it settle for 30 seconds, then seal. The bottle handles carbonated liquids fine; just be aware of pressure when opening.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ORDERS -->
+        <div id="section-orders" class="faq-section hidden reveal">
+          <h2 class="font-sans font-bold text-2xl text-brand-text mb-8">Orders &amp; Delivery</h2>
+          <div class="space-y-3">
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">How long does delivery take?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Standard delivery within metro cities (Mumbai, Delhi, Bengaluru, Hyderabad, Chennai, Pune) takes 3–5 business days. Tier-2 cities and other areas take 5–7 business days. Express delivery is available at checkout for an additional fee and delivers within 1–2 business days in metros.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">What are the shipping charges?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Shipping is free on all orders above ₹999. Below that, a flat shipping fee of ₹79 applies. We ship with Delhivery and Shiprocket partners depending on your pin code. A tracking link will be emailed to you within 24 hours of dispatch.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">Can I modify or cancel my order after placing it?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">You can modify or cancel within 2 hours of placing your order by emailing us at hello@eqologic.com with your order number. After that, the order enters the fulfilment queue and we cannot guarantee a change. If the order has already shipped, you'll need to use our returns process after receiving it.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">Do you ship outside India?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Not yet. We currently ship within India only. International shipping is on the roadmap for 2025. If you're based outside India and want to be notified when we launch there, drop your email on our contact page and mention "International Shipping" in the message.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- SUSTAINABILITY -->
+        <div id="section-sustainability" class="faq-section hidden reveal">
+          <h2 class="font-sans font-bold text-2xl text-brand-text mb-8">Sustainability</h2>
+          <div class="space-y-3">
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">Is the packaging really plastic-free?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Yes. Every Eqologic order ships in 100% recycled kraft cardboard with no bubble wrap, no plastic inserts, no plastic tape. The void fill is shredded paper. Even the sticker on the box uses water-based adhesive. If you find any plastic in an Eqologic package, we want to hear about it immediately — that's a fulfilment error on our end.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">What happens to the bottle at end of life?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Stainless steel is 100% recyclable and retains its properties indefinitely through the recycling process. When your bottle has genuinely reached the end of its life, you can drop it off at any scrap metal dealer in India (raddiwalas accept steel). We're building a take-back programme for 2025 that will handle this more formally.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">Do you donate to environmental causes?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Yes. ₹25 from every Core Bottle sold goes to NGO partners working on clean water access in tier-2 cities across Maharashtra and Rajasthan. We publish an annual impact report with exact numbers — not just vague claims. You can read the latest report on our Impact page.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">Where are the products manufactured?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">The Core Bottle is manufactured in Gujarat. The bamboo brushes are manufactured in Tamil Nadu. The copper tongue cleaners are made by a family-run workshop in Rajasthan that has been working with copper for three generations. We visit every supplier and don't outsource that responsibility to auditors alone.</p></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RETURNS -->
+        <div id="section-returns" class="faq-section hidden reveal">
+          <h2 class="font-sans font-bold text-2xl text-brand-text mb-8">Returns</h2>
+          <div class="space-y-3">
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">What is your return policy?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">We offer a 15-day return window from the date of delivery. Products must be in original condition, unused, and with original packaging. Oral care products (toothbrushes, tongue cleaners) are non-returnable for hygiene reasons. If a product arrives damaged or defective, we'll replace it at no charge regardless of the 15-day window.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">How do I initiate a return?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Email hello@eqologic.com with your order number and the reason for return. We'll respond within 24 hours with a prepaid return label and instructions. You don't need to print anything — you can QR-scan the label at most courier drop-off points. Refunds are processed within 5–7 business days of receiving the return.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">My bottle arrived dented. What do I do?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Email us at hello@eqologic.com with a photo of the damage and your order number. We'll dispatch a replacement within 2 business days, free of charge. You don't need to return the damaged item — we'll arrange collection or ask you to dispose of it responsibly if it's not worth the shipping carbon.</p></div>
+            </div>
+            <div class="faq-item bg-white rounded-2xl overflow-hidden shadow-[0_2px_12px_rgba(34,34,34,0.06)]">
+              <button class="faq-trigger w-full flex items-center justify-between p-6 text-left"><span class="font-body font-medium text-brand-text">Can I exchange a colour or size instead of returning?</span><i data-lucide="plus" class="faq-icon w-5 h-5 text-brand-primary flex-shrink-0 ml-4"></i></button>
+              <div class="faq-answer px-6 pb-6"><p class="font-body text-brand-text/65 leading-relaxed">Yes. Contact us within 15 days of delivery and we'll process an exchange. The returned item must be in original condition. We'll cover the return shipping; you pay the standard shipping on the replacement if the order total is below ₹999 after the exchange.</p></div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTACT NUDGE -->
+    <section class="bg-brand-surface py-20 border-t border-brand-text/8 reveal">
+      <div class="max-w-[860px] mx-auto px-6 md:px-12 text-center">
+        <h2 class="font-sans font-bold text-3xl text-brand-text mb-4">Still have a question?</h2>
+        <p class="font-body text-brand-text/60 mb-8">We typically respond within 24 hours. If it's about a bulk order, mention that in the subject line and we'll prioritise it.</p>
+        <a href="/contact.html" class="inline-flex items-center justify-center px-8 py-4 bg-brand-primary text-white font-sans font-bold rounded-xl hover:bg-blue-700 transition-colors">Contact Us</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-white/10">
+    <div class="max-w-[1400px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+        <div class="md:col-span-1"><span class="font-sans font-bold text-2xl tracking-tight mb-6 block">eqologic.</span><p class="font-body text-white/50 text-sm max-w-xs">Steel bottles and oral care that actually work. No plastic. No shortcuts.</p></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Shop</h5><ul class="space-y-4"><li><a href="/shop.html" class="font-body text-white/50 hover:text-white transition-colors">Steel Bottles</a></li><li><a href="/shop.html" class="font-body text-white/50 hover:text-white transition-colors">Oral Care</a></li><li><a href="/shop.html" class="font-body text-white/50 hover:text-white transition-colors">Bundles</a></li><li><a href="/contact.html" class="font-body text-white/50 hover:text-white transition-colors">Corporate Gifting</a></li></ul></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Company</h5><ul class="space-y-4"><li><a href="/about.html" class="font-body text-white/50 hover:text-white transition-colors">Our Story</a></li><li><a href="/qrash-qourse.html" class="font-body text-white/50 hover:text-white transition-colors">Impact Report</a></li><li><a href="/blog.html" class="font-body text-white/50 hover:text-white transition-colors">Journal</a></li><li><a href="/contact.html" class="font-body text-white/50 hover:text-white transition-colors">Contact</a></li></ul></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Stay Updated</h5><p class="font-body text-white/50 text-sm mb-4">No spam. Just product drops and real updates.</p><form class="flex border-b border-white/20 pb-2"><input type="email" placeholder="Email address" class="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30" /><button type="submit" class="text-white hover:text-brand-primary transition-colors"><i data-lucide="arrow-right" class="w-5 h-5"></i></button></form></div>
+      </div>
+      <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 gap-6">
+        <p class="font-body text-white/30 text-sm">© <span id="year"></span> Eqologic. All rights reserved.</p>
+        <div class="flex items-center gap-6"><a href="/policy.html" class="font-body text-white/30 hover:text-white text-sm transition-colors">Privacy Policy</a><a href="/policy.html" class="font-body text-white/30 hover:text-white text-sm transition-colors">Terms of Service</a><a href="/policy.html" class="font-body text-white/30 hover:text-white text-sm transition-colors">Shipping &amp; Returns</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('translate-x-full'));
+    document.getElementById('close-mobile-menu').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('translate-x-full'));
+    const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('active');ro.unobserve(e.target);} }), {threshold:0.1,rootMargin:"0px 0px -40px 0px"});
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+    // Category switching
+    document.querySelectorAll('.faq-cat-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.faq-cat-btn').forEach(b => { b.classList.remove('active'); });
+        document.querySelectorAll('.faq-section').forEach(s => s.classList.add('hidden'));
+        btn.classList.add('active');
+        document.getElementById('section-' + btn.dataset.section).classList.remove('hidden');
+      });
+    });
+    // Accordion
+    document.querySelectorAll('.faq-trigger').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+        btn.closest('.faq-section').querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+        if(!wasOpen) item.classList.add('open');
+      });
+    });
+    // ── SEARCH ──────────────────────────────────────────────────────────
+    const SEARCH_DATA=[{title:'Steel Water Bottle — 750ml',desc:'Keeps cold for 24h · Food-grade steel · Zero plastic',meta:'₹799 onwards · Bestseller',url:'/product.html',type:'product'},{title:'Steel Water Bottle — 1 Litre',desc:'Full-day hydration · Insulated · Leak-proof',meta:'₹999 onwards',url:'/product.html',type:'product'},{title:'Steel Flask — 500ml',desc:'Compact · Cupholder-friendly · No-spill seal',meta:'₹699 onwards',url:'/product.html',type:'product'},{title:'Kids Steel Bottle — 400ml',desc:'Child-safe · Lightweight · BPA-free · Easy flip lid',meta:'₹599 onwards',url:'/product.html',type:'product'},{title:'Bamboo Toothbrush',desc:'Biodegradable handle · BPA-free bristles · Vegan',meta:'₹149 onwards',url:'/product.html',type:'product'},{title:'Bamboo Toothbrush — Pack of 4',desc:'Family pack · Biodegradable · Plastic-free packaging',meta:'₹499 onwards · Best value',url:'/product.html',type:'product'},{title:'Stainless Steel Tongue Scraper',desc:'Food-grade steel · Lasts for life · Zero plastic',meta:'₹299 onwards',url:'/product.html',type:'product'},{title:'The Starter Switch Bundle',desc:'750ml bottle + Bamboo brush + Tongue scraper',meta:'₹1,199 onwards · New',url:'/product.html',type:'product'},{title:'Shop All Products',desc:'Browse the full Eqologic catalogue',meta:'Page',url:'/shop.html',type:'page'},{title:'Our Story',desc:'Why Eqologic exists and what we refuse to compromise on',meta:'Page',url:'/about.html',type:'page'},{title:'Impact — Qrash Qourse',desc:'Environmental impact and facts',meta:'Page',url:'/qrash-qourse.html',type:'page'},{title:'FAQ',desc:'Answers to common questions about products and orders',meta:'Page',url:'/faq.html',type:'page'},{title:'Contact Us',desc:'Get in touch with the Eqologic team',meta:'Page',url:'/contact.html',type:'page'},{title:'Cart',desc:'Review your selected items and checkout',meta:'Page',url:'/cart.html',type:'page'}];
+    const searchModal=document.getElementById('search-modal'),searchInput=document.getElementById('search-input'),searchResults=document.getElementById('search-results');let activeIdx=-1;
+    function openSearch(){searchModal.classList.remove('pointer-events-none','opacity-0');searchModal.classList.add('pointer-events-auto','opacity-100');searchInput.value='';renderResults('');setTimeout(()=>searchInput.focus(),50);}
+    function closeSearch(){searchModal.classList.add('pointer-events-none','opacity-0');searchModal.classList.remove('pointer-events-auto','opacity-100');activeIdx=-1;}
+    function renderResults(q){const t=q.trim().toLowerCase();const hits=t.length===0?SEARCH_DATA.slice(0,6):SEARCH_DATA.filter(d=>(d.title+' '+d.desc+' '+d.meta).toLowerCase().includes(t));if(!hits.length){searchResults.innerHTML='<p class="font-body text-sm text-brand-text/40 px-5 py-6 text-center">No results for "'+q+'"</p>';return;}searchResults.innerHTML=hits.map((h,i)=>`<a href="${h.url}" class="search-result-item flex items-center gap-4 px-5 py-3.5 hover:bg-brand-surface transition-colors" data-idx="${i}"><div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${h.type==='product'?'bg-brand-primary/10':'bg-brand-text/6'}">${h.type==='product'?'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0047FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>':'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'}</div><div class="flex-1 min-w-0"><p class="font-sans font-bold text-sm text-brand-text truncate">${h.title}</p><p class="font-body text-xs text-brand-text/45 truncate mt-0.5">${h.desc}</p></div><span class="text-xs font-body text-brand-text/30 flex-shrink-0 hidden md:block">${h.meta}</span></a>`).join('');activeIdx=-1;}
+    document.getElementById('search-btn').addEventListener('click',openSearch);
+    document.getElementById('search-close').addEventListener('click',closeSearch);
+    searchModal.addEventListener('click',e=>{if(e.target===searchModal)closeSearch();});
+    searchInput.addEventListener('input',e=>renderResults(e.target.value));
+    searchInput.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();const items=searchResults.querySelectorAll('.search-result-item');if(!items.length)return;items.forEach(el=>el.classList.remove('bg-brand-surface'));activeIdx=(activeIdx+1+items.length)%items.length;items[activeIdx].classList.add('bg-brand-surface');items[activeIdx].scrollIntoView({block:'nearest'});}else if(e.key==='ArrowUp'){e.preventDefault();const items=searchResults.querySelectorAll('.search-result-item');if(!items.length)return;items.forEach(el=>el.classList.remove('bg-brand-surface'));activeIdx=(activeIdx-1+items.length)%items.length;items[activeIdx].classList.add('bg-brand-surface');items[activeIdx].scrollIntoView({block:'nearest'});}else if(e.key==='Enter'){const items=searchResults.querySelectorAll('.search-result-item');if(activeIdx>=0&&items[activeIdx])items[activeIdx].click();}else if(e.key==='Escape')closeSearch();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}});
+    // ── END SEARCH ───────────────────────────────────────────────────────
+  </script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Core Bottle — Eqologic</title>
+  <meta name="description" content="The Core Bottle. Food-grade stainless steel, 24-hour cold retention, zero plastic. The last water bottle you'll ever need to buy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>tailwind.config={theme:{extend:{colors:{brand:{base:'#F7F5F0',surface:'#EAE6DF',primary:'#0047FF',secondary:'#1A5D1A',text:'#222222',light:'#FFFFFF'}},fontFamily:{display:['Space Grotesk','sans-serif'],sans:['Space Grotesk','sans-serif'],body:['Inter','sans-serif']}}}}</script>
+  <style>
+    body{background-color:#F7F5F0;color:#222222;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
+    .kicker{font-family:'Inter',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.2em;font-weight:600;}
+    #navbar{transition:background-color 0.4s ease,border-color 0.4s ease,padding 0.4s ease;}
+    #navbar.scrolled{background-color:#F7F5F0;border-bottom:1px solid rgba(34,34,34,0.1);}
+    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
+    .reveal.active{opacity:1;transform:translateY(0);}
+    .tab-btn{transition:all 0.2s;border-bottom:2px solid transparent;}
+    .tab-btn.active{border-bottom-color:#0047FF;color:#0047FF;}
+    .tab-content{display:none;}
+    .tab-content.active{display:block;}
+    .thumb{cursor:pointer;border:2px solid transparent;transition:border-color 0.2s;}
+    .thumb.active{border-color:#0047FF;}
+  </style>
+</head>
+<body>
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-5 bg-brand-base border-b border-brand-text/10 transition-all duration-300">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 z-50"><img src="https://static.kite.ai/image/upload/e_trim/h_40/f_auto,q_auto/v1777953211/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/ujr5clhzt7x5kwjxxagx.png" alt="Eqologic" class="h-9 w-auto object-contain" /></a>
+      <div class="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+        <a href="/shop.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Shop</a>
+        <a href="/about.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
+        <a href="/qrash-qourse.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Impact</a>
+      </div>
+      <div class="flex items-center gap-6 z-50">
+        <button id="search-btn" class="text-brand-text hover:text-brand-primary transition-colors" aria-label="Search"><i data-lucide="search" class="w-5 h-5"></i></button>
+        <a href="/login.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors hidden md:flex items-center gap-1.5"><i data-lucide="user" class="w-4 h-4"></i><span>Sign In</span></a>
+        <a href="/cart.html" class="flex items-center gap-2 text-brand-text hover:text-brand-primary transition-colors"><span class="text-sm font-body font-medium hidden md:block">Cart</span><i data-lucide="shopping-bag" class="w-5 h-5"></i></a>
+        <button id="mobile-menu-btn" class="md:hidden text-brand-text"><i data-lucide="menu" class="w-6 h-6"></i></button>
+      </div>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="fixed inset-0 z-[60] bg-brand-base transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
+    <div class="h-20 flex items-center justify-between px-6"><img src="https://static.kite.ai/image/upload/e_trim/h_40/f_auto,q_auto/v1777953211/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/ujr5clhzt7x5kwjxxagx.png" alt="Eqologic" class="h-9 w-auto" /><button id="close-mobile-menu" class="p-2 text-brand-text"><i data-lucide="x" class="w-8 h-8"></i></button></div>
+    <div class="flex-1 flex flex-col justify-center px-12 gap-8">
+      <a href="/shop.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary">Shop</a>
+      <a href="/about.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary">Our Story</a>
+      <a href="/qrash-qourse.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary">Impact</a>
+      <a href="/login.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Sign In</a>
+    </div>
+  </div>
+
+  <!-- SEARCH MODAL -->
+  <div id="search-modal" class="fixed inset-0 z-[70] flex flex-col items-center pt-24 px-4 pointer-events-none opacity-0 transition-opacity duration-200" style="background:rgba(34,34,34,0.6);backdrop-filter:blur(6px);">
+    <div class="w-full max-w-2xl bg-brand-base rounded-2xl shadow-2xl overflow-hidden">
+      <div class="flex items-center gap-3 px-5 py-4 border-b border-brand-text/10">
+        <i data-lucide="search" class="w-5 h-5 text-brand-text/40 flex-shrink-0"></i>
+        <input id="search-input" type="text" placeholder="Search products, pages…" autocomplete="off" class="flex-1 bg-transparent font-body text-base text-brand-text placeholder-brand-text/35 outline-none" />
+        <button id="search-close" class="p-1 text-brand-text/40 hover:text-brand-text transition-colors" aria-label="Close search"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div id="search-results" class="max-h-[60vh] overflow-y-auto py-2"></div>
+    </div>
+  </div>
+
+  <main class="pt-20">
+    <!-- BREADCRUMB -->
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 py-5">
+      <nav class="flex items-center gap-2 font-body text-sm text-brand-text/40">
+        <a href="/" class="hover:text-brand-primary transition-colors">Home</a>
+        <i data-lucide="chevron-right" class="w-3 h-3"></i>
+        <a href="/shop.html" class="hover:text-brand-primary transition-colors">Shop</a>
+        <i data-lucide="chevron-right" class="w-3 h-3"></i>
+        <span class="text-brand-text">The Core Bottle</span>
+      </nav>
+    </div>
+
+    <!-- PRODUCT HERO -->
+    <section class="max-w-[1400px] mx-auto px-6 md:px-12 pb-20">
+      <div class="flex flex-col lg:flex-row gap-12 lg:gap-20">
+
+        <!-- LEFT: Image Gallery -->
+        <div class="lg:w-1/2 reveal">
+          <div class="bg-brand-surface rounded-2xl aspect-square overflow-hidden flex items-center justify-center mb-4">
+            <img id="main-img" src="https://static.kite.ai/image/upload/f_auto,q_auto,w_900/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-bottle.png" alt="The Core Bottle" class="w-full h-full object-contain mix-blend-multiply p-10 transition-all duration-300" />
+          </div>
+          <div class="flex gap-3">
+            <div class="thumb active w-24 h-24 bg-brand-surface rounded-xl overflow-hidden flex items-center justify-center" onclick="switchImg(this,'https://static.kite.ai/image/upload/f_auto,q_auto,w_900/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-bottle.png')">
+              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-bottle.png" alt="" class="w-full h-full object-contain mix-blend-multiply p-2" />
+            </div>
+            <div class="thumb w-24 h-24 bg-brand-surface rounded-xl overflow-hidden flex items-center justify-center" onclick="switchImg(this,'https://static.kite.ai/image/upload/f_auto,q_auto,w_900/v1777841241/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/feature-lifestyle.png')">
+              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1777841241/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/feature-lifestyle.png" alt="" class="w-full h-full object-cover rounded-xl" />
+            </div>
+            <div class="thumb w-24 h-24 bg-brand-surface rounded-xl overflow-hidden flex items-center justify-center" onclick="switchImg(this,'https://static.kite.ai/image/upload/f_auto,q_auto,w_900/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/proof-1.png')">
+              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/proof-1.png" alt="" class="w-full h-full object-cover rounded-xl" />
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: Product Info -->
+        <div class="lg:w-1/2 reveal" style="transition-delay:100ms;">
+          <p class="kicker text-brand-secondary mb-4">Bottles &amp; Flasks</p>
+          <h1 class="font-sans font-bold text-3xl md:text-4xl text-brand-text mb-3 leading-tight">Steel Water Bottle — 750ml</h1>
+          <p class="font-body text-brand-text/60 text-lg mb-6 leading-relaxed">Keeps cold for 24 hours. Keeps hot for 12. No plastic. Ever.</p>
+
+          <div class="flex items-baseline gap-4 mb-8">
+            <span class="font-sans font-bold text-3xl text-brand-primary">₹799</span>
+            <span class="font-body text-brand-text/40 text-base">– ₹999</span>
+            <span class="text-xs font-sans font-bold px-2.5 py-1 rounded-full bg-brand-secondary/10 text-brand-secondary">Bestseller</span>
+          </div>
+
+          <p class="font-body text-brand-text/70 leading-relaxed mb-8">Double-wall insulated food-grade stainless steel bottle. Leak-proof lid. Wide mouth for easy cleaning and ice. Built for daily use, travel, gym, and office. Zero plastic in construction — from the cap to the base.</p>
+
+          <!-- Size selector -->
+          <div class="mb-8">
+            <p class="font-body text-sm font-medium text-brand-text mb-3">Size</p>
+            <div class="flex gap-3">
+              <button class="size-btn px-4 py-2 rounded-lg border-2 border-brand-primary text-brand-primary font-body font-medium text-sm">750ml — ₹799</button>
+              <button class="size-btn px-4 py-2 rounded-lg border-2 border-brand-text/20 text-brand-text/60 font-body font-medium text-sm hover:border-brand-primary hover:text-brand-primary transition-colors">1 Litre — ₹999</button>
+            </div>
+          </div>
+
+          <!-- Qty + Add to Cart -->
+          <div class="flex gap-4 mb-8">
+            <div class="flex items-center border-2 border-brand-text/15 rounded-xl overflow-hidden">
+              <button class="px-4 py-3 text-brand-text/60 hover:text-brand-text transition-colors font-sans font-bold" onclick="adjustQty(-1)">−</button>
+              <span id="qty" class="px-4 py-3 font-sans font-bold text-brand-text min-w-[3rem] text-center">1</span>
+              <button class="px-4 py-3 text-brand-text/60 hover:text-brand-text transition-colors font-sans font-bold" onclick="adjustQty(1)">+</button>
+            </div>
+            <a href="/cart.html" class="flex-1 py-4 bg-brand-primary text-white font-sans font-bold text-base rounded-xl text-center hover:bg-blue-700 transition-colors">Add to Cart</a>
+          </div>
+
+          <!-- Trust attributes -->
+          <div class="grid grid-cols-2 gap-3 border-t border-brand-text/8 pt-6">
+            <div class="flex items-center gap-2">
+              <i data-lucide="shield-check" class="w-4 h-4 text-brand-secondary flex-shrink-0"></i>
+              <span class="font-body text-xs text-brand-text/60">100% Plastic-Free</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="flask-conical" class="w-4 h-4 text-brand-primary flex-shrink-0"></i>
+              <span class="font-body text-xs text-brand-text/60">Food-Grade Safe</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="leaf" class="w-4 h-4 text-brand-secondary flex-shrink-0"></i>
+              <span class="font-body text-xs text-brand-text/60">Strictly Vegan</span>
+            </div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="infinity" class="w-4 h-4 text-brand-primary flex-shrink-0"></i>
+              <span class="font-body text-xs text-brand-text/60">Built to Last 10+ Years</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TABS -->
+    <section class="max-w-[1400px] mx-auto px-6 md:px-12 pb-20 reveal">
+      <div class="border-b border-brand-text/10 flex gap-8 mb-10 overflow-x-auto">
+        <button class="tab-btn active py-4 font-body font-medium text-sm whitespace-nowrap" data-tab="desc">Description</button>
+        <button class="tab-btn py-4 font-body font-medium text-sm text-brand-text/50 whitespace-nowrap" data-tab="materials">Materials &amp; Care</button>
+        <button class="tab-btn py-4 font-body font-medium text-sm text-brand-text/50 whitespace-nowrap" data-tab="sustain">Sustainability</button>
+      </div>
+      <div id="tab-desc" class="tab-content active max-w-2xl">
+        <h3 class="font-sans font-bold text-xl text-brand-text mb-4">What it is, and why it matters.</h3>
+        <p class="font-body text-brand-text/70 leading-relaxed mb-4">This is the bottle we built because we were tired of options that compromised on either performance or principle. Plastic leaches into your water. Cheap steel rusts. And insulation that fails in Indian summer heat is insulation that isn't doing its job.</p>
+        <p class="font-body text-brand-text/70 leading-relaxed mb-4">The 750ml Steel Water Bottle uses double-wall vacuum insulation tested at 42°C. A 360-degree leak-proof seal. A weight that feels intentional, not flimsy. A wide mouth opening for ice cubes and easy cleaning.</p>
+        <p class="font-body text-brand-text/70 leading-relaxed">Available in 750ml and 1 Litre. Both sizes use the same food-grade stainless steel, the same insulation, and the same cap mechanism. Choose your size based on your day, not on compromise.</p>
+      </div>
+      <div id="tab-materials" class="tab-content max-w-2xl">
+        <h3 class="font-sans font-bold text-xl text-brand-text mb-4">What it's made from.</h3>
+        <div class="space-y-5">
+          <div class="flex gap-4 items-start"><i data-lucide="circle-check" class="w-5 h-5 text-brand-primary flex-shrink-0 mt-0.5"></i><div><p class="font-body font-medium text-brand-text">18/8 Food-Grade Stainless Steel</p><p class="font-body text-sm text-brand-text/60 mt-1">The same grade used in surgical instruments and high-quality cookware. No BPA, no phthalates, no leaching — ever.</p></div></div>
+          <div class="flex gap-4 items-start"><i data-lucide="circle-check" class="w-5 h-5 text-brand-primary flex-shrink-0 mt-0.5"></i><div><p class="font-body font-medium text-brand-text">Silicone Seal Ring</p><p class="font-body text-sm text-brand-text/60 mt-1">Food-grade silicone gasket on the cap. Replaceable, dishwasher-safe, and leak-tested to 0.3 bar.</p></div></div>
+          <div class="flex gap-4 items-start"><i data-lucide="circle-check" class="w-5 h-5 text-brand-primary flex-shrink-0 mt-0.5"></i><div><p class="font-body font-medium text-brand-text">Powder-Coat Finish</p><p class="font-body text-sm text-brand-text/60 mt-1">Non-toxic, chip-resistant powder coat. Clean with a damp cloth. The bottle interior can be washed with warm soapy water.</p></div></div>
+          <div class="flex gap-4 items-start"><i data-lucide="circle-check" class="w-5 h-5 text-brand-primary flex-shrink-0 mt-0.5"></i><div><p class="font-body font-medium text-brand-text">Not Dishwasher Safe (Interior)</p><p class="font-body text-sm text-brand-text/60 mt-1">The exterior powder coat can go on the top rack. The bottle body should be hand-washed. This protects the vacuum seal.</p></div></div>
+        </div>
+      </div>
+      <div id="tab-sustain" class="tab-content max-w-2xl">
+        <h3 class="font-sans font-bold text-xl text-brand-text mb-4">The environmental case for this bottle.</h3>
+        <p class="font-body text-brand-text/70 leading-relaxed mb-4">The average Indian household goes through roughly 400 single-use plastic bottles per year. At 12 grams per bottle, that's nearly 5 kilograms of plastic waste annually — from water alone.</p>
+        <p class="font-body text-brand-text/70 leading-relaxed mb-4">The Core Bottle is built to last a minimum of 10 years with normal use. If it replaces one plastic bottle per day, it prevents approximately 3,650 bottles from entering the waste stream over its lifetime. That's not a marketing claim — it's arithmetic.</p>
+        <p class="font-body text-brand-text/70 leading-relaxed mb-4">The bottle ships in 100% recycled cardboard with no plastic wrap, no bubble wrap, and no single-use plastic of any kind in the packaging chain. The steel itself is 100% recyclable at end of life.</p>
+        <div class="mt-6 p-5 rounded-xl bg-brand-secondary/8 border border-brand-secondary/15">
+          <p class="font-body text-sm font-medium text-brand-secondary">Every Steel Water Bottle sold contributes ₹25 to our NGO partners working on clean water access in tier-2 cities. <a href="/qrash-qourse.html" class="underline">Read our impact report →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- RELATED PRODUCTS -->
+    <section class="bg-brand-surface py-20 reveal">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <h2 class="font-sans font-bold text-3xl text-brand-text mb-12">You might also like.</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Related: Bamboo Toothbrush (oral care) -->
+          <div class="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] flex flex-col group">
+            <div class="aspect-square bg-brand-surface overflow-hidden"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_500/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-brush.png" alt="Bamboo Toothbrush" class="w-full h-full object-contain mix-blend-multiply p-8 group-hover:scale-105 transition-transform duration-500" /></div>
+            <div class="p-5 flex flex-col flex-1"><h3 class="font-sans font-bold text-base text-brand-text mb-1">Bamboo Toothbrush</h3><p class="font-body text-xs text-brand-text/50 mb-4">Biodegradable handle • BPA-free bristles • Vegan</p><div class="mt-auto flex items-baseline gap-2 mb-4"><span class="font-sans font-bold text-lg text-brand-text">₹149</span><span class="text-xs text-brand-text/40 font-body">onwards</span></div><a href="/product.html" class="w-full py-2.5 border-2 border-brand-primary text-brand-primary font-body font-medium text-sm rounded-lg text-center hover:bg-brand-primary hover:text-white transition-colors">Add to Cart</a></div>
+          </div>
+          <!-- Related: Tongue Scraper (oral care) -->
+          <div class="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] flex flex-col group">
+            <div class="aspect-square bg-brand-surface overflow-hidden"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_500/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-cleaner.png" alt="Stainless Steel Tongue Scraper" class="w-full h-full object-contain mix-blend-multiply p-8 group-hover:scale-105 transition-transform duration-500" /></div>
+            <div class="p-5 flex flex-col flex-1"><h3 class="font-sans font-bold text-base text-brand-text mb-1">Stainless Steel Tongue Scraper</h3><p class="font-body text-xs text-brand-text/50 mb-4">Food-grade steel • Lasts for life • Zero plastic</p><div class="mt-auto flex items-baseline gap-2 mb-4"><span class="font-sans font-bold text-lg text-brand-text">₹299</span><span class="text-xs text-brand-text/40 font-body">onwards</span></div><a href="/product.html" class="w-full py-2.5 border-2 border-brand-primary text-brand-primary font-body font-medium text-sm rounded-lg text-center hover:bg-brand-primary hover:text-white transition-colors">Add to Cart</a></div>
+          </div>
+          <!-- Related: Starter Switch Bundle -->
+          <div class="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] flex flex-col group">
+            <div class="aspect-square bg-brand-surface overflow-hidden"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_500/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-bottle.png" alt="The Starter Switch Bundle" class="w-full h-full object-contain mix-blend-multiply p-8 group-hover:scale-105 transition-transform duration-500" /></div>
+            <div class="p-5 flex flex-col flex-1"><h3 class="font-sans font-bold text-base text-brand-text mb-1">The Starter Switch Bundle</h3><p class="font-body text-xs text-brand-text/50 mb-4">750ml bottle + Bamboo brush + Tongue scraper</p><div class="mt-auto flex items-baseline gap-2 mb-4"><span class="font-sans font-bold text-lg text-brand-text">₹1,199</span><span class="text-xs text-brand-text/40 font-body">onwards</span></div><a href="/product.html" class="w-full py-2.5 border-2 border-brand-primary text-brand-primary font-body font-medium text-sm rounded-lg text-center hover:bg-brand-primary hover:text-white transition-colors">Add to Cart</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REVIEWS -->
+    <section class="bg-brand-base py-20 reveal">
+      <div class="max-w-[1400px] mx-auto px-6 md:px-12">
+        <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <div><h2 class="font-sans font-bold text-3xl text-brand-text">What buyers are saying.</h2></div>
+          <div class="flex items-center gap-3"><span style="color:#FFC850;" class="text-xl">★★★★★</span><span class="font-body text-sm text-brand-text/60">4.9 average · 217 reviews</span></div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="bg-white rounded-2xl p-6 shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
+            <div class="flex gap-1 mb-3"><span style="color:#FFC850;">★★★★★</span></div>
+            <p class="font-body text-brand-text/70 leading-relaxed mb-5 text-sm">"I've been through maybe eight water bottles in the last three years. This is the first one I haven't replaced. Cold water, no taste, no rust, no fuss."</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-brand-text/8"><div class="w-8 h-8 rounded-full bg-brand-primary flex items-center justify-center text-white text-xs font-bold">A</div><p class="font-sans font-bold text-xs text-brand-text/60 uppercase tracking-wide">Arjun D. — Hyderabad</p></div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
+            <div class="flex gap-1 mb-3"><span style="color:#FFC850;">★★★★★</span></div>
+            <p class="font-body text-brand-text/70 leading-relaxed mb-5 text-sm">"The matte cobalt colour is genuinely beautiful. It doesn't look like a 'health product.' It looks like something you'd choose to carry. Ice cold 7 hours into my work day."</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-brand-text/8"><div class="w-8 h-8 rounded-full bg-brand-secondary flex items-center justify-center text-white text-xs font-bold">N</div><p class="font-sans font-bold text-xs text-brand-text/60 uppercase tracking-wide">Nisha K. — Pune</p></div>
+          </div>
+          <div class="bg-white rounded-2xl p-6 shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
+            <div class="flex gap-1 mb-3"><span style="color:#FFC850;">★★★★★</span></div>
+            <p class="font-body text-brand-text/70 leading-relaxed mb-5 text-sm">"I ordered one for myself and gifted two more within a week. The packaging is clean, the weight feels right, and the lid hasn't leaked once in three months."</p>
+            <div class="flex items-center gap-3 pt-4 border-t border-brand-text/8"><div class="w-8 h-8 rounded-full bg-brand-text flex items-center justify-center text-white text-xs font-bold">V</div><p class="font-sans font-bold text-xs text-brand-text/60 uppercase tracking-wide">Vikram S. — Delhi</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-white/10">
+    <div class="max-w-[1400px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+        <div class="md:col-span-1"><span class="font-sans font-bold text-2xl tracking-tight mb-6 block">eqologic.</span><p class="font-body text-white/50 text-sm max-w-xs">Steel bottles and oral care that actually work. No plastic. No shortcuts.</p></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Shop</h5><ul class="space-y-4"><li><a href="/shop.html" class="font-body text-white/50 hover:text-white transition-colors">Steel Bottles</a></li><li><a href="/shop.html" class="font-body text-white/50 hover:text-white transition-colors">Oral Care</a></li><li><a href="/shop.html" class="font-body text-white/50 hover:text-white transition-colors">Bundles</a></li><li><a href="/contact.html" class="font-body text-white/50 hover:text-white transition-colors">Corporate Gifting</a></li></ul></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Company</h5><ul class="space-y-4"><li><a href="/about.html" class="font-body text-white/50 hover:text-white transition-colors">Our Story</a></li><li><a href="/qrash-qourse.html" class="font-body text-white/50 hover:text-white transition-colors">Impact Report</a></li><li><a href="/blog.html" class="font-body text-white/50 hover:text-white transition-colors">Journal</a></li><li><a href="/contact.html" class="font-body text-white/50 hover:text-white transition-colors">Contact</a></li></ul></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Stay Updated</h5><p class="font-body text-white/50 text-sm mb-4">No spam. Just product drops and real updates.</p><form class="flex border-b border-white/20 pb-2"><input type="email" placeholder="Email address" class="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30" /><button type="submit" class="text-white hover:text-brand-primary transition-colors"><i data-lucide="arrow-right" class="w-5 h-5"></i></button></form></div>
+      </div>
+      <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 gap-6">
+        <p class="font-body text-white/30 text-sm">© <span id="year"></span> Eqologic. All rights reserved.</p>
+        <div class="flex items-center gap-6"><a href="/policy.html" class="font-body text-white/30 hover:text-white text-sm transition-colors">Privacy Policy</a><a href="/policy.html" class="font-body text-white/30 hover:text-white text-sm transition-colors">Terms of Service</a><a href="/policy.html" class="font-body text-white/30 hover:text-white text-sm transition-colors">Shipping &amp; Returns</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('translate-x-full'));
+    document.getElementById('close-mobile-menu').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('translate-x-full'));
+    const revealObserver = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('active');revealObserver.unobserve(e.target);} }), {threshold:0.1,rootMargin:"0px 0px -40px 0px"});
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+    // Tabs
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.tab-btn').forEach(b => { b.classList.remove('active'); b.classList.add('text-brand-text/50'); });
+        document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+        btn.classList.add('active'); btn.classList.remove('text-brand-text/50');
+        document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+      });
+    });
+    function switchImg(el, src) {
+      document.getElementById('main-img').src = src;
+      document.querySelectorAll('.thumb').forEach(t => t.classList.remove('active'));
+      el.classList.add('active');
+    }
+    function adjustQty(delta) {
+      const el = document.getElementById('qty');
+      let v = parseInt(el.textContent) + delta;
+      if(v < 1) v = 1;
+      el.textContent = v;
+    }
+    function setColour(el, name) {
+      document.querySelectorAll('.colour-btn').forEach(b => { b.classList.remove('ring-2','ring-offset-2','ring-brand-primary','border-brand-primary'); b.classList.add('border-transparent'); });
+      el.classList.add('ring-2','ring-offset-2','ring-brand-primary','border-brand-primary'); el.classList.remove('border-transparent');
+      document.getElementById('colour-label').textContent = name;
+    }
+    // ── SEARCH ──────────────────────────────────────────────────────────
+    const SEARCH_DATA=[{title:'Steel Water Bottle — 750ml',desc:'Keeps cold for 24h · Food-grade steel · Zero plastic',meta:'₹799 onwards · Bestseller',url:'/product.html',type:'product'},{title:'Steel Water Bottle — 1 Litre',desc:'Full-day hydration · Insulated · Leak-proof',meta:'₹999 onwards',url:'/product.html',type:'product'},{title:'Steel Flask — 500ml',desc:'Compact · Cupholder-friendly · No-spill seal',meta:'₹699 onwards',url:'/product.html',type:'product'},{title:'Kids Steel Bottle — 400ml',desc:'Child-safe · Lightweight · BPA-free · Easy flip lid',meta:'₹599 onwards',url:'/product.html',type:'product'},{title:'Bamboo Toothbrush',desc:'Biodegradable handle · BPA-free bristles · Vegan',meta:'₹149 onwards',url:'/product.html',type:'product'},{title:'Bamboo Toothbrush — Pack of 4',desc:'Family pack · Biodegradable · Plastic-free packaging',meta:'₹499 onwards · Best value',url:'/product.html',type:'product'},{title:'Stainless Steel Tongue Scraper',desc:'Food-grade steel · Lasts for life · Zero plastic',meta:'₹299 onwards',url:'/product.html',type:'product'},{title:'The Starter Switch Bundle',desc:'750ml bottle + Bamboo brush + Tongue scraper',meta:'₹1,199 onwards · New',url:'/product.html',type:'product'},{title:'Shop All Products',desc:'Browse the full Eqologic catalogue',meta:'Page',url:'/shop.html',type:'page'},{title:'Our Story',desc:'Why Eqologic exists and what we refuse to compromise on',meta:'Page',url:'/about.html',type:'page'},{title:'Impact — Qrash Qourse',desc:'Environmental impact and facts',meta:'Page',url:'/qrash-qourse.html',type:'page'},{title:'FAQ',desc:'Answers to common questions about products and orders',meta:'Page',url:'/faq.html',type:'page'},{title:'Contact Us',desc:'Get in touch with the Eqologic team',meta:'Page',url:'/contact.html',type:'page'},{title:'Cart',desc:'Review your selected items and checkout',meta:'Page',url:'/cart.html',type:'page'}];
+    const searchModal=document.getElementById('search-modal'),searchInput=document.getElementById('search-input'),searchResults=document.getElementById('search-results');let activeIdx=-1;
+    function openSearch(){searchModal.classList.remove('pointer-events-none','opacity-0');searchModal.classList.add('pointer-events-auto','opacity-100');searchInput.value='';renderResults('');setTimeout(()=>searchInput.focus(),50);}
+    function closeSearch(){searchModal.classList.add('pointer-events-none','opacity-0');searchModal.classList.remove('pointer-events-auto','opacity-100');activeIdx=-1;}
+    function renderResults(q){const t=q.trim().toLowerCase();const hits=t.length===0?SEARCH_DATA.slice(0,6):SEARCH_DATA.filter(d=>(d.title+' '+d.desc+' '+d.meta).toLowerCase().includes(t));if(!hits.length){searchResults.innerHTML='<p class="font-body text-sm text-brand-text/40 px-5 py-6 text-center">No results for "'+q+'"</p>';return;}searchResults.innerHTML=hits.map((h,i)=>`<a href="${h.url}" class="search-result-item flex items-center gap-4 px-5 py-3.5 hover:bg-brand-surface transition-colors" data-idx="${i}"><div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${h.type==='product'?'bg-brand-primary/10':'bg-brand-text/6'}">${h.type==='product'?'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#0047FF" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>':'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'}</div><div class="flex-1 min-w-0"><p class="font-sans font-bold text-sm text-brand-text truncate">${h.title}</p><p class="font-body text-xs text-brand-text/45 truncate mt-0.5">${h.desc}</p></div><span class="text-xs font-body text-brand-text/30 flex-shrink-0 hidden md:block">${h.meta}</span></a>`).join('');activeIdx=-1;}
+    document.getElementById('search-btn').addEventListener('click',openSearch);
+    document.getElementById('search-close').addEventListener('click',closeSearch);
+    searchModal.addEventListener('click',e=>{if(e.target===searchModal)closeSearch();});
+    searchInput.addEventListener('input',e=>renderResults(e.target.value));
+    searchInput.addEventListener('keydown',e=>{if(e.key==='ArrowDown'){e.preventDefault();const items=searchResults.querySelectorAll('.search-result-item');if(!items.length)return;items.forEach(el=>el.classList.remove('bg-brand-surface'));activeIdx=(activeIdx+1+items.length)%items.length;items[activeIdx].classList.add('bg-brand-surface');items[activeIdx].scrollIntoView({block:'nearest'});}else if(e.key==='ArrowUp'){e.preventDefault();const items=searchResults.querySelectorAll('.search-result-item');if(!items.length)return;items.forEach(el=>el.classList.remove('bg-brand-surface'));activeIdx=(activeIdx-1+items.length)%items.length;items[activeIdx].classList.add('bg-brand-surface');items[activeIdx].scrollIntoView({block:'nearest'});}else if(e.key==='Enter'){const items=searchResults.querySelectorAll('.search-result-item');if(activeIdx>=0&&items[activeIdx])items[activeIdx].click();}else if(e.key==='Escape')closeSearch();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}});
+    // ── END SEARCH ───────────────────────────────────────────────────────
+  </script>
+</body>
+</html>
