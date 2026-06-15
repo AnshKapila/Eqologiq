@@ -11,5 +11,10 @@
     "next": "^16.2.9",
     "react": "^19.2.7",
     "react-dom": "^19.2.7"
+  },
+  "devDependencies": {
+    "cheerio": "^1.2.0",
+    "htmltojsx": "^0.3.0",
+    "prettier": "^3.8.4"
   }
 }

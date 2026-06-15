@@ -1,3 +1,5 @@
+import { Header } from '../components/Header';
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
@@ -7,7 +9,6 @@ export default function RootLayout({ children }) {
         <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
         <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
-
         <script src="https://cdn.tailwindcss.com/3.4.17"></script>
         <script dangerouslySetInnerHTML={{
           __html: `
@@ -16,11 +17,11 @@ export default function RootLayout({ children }) {
           extend: {
             colors: {
               brand: {
-                base: '#F7F5F0',       // Warm off-white
-                surface: '#EAE6DF',    // Soft greige for frames
-                primary: '#006B96',    // Bold cobalt blue
-                secondary: '#99BD05',  // Forest green (sparingly)
-                text: '#222222',       // Deep charcoal
+                base: '#F7F5F0',
+                surface: '#EAE6DF',
+                primary: '#006B96',
+                secondary: '#99BD05',
+                text: '#222222',
                 light: '#FFFFFF'
               }
             },
@@ -55,7 +56,6 @@ export default function RootLayout({ children }) {
 
         <style dangerouslySetInnerHTML={{
           __html: `
-      /* Base Styles */
       body {
         background-color: #F7F5F0;
         color: #222222;
@@ -63,8 +63,6 @@ export default function RootLayout({ children }) {
         -moz-osx-font-smoothing: grayscale;
         overflow-x: hidden;
       }
-
-      /* Typography Utilities */
       .kicker {
         font-family: 'Inter', sans-serif;
         font-size: 0.75rem;
@@ -72,36 +70,11 @@ export default function RootLayout({ children }) {
         letter-spacing: 0.2em;
         font-weight: 600;
       }
-
       .text-massive {
         font-size: clamp(4rem, 12vw, 15rem);
         line-height: 0.9;
         letter-spacing: -0.02em;
       }
-
-      /* Navbar Scroll Logic */
-      #navbar {
-        transition: background-color 0.4s ease, border-color 0.4s ease, padding 0.4s ease;
-      }
-      #navbar.scrolled {
-        background-color: #F7F5F0;
-        border-bottom: 1px solid rgba(34, 34, 34, 0.1);
-        box-shadow: 0 1px 0 0 rgba(0,107,150,0.08);
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-      }
-      
-      /* Logo colors based on scroll */
-      #nav-logo-text { transition: color 0.4s ease; }
-      #navbar:not(.scrolled) #nav-logo-text.hero-light { color: #FFFFFF; }
-      #navbar.scrolled #nav-logo-text.hero-light { color: #222222; }
-
-      /* Nav links based on scroll */
-      .nav-link { transition: color 0.4s ease; }
-      #navbar:not(.scrolled) .nav-link.hero-light { color: #FFFFFF; }
-      #navbar.scrolled .nav-link.hero-light { color: #222222; }
-
-      /* Scroll Reveal Pattern */
       .reveal {
         opacity: 0;
         transform: translateY(30px);
@@ -111,8 +84,6 @@ export default function RootLayout({ children }) {
         opacity: 1;
         transform: translateY(0);
       }
-
-      /* Sticky Scrub Pattern */
       .scrub-text {
         opacity: 0.2;
         transition: opacity 0.5s ease;
@@ -120,8 +91,6 @@ export default function RootLayout({ children }) {
       .scrub-text.is-reading {
         opacity: 1;
       }
-
-      /* Soft Frame Image Treatment */
       .soft-frame {
         background-color: #EAE6DF;
         padding: 2rem;
@@ -129,8 +98,6 @@ export default function RootLayout({ children }) {
         align-items: center;
         justify-content: center;
       }
-
-      /* Hide scrollbar for marquee */
       .no-scrollbar::-webkit-scrollbar {
         display: none;
       }
@@ -142,6 +109,7 @@ export default function RootLayout({ children }) {
         }}></style>
       </head>
       <body>
+        <Header />
         {children}
       </body>
     </html>
