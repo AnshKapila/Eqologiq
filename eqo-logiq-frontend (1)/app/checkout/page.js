@@ -1,41 +1,27 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Checkout | Eqo Logiq</title>
-  <meta name="description" content="Complete your Eqo Logiq order. Secure checkout for plastic-free steel bottles and oral care." />
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script>tailwind.config={theme:{extend:{colors:{brand:{base:'#F7F5F0',surface:'#EAE6DF',primary:'#006B96',secondary:'#99BD05',text:'#222222',light:'#FFFFFF'}},fontFamily:{display:['Space Grotesk','sans-serif'],sans:['Space Grotesk','sans-serif'],body:['Inter','sans-serif']}}}}</script>
-  <style>
-    body{background-color:#F7F5F0;color:#222222;-webkit-font-smoothing:antialiased;overflow-x:hidden;}
-    .kicker{font-family:'Inter',sans-serif;font-size:0.75rem;text-transform:uppercase;letter-spacing:0.2em;font-weight:600;}
-    #navbar{transition:background-color 0.4s ease,border-color 0.4s ease;}
-    #navbar.scrolled{background-color:#F7F5F0;border-bottom:1px solid rgba(34,34,34,0.1);}
-    .reveal{opacity:0;transform:translateY(20px);transition:opacity 0.7s cubic-bezier(0.16,1,0.3,1),transform 0.7s cubic-bezier(0.16,1,0.3,1);}
-    .reveal.active{opacity:1;transform:translateY(0);}
-    .form-field{width:100%;padding:0.875rem 1rem;border:1.5px solid rgba(34,34,34,0.12);border-radius:0.75rem;background:#fff;font-family:'Inter',sans-serif;font-size:0.875rem;color:#222;outline:none;transition:border-color 0.2s;}
-    .form-field:focus{border-color:#006B96;box-shadow:0 0 0 3px rgba(0,107,150,0.08);}
-    .form-field::placeholder{color:rgba(34,34,34,0.35);}
-  </style>
-</head>
-<body>
+export const metadata = {
+  title: `Checkout | Eqo Logiq`,
+  description: `Complete your Eqo Logiq order. Secure checkout for plastic-free steel bottles and oral care.`,
+};
+
+export default function Page() {
+  return (
+    <>
+      
+      <div dangerouslySetInnerHTML={{ __html: `
   <!-- NAV -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 bg-brand-base border-b border-brand-text/10 transition-all duration-300">
     <div class="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
-      <a href="/" class="flex items-center gap-2 z-50"><img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto object-contain" /></a>
+      <a href="/" class="flex items-center gap-2 z-50"><img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto object-contain"></a>
       <div class="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-        <a href="/shop.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Shop</a>
-        <a href="/about.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
-        <a href="/qrash-qourse.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Impact</a>
-        <a href="/blog.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
+        <a href="/shop/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Shop</a>
+        <a href="/about/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
+        <a href="/qrash-qourse/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Impact</a>
+        <a href="/blog/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
       </div>
       <div class="flex items-center gap-6 z-50">
         <button id="search-btn" class="text-brand-text hover:text-brand-primary transition-colors" aria-label="Search"><i data-lucide="search" class="w-5 h-5"></i></button>
-        <a href="/login.html" class="text-brand-text hover:text-brand-primary transition-colors hidden md:flex items-center" aria-label="Sign In"><i data-lucide="user" class="w-5 h-5"></i></a>
-        <a href="/cart.html" class="flex items-center gap-2 text-brand-text hover:text-brand-primary transition-colors"><span class="text-sm font-body font-medium hidden md:block">Cart</span><i data-lucide="shopping-bag" class="w-5 h-5"></i></a>
+        <a href="/login/" class="text-brand-text hover:text-brand-primary transition-colors hidden md:flex items-center" aria-label="Sign In"><i data-lucide="user" class="w-5 h-5"></i></a>
+        <a href="/cart/" class="flex items-center gap-2 text-brand-text hover:text-brand-primary transition-colors"><span class="text-sm font-body font-medium hidden md:block">Cart</span><i data-lucide="shopping-bag" class="w-5 h-5"></i></a>
         <button id="mobile-menu-btn" class="md:hidden text-brand-text"><i data-lucide="menu" class="w-6 h-6"></i></button>
       </div>
     </div>
@@ -43,13 +29,13 @@
 
   <!-- MOBILE MENU -->
   <div id="mobile-menu" class="fixed inset-0 z-[60] bg-brand-base transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
-    <div class="h-20 flex items-center justify-between px-6"><img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto" /><button id="close-mobile-menu" class="p-2 text-brand-text"><i data-lucide="x" class="w-8 h-8"></i></button></div>
+    <div class="h-20 flex items-center justify-between px-6"><img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto"><button id="close-mobile-menu" class="p-2 text-brand-text"><i data-lucide="x" class="w-8 h-8"></i></button></div>
     <div class="flex-1 flex flex-col justify-center px-12 gap-8">
-      <a href="/shop.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Shop</a>
-      <a href="/about.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
-      <a href="/qrash-qourse.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Impact</a>
-      <a href="/blog.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
-      <a href="/login.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Sign In</a>
+      <a href="/shop/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Shop</a>
+      <a href="/about/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
+      <a href="/qrash-qourse/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Impact</a>
+      <a href="/blog/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
+      <a href="/login/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Sign In</a>
     </div>
   </div>
 
@@ -58,7 +44,7 @@
     <div class="w-full max-w-2xl bg-brand-base rounded-2xl shadow-2xl overflow-hidden">
       <div class="flex items-center gap-3 px-5 py-4 border-b border-brand-text/10">
         <i data-lucide="search" class="w-5 h-5 text-brand-text/40 flex-shrink-0"></i>
-        <input id="search-input" type="text" placeholder="Search products, pages…" autocomplete="off" class="flex-1 bg-transparent font-body text-base text-brand-text placeholder-brand-text/35 outline-none" />
+        <input id="search-input" type="text" placeholder="Search products, pages…" autocomplete="off" class="flex-1 bg-transparent font-body text-base text-brand-text placeholder-brand-text/35 outline-none">
         <button id="search-close" class="p-1 text-brand-text/40 hover:text-brand-text transition-colors" aria-label="Close search"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <div id="search-results" class="max-h-[60vh] overflow-y-auto py-2"></div>
@@ -70,7 +56,7 @@
     <section class="bg-brand-base py-10 border-b border-brand-text/8">
       <div class="max-w-[1400px] mx-auto px-6 md:px-12">
         <div class="flex items-center gap-3">
-          <a href="/cart.html" class="inline-flex items-center gap-1.5 font-body text-sm text-brand-text/50 hover:text-brand-primary transition-colors"><i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Back to cart</a>
+          <a href="/cart/" class="inline-flex items-center gap-1.5 font-body text-sm text-brand-text/50 hover:text-brand-primary transition-colors"><i data-lucide="arrow-left" class="w-3.5 h-3.5"></i> Back to cart</a>
           <span class="text-brand-text/20">/</span>
           <span class="font-body text-sm text-brand-text/50">Checkout</span>
         </div>
@@ -90,7 +76,7 @@
             </div>
             <h2 class="font-sans font-bold text-2xl md:text-3xl text-brand-text mb-4">Order placed.</h2>
             <p class="font-body text-brand-text/65 text-base leading-relaxed mb-8">You will receive a confirmation email shortly.</p>
-            <a href="/shop.html" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-primary text-white font-sans font-bold text-sm rounded-xl hover:bg-[#005580] transition-colors">Continue Shopping <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
+            <a href="/shop/" class="inline-flex items-center gap-2 px-8 py-4 bg-brand-primary text-white font-sans font-bold text-sm rounded-xl hover:bg-[#005580] transition-colors">Continue Shopping <i data-lucide="arrow-right" class="w-4 h-4"></i></a>
           </div>
         </div>
 
@@ -102,48 +88,48 @@
             <div class="bg-white rounded-2xl p-6 md:p-8 shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
               <h2 class="font-sans font-bold text-lg text-brand-text mb-6 pb-4 border-b border-brand-text/8">Delivery Address</h2>
 
-              <form id="checkout-form" class="space-y-4" novalidate>
+              <form id="checkout-form" class="space-y-4" novalidate="">
                 <!-- Name -->
                 <div>
                   <label class="font-sans font-bold text-xs text-brand-text/50 uppercase tracking-wider block mb-1.5">Full Name <span class="text-red-400">*</span></label>
-                  <input type="text" id="field-name" name="name" placeholder="Your full name" required class="form-field" />
+                  <input type="text" id="field-name" name="name" placeholder="Your full name" required="" class="form-field">
                 </div>
 
                 <!-- Phone -->
                 <div>
                   <label class="font-sans font-bold text-xs text-brand-text/50 uppercase tracking-wider block mb-1.5">Phone Number <span class="text-red-400">*</span></label>
-                  <input type="tel" id="field-phone" name="phone" placeholder="+91 98765 43210" required class="form-field" />
+                  <input type="tel" id="field-phone" name="phone" placeholder="+91 98765 43210" required="" class="form-field">
                 </div>
 
                 <!-- Email -->
                 <div>
                   <label class="font-sans font-bold text-xs text-brand-text/50 uppercase tracking-wider block mb-1.5">Email Address <span class="text-red-400">*</span></label>
-                  <input type="email" id="field-email" name="email" placeholder="your@email.com" required class="form-field" />
+                  <input type="email" id="field-email" name="email" placeholder="your@email.com" required="" class="form-field">
                 </div>
 
                 <!-- Address -->
                 <div>
                   <label class="font-sans font-bold text-xs text-brand-text/50 uppercase tracking-wider block mb-1.5">Address <span class="text-red-400">*</span></label>
-                  <textarea id="field-address" name="address" rows="3" placeholder="House/flat no., building name, street, area" required class="form-field resize-none"></textarea>
+                  <textarea id="field-address" name="address" rows="3" placeholder="House/flat no., building name, street, area" required="" class="form-field resize-none"></textarea>
                 </div>
 
                 <!-- City & Pincode -->
                 <div class="grid grid-cols-2 gap-4">
                   <div>
                     <label class="font-sans font-bold text-xs text-brand-text/50 uppercase tracking-wider block mb-1.5">City <span class="text-red-400">*</span></label>
-                    <input type="text" id="field-city" name="city" placeholder="Mumbai" required class="form-field" />
+                    <input type="text" id="field-city" name="city" placeholder="Mumbai" required="" class="form-field">
                   </div>
                   <div>
                     <label class="font-sans font-bold text-xs text-brand-text/50 uppercase tracking-wider block mb-1.5">Pincode <span class="text-red-400">*</span></label>
-                    <input type="text" id="field-pincode" name="pincode" placeholder="400001" required maxlength="6" class="form-field" />
+                    <input type="text" id="field-pincode" name="pincode" placeholder="400001" required="" maxlength="6" class="form-field">
                   </div>
                 </div>
 
                 <!-- State -->
                 <div>
                   <label class="font-sans font-bold text-xs text-brand-text/50 uppercase tracking-wider block mb-1.5">State <span class="text-red-400">*</span></label>
-                  <select id="field-state" name="state" required class="form-field appearance-none bg-white">
-                    <option value="" disabled selected>Select state</option>
+                  <select id="field-state" name="state" required="" class="form-field appearance-none bg-white">
+                    <option value="" disabled="" selected="">Select state</option>
                     <option>Andhra Pradesh</option>
                     <option>Assam</option>
                     <option>Bihar</option>
@@ -182,7 +168,7 @@
               <div class="space-y-4 mb-6">
                 <div class="flex items-center gap-4">
                   <div class="w-12 h-12 rounded-xl bg-brand-surface flex-shrink-0 overflow-hidden">
-                    <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_96,c_fill,g_auto/v1777952844/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/g6uec6ksdecsgs8ybt9r.png" alt="Steel Bottle" class="w-full h-full object-cover" />
+                    <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_96,c_fill,g_auto/v1777952844/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/g6uec6ksdecsgs8ybt9r.png" alt="Steel Bottle" class="w-full h-full object-cover">
                   </div>
                   <div class="flex-1 min-w-0">
                     <p class="font-sans font-bold text-sm text-brand-text truncate">Steel Water Bottle - 750ml</p>
@@ -248,10 +234,10 @@
   <footer class="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-white/10">
     <div class="max-w-[1400px] mx-auto">
       <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-        <div class="md:col-span-1"><img src="https://static.kite.ai/image/upload/v1780371329/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/fdqs1mpfbswxcq4trn6k.png" alt="Eqo Logiq" class="h-10 w-auto object-contain mb-6" /><p class="font-body text-white/50 text-sm max-w-xs">Plastic-free steel bottles and daily essentials. No plastic in any product.</p></div>
-        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Shop</h5><ul class="space-y-4"><li><a href="/shop.html" class="font-body text-white/50 hover:text-white transition-colors">Steel Bottles</a></li><li><a href="/shop.html" class="font-body text-white/50 hover:text-white transition-colors">Oral Care</a></li><li><a href="/shop.html" class="font-body text-white/50 hover:text-white transition-colors">Bundles</a></li><li><a href="/contact.html" class="font-body text-white/50 hover:text-white transition-colors">Corporate Gifting</a></li></ul></div>
-        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Company</h5><ul class="space-y-4"><li><a href="/about.html" class="font-body text-white/50 hover:text-white transition-colors">Our Story</a></li><li><a href="/qrash-qourse.html" class="font-body text-white/50 hover:text-white transition-colors">Impact Report</a></li><li><a href="/blog.html" class="font-body text-white/50 hover:text-white transition-colors">Blogs</a></li><li><a href="/contact.html" class="font-body text-white/50 hover:text-white transition-colors">Contact</a></li></ul></div>
-        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Stay Updated</h5><p class="font-body text-white/50 text-sm mb-4">No spam. Just product drops and real updates.</p><form class="flex border-b border-white/20 pb-2"><input type="email" placeholder="Email address" class="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30" /><button type="submit" class="text-white hover:text-brand-primary transition-colors"><i data-lucide="arrow-right" class="w-5 h-5"></i></button></form></div>
+        <div class="md:col-span-1"><img src="https://static.kite.ai/image/upload/v1780371329/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/fdqs1mpfbswxcq4trn6k.png" alt="Eqo Logiq" class="h-10 w-auto object-contain mb-6"><p class="font-body text-white/50 text-sm max-w-xs">Plastic-free steel bottles and daily essentials. No plastic in any product.</p></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Shop</h5><ul class="space-y-4"><li><a href="/shop/" class="font-body text-white/50 hover:text-white transition-colors">Steel Bottles</a></li><li><a href="/shop/" class="font-body text-white/50 hover:text-white transition-colors">Oral Care</a></li><li><a href="/shop/" class="font-body text-white/50 hover:text-white transition-colors">Bundles</a></li><li><a href="/contact/" class="font-body text-white/50 hover:text-white transition-colors">Corporate Gifting</a></li></ul></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Company</h5><ul class="space-y-4"><li><a href="/about/" class="font-body text-white/50 hover:text-white transition-colors">Our Story</a></li><li><a href="/qrash-qourse/" class="font-body text-white/50 hover:text-white transition-colors">Impact Report</a></li><li><a href="/blog/" class="font-body text-white/50 hover:text-white transition-colors">Blogs</a></li><li><a href="/contact/" class="font-body text-white/50 hover:text-white transition-colors">Contact</a></li></ul></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Stay Updated</h5><p class="font-body text-white/50 text-sm mb-4">No spam. Just product drops and real updates.</p><form class="flex border-b border-white/20 pb-2"><input type="email" placeholder="Email address" class="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30"><button type="submit" class="text-white hover:text-brand-primary transition-colors"><i data-lucide="arrow-right" class="w-5 h-5"></i></button></form></div>
       </div>
       <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 gap-6">
         <p class="font-body text-white/30 text-sm">© <span id="year"></span> Eqo Logiq. All rights reserved.</p>
@@ -301,7 +287,7 @@
     const searchModal=document.getElementById('search-modal'),searchInput=document.getElementById('search-input'),searchResults=document.getElementById('search-results');
     function openSearch(){searchModal.classList.remove('pointer-events-none','opacity-0');searchModal.classList.add('pointer-events-auto','opacity-100');searchInput.value='';renderResults('');setTimeout(()=>searchInput.focus(),50);}
     function closeSearch(){searchModal.classList.add('pointer-events-none','opacity-0');searchModal.classList.remove('pointer-events-auto','opacity-100');}
-    function renderResults(q){const t=q.trim().toLowerCase();const hits=t.length===0?SEARCH_DATA.slice(0,5):SEARCH_DATA.filter(d=>(d.title+' '+d.desc).toLowerCase().includes(t));if(!hits.length){searchResults.innerHTML='<p class="font-body text-sm text-brand-text/40 px-5 py-6 text-center">No results</p>';return;}searchResults.innerHTML=hits.map(h=>`<a href="${h.url}" class="flex items-center gap-4 px-5 py-3.5 hover:bg-brand-surface transition-colors"><div class="flex-1 min-w-0"><p class="font-sans font-bold text-sm text-brand-text truncate">${h.title}</p><p class="font-body text-xs text-brand-text/45 truncate mt-0.5">${h.desc}</p></div></a>`).join('');}
+    function renderResults(q){const t=q.trim().toLowerCase();const hits=t.length===0?SEARCH_DATA.slice(0,5):SEARCH_DATA.filter(d=>(d.title+' '+d.desc).toLowerCase().includes(t));if(!hits.length){searchResults.innerHTML='<p class="font-body text-sm text-brand-text/40 px-5 py-6 text-center">No results</p>';return;}searchResults.innerHTML=hits.map(h=>\`<a href="\${h.url}" class="flex items-center gap-4 px-5 py-3.5 hover:bg-brand-surface transition-colors"><div class="flex-1 min-w-0"><p class="font-sans font-bold text-sm text-brand-text truncate">\${h.title}</p><p class="font-body text-xs text-brand-text/45 truncate mt-0.5">\${h.desc}</p></div></a>\`).join('');}
     document.getElementById('search-btn').addEventListener('click',openSearch);
     document.getElementById('search-close').addEventListener('click',closeSearch);
     searchModal.addEventListener('click',e=>{if(e.target===searchModal)closeSearch();});
@@ -309,18 +295,10 @@
     document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}});
   </script>
   <!-- WhatsApp Support Button -->
-  <a id="wa-support-btn"
-     href="https://wa.me/919667691316"
-     target="_blank"
-     rel="noopener noreferrer"
-     aria-label="Chat with us on WhatsApp"
-     style="position:fixed;bottom:28px;right:24px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:12px 20px;background:#1C1C1C;color:#fff;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;letter-spacing:0.01em;border-radius:100px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,0.22);opacity:0;transform:translateY(10px);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1),background 0.2s ease,box-shadow 0.2s ease;will-change:transform,opacity;"
-     onmouseover="this.style.background='#006B96';this.style.boxShadow='0 6px 24px rgba(0,107,150,0.28)';this.style.transform='translateY(-2px)';"
-     onmouseout="this.style.background='#1C1C1C';this.style.boxShadow='0 4px 18px rgba(0,0,0,0.22)';this.style.transform='translateY(0)';"
-  >
+  <a id="wa-support-btn" href="https://wa.me/919667691316" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp" style="position:fixed;bottom:28px;right:24px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:12px 20px;background:#1C1C1C;color:#fff;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;letter-spacing:0.01em;border-radius:100px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,0.22);opacity:0;transform:translateY(10px);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1),background 0.2s ease,box-shadow 0.2s ease;will-change:transform,opacity;" onmouseover="this.style.background='#006B96';this.style.boxShadow='0 6px 24px rgba(0,107,150,0.28)';this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#1C1C1C';this.style.boxShadow='0 4px 18px rgba(0,0,0,0.22)';this.style.transform='translateY(0)';">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"/>
-      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.405A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.099-1.132l-.293-.174-3.046.86.861-3.047-.191-.311A7.96 7.96 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z" fill="#25D366"/>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"></path>
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.405A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.099-1.132l-.293-.174-3.046.86.861-3.047-.191-.311A7.96 7.96 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z" fill="#25D366"></path>
     </svg>
     <span>Questions Before Ordering?</span>
   </a>
@@ -337,5 +315,9 @@
       setTimeout(function(){ btn.style.opacity = '1'; btn.style.transform = 'translateY(0)'; }, 600);
     })();
   </script>
-</body>
-</html>
+
+
+` }} suppressHydrationWarning />
+    </>
+  );
+}

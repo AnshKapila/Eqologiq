@@ -1,12 +1,15 @@
 {
-  "name": "template",
-  "type": "module",
-  "version": "0.0.1",
+  "name": "eqologiq-next",
+  "version": "1.0.0",
+  "private": true,
   "scripts": {
-    "dev": "kite-client",
-    "build": "kite-client build"
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start"
   },
   "dependencies": {
-    "@appsmithorg/template-frontend": "^1.1.0"
+    "next": "^16.2.9",
+    "react": "^19.2.7",
+    "react-dom": "^19.2.7"
   }
 }

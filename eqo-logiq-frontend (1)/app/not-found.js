@@ -1,0 +1,130 @@
+
+export default function NotFound() {
+  return (
+    <>
+      
+      <div dangerouslySetInnerHTML={{ __html: `
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 bg-brand-base border-b border-brand-text/10 transition-all duration-300">
+    <div class="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
+      <a href="/" class="flex items-center gap-2 z-50"><img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto object-contain"></a>
+      <div class="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
+        <a href="/shop/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Shop</a>
+        <a href="/about/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
+        <a href="/qrash-qourse/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Impact</a>
+        <a href="/blog/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
+      </div>
+      <div class="flex items-center gap-6 z-50">
+        <button id="search-btn" class="text-brand-text hover:text-brand-primary transition-colors" aria-label="Search"><i data-lucide="search" class="w-5 h-5"></i></button>
+        <a href="/login/" class="text-brand-text hover:text-brand-primary transition-colors hidden md:flex items-center" aria-label="Sign In"><i data-lucide="user" class="w-5 h-5"></i></a>
+        <a href="/cart/" class="relative flex items-center gap-2 text-brand-text hover:text-brand-primary transition-colors" aria-label="Cart"><span class="text-sm font-body font-medium hidden md:block">Cart</span><i data-lucide="shopping-bag" class="w-5 h-5"></i></a>
+        <button id="mobile-menu-btn" class="md:hidden text-brand-text"><i data-lucide="menu" class="w-6 h-6"></i></button>
+      </div>
+    </div>
+  </nav>
+  <div id="mobile-menu" class="fixed inset-0 z-[60] bg-brand-base transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
+    <div class="h-20 flex items-center justify-between px-6"><img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto"><button id="close-mobile-menu" class="p-2 text-brand-text"><i data-lucide="x" class="w-8 h-8"></i></button></div>
+    <div class="flex-1 flex flex-col justify-center px-12 gap-8">
+      <a href="/shop/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary">Shop</a>
+      <a href="/about/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary">Our Story</a>
+      <a href="/qrash-qourse/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary">Impact</a>
+      <a href="/blog/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
+      <a href="/login/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Sign In</a>
+    </div>
+  </div>
+
+  <!-- SEARCH MODAL -->
+  <div id="search-modal" class="fixed inset-0 z-[70] flex flex-col items-center pt-24 px-4 pointer-events-none opacity-0 transition-opacity duration-200" style="background:rgba(34,34,34,0.6);backdrop-filter:blur(6px);">
+    <div class="w-full max-w-2xl bg-brand-base rounded-2xl shadow-2xl overflow-hidden">
+      <div class="flex items-center gap-3 px-5 py-4 border-b border-brand-text/10">
+        <i data-lucide="search" class="w-5 h-5 text-brand-text/40 flex-shrink-0"></i>
+        <input id="search-input" type="text" placeholder="Search products, pages…" autocomplete="off" class="flex-1 bg-transparent font-body text-base text-brand-text placeholder-brand-text/35 outline-none">
+        <button id="search-close" class="p-1 text-brand-text/40 hover:text-brand-text transition-colors" aria-label="Close search"><i data-lucide="x" class="w-5 h-5"></i></button>
+      </div>
+      <div id="search-results" class="max-h-[60vh] overflow-y-auto py-2"></div>
+    </div>
+  </div>
+
+  <main class="min-h-screen flex items-center justify-center px-6 py-32">
+    <div class="text-center max-w-lg mx-auto">
+
+      <!-- Large 404 display number -->
+      <div class="float-anim mb-8 select-none">
+        <span class="font-sans font-bold text-brand-text/8 block" style="font-size:clamp(120px,22vw,200px);line-height:1;letter-spacing:-0.04em;">404</span>
+      </div>
+
+      <!-- Offset card that overlays the number -->
+      <div class="reveal -mt-16 relative z-10">
+        <p class="font-body text-xs uppercase tracking-[0.22em] text-brand-text/40 mb-4">Page not found</p>
+        <h1 class="font-sans font-bold text-3xl md:text-4xl text-brand-text mb-5 leading-tight tracking-tight">This page doesn't exist.</h1>
+        <p class="font-body text-brand-text/60 text-base leading-relaxed mb-10">The link you followed may be broken, the page may have moved, or the URL may be mistyped. Let us help you get back on track.</p>
+
+        <!-- Primary CTA -->
+        <a href="/" class="inline-flex items-center gap-2.5 px-7 py-4 rounded-full bg-brand-text text-white font-sans font-bold text-sm hover:bg-brand-primary transition-colors mb-4">
+          <i data-lucide="home" class="w-4 h-4"></i>
+          Back to Homepage
+        </a>
+
+        <!-- Secondary links -->
+        <div class="flex flex-wrap items-center justify-center gap-x-8 gap-y-3 mt-6">
+          <a href="/shop/" class="inline-flex items-center gap-1.5 font-body text-sm font-medium text-brand-primary hover:underline transition-colors">
+            <i data-lucide="shopping-bag" class="w-3.5 h-3.5"></i>
+            Browse the Shop
+          </a>
+          <a href="/faq/" class="inline-flex items-center gap-1.5 font-body text-sm font-medium text-brand-text/50 hover:text-brand-primary transition-colors">
+            <i data-lucide="circle-help" class="w-3.5 h-3.5"></i>
+            FAQ
+          </a>
+          <a href="/contact/" class="inline-flex items-center gap-1.5 font-body text-sm font-medium text-brand-text/50 hover:text-brand-primary transition-colors">
+            <i data-lucide="mail" class="w-3.5 h-3.5"></i>
+            Contact Us
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-white/10">
+    <div class="max-w-[1400px] mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+        <div class="md:col-span-1"><img src="https://static.kite.ai/image/upload/v1780371329/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/fdqs1mpfbswxcq4trn6k.png" alt="Eqo Logiq" class="h-10 w-auto object-contain mb-6"><p class="font-body text-white/50 text-sm max-w-xs">Plastic-free steel bottles and daily essentials. No plastic in any product.</p></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Shop</h5><ul class="space-y-4"><li><a href="/shop/" class="font-body text-white/50 hover:text-white transition-colors">Steel Bottles</a></li><li><a href="/shop/" class="font-body text-white/50 hover:text-white transition-colors">Oral Care</a></li><li><a href="/shop/" class="font-body text-white/50 hover:text-white transition-colors">Bundles</a></li><li><a href="/contact/" class="font-body text-white/50 hover:text-white transition-colors">Corporate Gifting</a></li></ul></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Company</h5><ul class="space-y-4"><li><a href="/about/" class="font-body text-white/50 hover:text-white transition-colors">Our Story</a></li><li><a href="/qrash-qourse/" class="font-body text-white/50 hover:text-white transition-colors">Impact Report</a></li><li><a href="/blog/" class="font-body text-white/50 hover:text-white transition-colors">Blogs</a></li><li><a href="/contact/" class="font-body text-white/50 hover:text-white transition-colors">Contact</a></li></ul></div>
+        <div><h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Stay Updated</h5><p class="font-body text-white/50 text-sm mb-4">No spam. Just product drops and real updates.</p><form class="flex border-b border-white/20 pb-2"><input type="email" placeholder="Email address" class="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30"><button type="submit" class="text-white hover:text-brand-primary transition-colors"><i data-lucide="arrow-right" class="w-5 h-5"></i></button></form></div>
+      </div>
+      <div class="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 gap-6">
+        <p class="font-body text-white/30 text-sm">© <span id="year"></span> Eqo Logiq. All rights reserved.</p>
+        <div class="flex flex-wrap items-center gap-6"><a href="/policy.html#privacy" class="font-body text-white/30 hover:text-white text-sm transition-colors">Privacy Policy</a><a href="/policy.html#terms" class="font-body text-white/30 hover:text-white text-sm transition-colors">Terms of Use</a><a href="/policy.html#shipping" class="font-body text-white/30 hover:text-white text-sm transition-colors">Shipping Policy</a><a href="/policy.html#returns" class="font-body text-white/30 hover:text-white text-sm transition-colors">Refund &amp; Returns</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    lucide.createIcons();
+    document.getElementById('year').textContent = new Date().getFullYear();
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => { navbar.classList.toggle('scrolled', window.scrollY > 50); });
+    document.getElementById('mobile-menu-btn').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('translate-x-full'));
+    document.getElementById('close-mobile-menu').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('translate-x-full'));
+    const ro = new IntersectionObserver(entries => entries.forEach(e => { if(e.isIntersecting){e.target.classList.add('active');ro.unobserve(e.target);} }), {threshold:0.05});
+    document.querySelectorAll('.reveal').forEach(el => ro.observe(el));
+    // ── SEARCH ──────────────────────────────────────────────────────────
+    const SEARCH_DATA=[{title:'Plastic Free Steel Bottle | 1 Litre',desc:'Double wall · 12+ hrs insulation · No plastic',meta:'₹1,200',url:'/product.html',type:'product'},{title:'Shop All Products',desc:'Browse the full Eqo Logiq catalogue',meta:'Page',url:'/shop.html',type:'page'},{title:'Our Story',desc:'Why Eqo Logiq exists',meta:'Page',url:'/about.html',type:'page'},{title:'FAQ',desc:'Answers to common questions',meta:'Page',url:'/faq.html',type:'page'},{title:'Contact Us',desc:'Get in touch with the Eqo Logiq team',meta:'Page',url:'/contact.html',type:'page'}];
+    const searchModal=document.getElementById('search-modal'),searchInput=document.getElementById('search-input'),searchResults=document.getElementById('search-results');let activeIdx=-1;
+    function openSearch(){searchModal.classList.remove('pointer-events-none','opacity-0');searchModal.classList.add('pointer-events-auto','opacity-100');searchInput.value='';renderResults('');setTimeout(()=>searchInput.focus(),50);}
+    function closeSearch(){searchModal.classList.add('pointer-events-none','opacity-0');searchModal.classList.remove('pointer-events-auto','opacity-100');activeIdx=-1;}
+    function renderResults(q){const t=q.trim().toLowerCase();const hits=t.length===0?SEARCH_DATA.slice(0,6):SEARCH_DATA.filter(d=>(d.title+' '+d.desc+' '+d.meta).toLowerCase().includes(t));if(!hits.length){searchResults.innerHTML='<p class="font-body text-sm text-brand-text/40 px-5 py-6 text-center">No results for "'+q+'"</p>';return;}searchResults.innerHTML=hits.map((h,i)=>\`<a href="\${h.url}" class="search-result-item flex items-center gap-4 px-5 py-3.5 hover:bg-brand-surface transition-colors" data-idx="\${i}"><div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 \${h.type==='product'?'bg-brand-primary/10':'bg-brand-text/6'}">\${h.type==='product'?'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#006B96" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>':'<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'}</div><div class="flex-1 min-w-0"><p class="font-sans font-bold text-sm text-brand-text truncate">\${h.title}</p><p class="font-body text-xs text-brand-text/45 truncate mt-0.5">\${h.desc}</p></div><span class="text-xs font-body text-brand-text/30 flex-shrink-0 hidden md:block">\${h.meta}</span></a>\`).join('');activeIdx=-1;}
+    document.getElementById('search-btn').addEventListener('click',openSearch);
+    document.getElementById('search-close').addEventListener('click',closeSearch);
+    searchModal.addEventListener('click',e=>{if(e.target===searchModal)closeSearch();});
+    searchInput.addEventListener('input',e=>renderResults(e.target.value));
+    searchInput.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeSearch();if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();openSearch();}});
+    // ── END SEARCH ───────────────────────────────────────────────────────
+  </script>
+
+
+` }} suppressHydrationWarning />
+    </>
+  );
+}

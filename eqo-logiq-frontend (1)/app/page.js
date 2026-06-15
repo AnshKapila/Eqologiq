@@ -1,30 +1,18 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Eqo Logiq | Plastic-Free Daily Essentials: Steel Bottles &amp; More</title>
-    <meta name="description" content="Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging. Built to last a decade." />
+export const metadata = {
+  title: `Eqo Logiq | Plastic-Free Daily Essentials: Steel Bottles & More`,
+  description: `Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging. Built to last a decade.`,
+  alternates: { canonical: `https://eqologiq.kite.space/` },
+  openGraph: {
+    title: `Eqo Logiq | Plastic-Free Daily Essentials: Steel Bottles & More`,
+    description: `Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging. Built to last a decade.`,
+    images: [{ url: `https://static.kite.ai/image/upload/f_auto,q_auto,w_1200/v1777921391/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/dblcljacximlbkcgccyk.png` }],
+  },
+};
 
-    <!-- Canonical URL -->
-    <link rel="canonical" href="https://eqologiq.kite.space/" />
-
-    <!-- Open Graph -->
-    <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://eqologiq.kite.space/" />
-    <meta property="og:title" content="Eqo Logiq | Plastic-Free Daily Essentials: Steel Bottles &amp; More" />
-    <meta property="og:description" content="Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging. Built to last a decade." />
-    <meta property="og:image" content="https://static.kite.ai/image/upload/f_auto,q_auto,w_1200/v1777921391/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/dblcljacximlbkcgccyk.png" />
-
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:url" content="https://eqologiq.kite.space/" />
-    <meta name="twitter:title" content="Eqo Logiq | Plastic-Free Daily Essentials: Steel Bottles &amp; More" />
-    <meta name="twitter:description" content="Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging. Built to last a decade." />
-    <meta name="twitter:image" content="https://static.kite.ai/image/upload/f_auto,q_auto,w_1200/v1777921391/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/dblcljacximlbkcgccyk.png" />
-
-    <!-- Structured Data: Organization + WebSite -->
-    <script type="application/ld+json">
+export default function Page() {
+  return (
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: `
     {
       "@context": "https://schema.org",
       "@graph": [
@@ -67,162 +55,22 @@
         }
       ]
     }
-    </script>
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-
-    <!-- Icons -->
-    <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
-
-    <!-- Tailwind -->
-    <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              brand: {
-                base: '#F7F5F0',       // Warm off-white
-                surface: '#EAE6DF',    // Soft greige for frames
-                primary: '#006B96',    // Bold cobalt blue
-                secondary: '#99BD05',  // Forest green (sparingly)
-                text: '#222222',       // Deep charcoal
-                light: '#FFFFFF'
-              }
-            },
-            fontFamily: {
-              display: ['Space Grotesk', 'sans-serif'],
-              sans: ['Space Grotesk', 'sans-serif'],
-              body: ['Inter', 'sans-serif']
-            },
-            spacing: {
-              '15vh': '15vh',
-              '20vh': '20vh',
-            },
-            animation: {
-              'marquee': 'marquee 25s linear infinite',
-              'slow-breathe': 'breathe 20s ease-in-out infinite alternate',
-            },
-            keyframes: {
-              marquee: {
-                '0%': { transform: 'translateX(0%)' },
-                '100%': { transform: 'translateX(-100%)' },
-              },
-              breathe: {
-                '0%': { transform: 'scale(1)' },
-                '100%': { transform: 'scale(1.05)' },
-              }
-            }
-          }
-        }
-      }
-    </script>
-
-    <style>
-      /* Base Styles */
-      body {
-        background-color: #F7F5F0;
-        color: #222222;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-        overflow-x: hidden;
-      }
-
-      /* Typography Utilities */
-      .kicker {
-        font-family: 'Inter', sans-serif;
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.2em;
-        font-weight: 600;
-      }
-
-      .text-massive {
-        font-size: clamp(4rem, 12vw, 15rem);
-        line-height: 0.9;
-        letter-spacing: -0.02em;
-      }
-
-      /* Navbar Scroll Logic */
-      #navbar {
-        transition: background-color 0.4s ease, border-color 0.4s ease, padding 0.4s ease;
-      }
-      #navbar.scrolled {
-        background-color: #F7F5F0;
-        border-bottom: 1px solid rgba(34, 34, 34, 0.1);
-        box-shadow: 0 1px 0 0 rgba(0,107,150,0.08);
-        padding-top: 0.5rem;
-        padding-bottom: 0.5rem;
-      }
-      
-      /* Logo colors based on scroll */
-      #nav-logo-text { transition: color 0.4s ease; }
-      #navbar:not(.scrolled) #nav-logo-text.hero-light { color: #FFFFFF; }
-      #navbar.scrolled #nav-logo-text.hero-light { color: #222222; }
-
-      /* Nav links based on scroll */
-      .nav-link { transition: color 0.4s ease; }
-      #navbar:not(.scrolled) .nav-link.hero-light { color: #FFFFFF; }
-      #navbar.scrolled .nav-link.hero-light { color: #222222; }
-
-      /* Scroll Reveal Pattern */
-      .reveal {
-        opacity: 0;
-        transform: translateY(30px);
-        transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
-      }
-      .reveal.active {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      /* Sticky Scrub Pattern */
-      .scrub-text {
-        opacity: 0.2;
-        transition: opacity 0.5s ease;
-      }
-      .scrub-text.is-reading {
-        opacity: 1;
-      }
-
-      /* Soft Frame Image Treatment */
-      .soft-frame {
-        background-color: #EAE6DF;
-        padding: 2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      /* Hide scrollbar for marquee */
-      .no-scrollbar::-webkit-scrollbar {
-        display: none;
-      }
-      .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-      }
-    </style>
-  </head>
-
-  <body>
+    ` }} />
+      <div dangerouslySetInnerHTML={{ __html: `
     <!-- 1. NAVIGATION -->
     <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300">
       <div class="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
         <!-- Logo -->
         <a href="/" class="flex items-center gap-2 group z-50">
-          <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-10 w-auto object-contain" />
+          <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-10 w-auto object-contain">
         </a>
 
         <!-- Desktop Menu -->
         <div class="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-          <a href="/shop.html" class="nav-link hero-light text-sm font-body font-medium hover:text-brand-primary transition-colors">Shop</a>
-          <a href="/about.html" class="nav-link hero-light text-sm font-body font-medium hover:text-brand-primary transition-colors">Our Story</a>
-          <a href="/qrash-qourse.html" class="nav-link hero-light text-sm font-body font-medium hover:text-brand-primary transition-colors">Impact</a>
-          <a href="/blog.html" class="nav-link hero-light text-sm font-body font-medium hover:text-brand-primary transition-colors">Blogs</a>
+          <a href="/shop/" class="nav-link hero-light text-sm font-body font-medium hover:text-brand-primary transition-colors">Shop</a>
+          <a href="/about/" class="nav-link hero-light text-sm font-body font-medium hover:text-brand-primary transition-colors">Our Story</a>
+          <a href="/qrash-qourse/" class="nav-link hero-light text-sm font-body font-medium hover:text-brand-primary transition-colors">Impact</a>
+          <a href="/blog/" class="nav-link hero-light text-sm font-body font-medium hover:text-brand-primary transition-colors">Blogs</a>
         </div>
 
         <!-- Actions -->
@@ -230,7 +78,7 @@
           <button id="search-btn" class="nav-link hero-light hover:opacity-70 transition-opacity" aria-label="Search">
             <i data-lucide="search" class="w-5 h-5"></i>
           </button>
-          <a href="/login.html" class="nav-link hero-light hover:text-brand-primary transition-colors hidden md:flex items-center" aria-label="Sign In">
+          <a href="/login/" class="nav-link hero-light hover:text-brand-primary transition-colors hidden md:flex items-center" aria-label="Sign In">
             <i data-lucide="user" class="w-5 h-5"></i>
           </a>
           <button id="cart-drawer-btn" class="relative nav-link hero-light hover:opacity-70 transition-opacity flex items-center gap-2" aria-label="Open cart">
@@ -248,17 +96,17 @@
     <!-- Mobile Menu Drawer -->
     <div id="mobile-menu" class="fixed inset-0 z-[60] bg-brand-base transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
       <div class="h-24 flex items-center justify-between px-6">
-        <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto object-contain" />
+        <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto object-contain">
         <button id="close-mobile-menu" class="p-2 text-brand-text">
           <i data-lucide="x" class="w-8 h-8"></i>
         </button>
       </div>
       <div class="flex-1 flex flex-col justify-center px-12 gap-8">
-        <a href="/shop.html" class="text-5xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Shop</a>
-        <a href="/about.html" class="text-5xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
-        <a href="/qrash-qourse.html" class="text-5xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Impact</a>
-        <a href="/blog.html" class="text-5xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
-        <a href="/login.html" class="text-5xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Sign In</a>
+        <a href="/shop/" class="text-5xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Shop</a>
+        <a href="/about/" class="text-5xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
+        <a href="/qrash-qourse/" class="text-5xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Impact</a>
+        <a href="/blog/" class="text-5xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
+        <a href="/login/" class="text-5xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Sign In</a>
       </div>
     </div>
 
@@ -267,7 +115,7 @@
       <div class="w-full max-w-2xl bg-brand-base rounded-2xl shadow-2xl overflow-hidden">
         <div class="flex items-center gap-3 px-5 py-4 border-b border-brand-text/10">
           <i data-lucide="search" class="w-5 h-5 text-brand-text/40 flex-shrink-0"></i>
-          <input id="search-input" type="text" placeholder="Search products, pages…" autocomplete="off" class="flex-1 bg-transparent font-body text-base text-brand-text placeholder-brand-text/35 outline-none" />
+          <input id="search-input" type="text" placeholder="Search products, pages…" autocomplete="off" class="flex-1 bg-transparent font-body text-base text-brand-text placeholder-brand-text/35 outline-none">
           <button id="search-close" class="p-1 text-brand-text/40 hover:text-brand-text transition-colors" aria-label="Close search">
             <i data-lucide="x" class="w-5 h-5"></i>
           </button>
@@ -280,7 +128,7 @@
       <!-- 2. HERO (Curtain Layer 1) -->
       <!-- Z-index 20 keeps it above the transition word. It scrolls normally. -->
       <section class="relative z-20 h-[100svh] w-full bg-brand-text overflow-hidden">
-        <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_1920,c_fill,g_auto/v1777921391/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/dblcljacximlbkcgccyk.png" alt="Eqo Logiq premium sustainable product hero" class="absolute inset-0 w-full h-full object-cover object-right md:object-right lg:object-center animate-slow-breathe" />
+        <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_1920,c_fill,g_auto/v1777921391/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/dblcljacximlbkcgccyk.png" alt="Eqo Logiq premium sustainable product hero" class="absolute inset-0 w-full h-full object-cover object-right md:object-right lg:object-center animate-slow-breathe">
         
         <div class="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70"></div>
 
@@ -288,7 +136,7 @@
           <div class="max-w-[1400px] mx-auto">
           <div class="max-w-[36.96rem] reveal active">
             <h1 class="font-display font-bold text-4xl md:text-5xl lg:text-6xl text-white leading-[1.05] tracking-tight mb-8" style="font-family:'Space Grotesk',sans-serif;font-weight:700;">
-              Built for every day.<br/>Made without compromise.
+              Built for every day.<br>Made without compromise.
             </h1>
             <div class="flex flex-col items-stretch lg:items-start gap-4">
               <p class="text-white/80 font-body text-sm">
@@ -332,7 +180,7 @@
 
             <!-- BEFORE card — light greige, restrained -->
             <div class="relative overflow-hidden rounded-2xl bg-[#DEDAD3] reveal" style="min-height:420px;">
-              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_900,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/inline-plastic.png" alt="Single-use plastic bottles" class="absolute inset-0 w-full h-full object-cover grayscale opacity-40" />
+              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_900,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/inline-plastic.png" alt="Single-use plastic bottles" class="absolute inset-0 w-full h-full object-cover grayscale opacity-40">
               <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(30,30,30,0.7) 0%, transparent 55%);"></div>
               <div class="relative h-full flex flex-col justify-between p-8 md:p-10" style="min-height:420px;">
                 <span class="inline-block px-4 py-1.5 rounded-full text-xs font-sans font-bold uppercase tracking-widest w-fit" style="background:rgba(180,30,30,0.25);color:#B41E1E;border:1px solid rgba(180,30,30,0.45);">With plastic</span>
@@ -349,7 +197,7 @@
 
             <!-- AFTER card — dark green, product-led -->
             <div class="relative overflow-hidden rounded-2xl reveal" style="min-height:480px;background:#0D1F0E;">
-              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_900,c_fill,g_auto/v1777841241/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/feature-lifestyle.png" alt="Eqo Logiq steel bottle in use" class="absolute inset-0 w-full h-full object-cover opacity-30" />
+              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_900,c_fill,g_auto/v1777841241/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/feature-lifestyle.png" alt="Eqo Logiq steel bottle in use" class="absolute inset-0 w-full h-full object-cover opacity-30">
               <div class="absolute inset-0" style="background:linear-gradient(135deg, rgba(153,189,5,0.55) 0%, rgba(0,107,150,0.15) 100%);"></div>
               <div class="absolute inset-0" style="background:linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%);"></div>
               <div class="relative h-full flex flex-col justify-between p-8 md:p-10" style="min-height:480px;">
@@ -384,7 +232,7 @@
               <h2 class="font-sans font-bold text-4xl md:text-5xl text-brand-text">What we make.</h2>
               <p class="font-body text-brand-text/55 text-sm mt-3">Plastic-free steel bottles and oral care. Thirteen products currently available.</p>
             </div>
-            <a href="/shop.html" class="inline-flex items-center gap-2 font-sans font-bold text-sm text-brand-primary hover:text-[#005580] transition-colors group self-start md:self-auto">
+            <a href="/shop/" class="inline-flex items-center gap-2 font-sans font-bold text-sm text-brand-primary hover:text-[#005580] transition-colors group self-start md:self-auto">
               View all products
               <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
             </a>
@@ -395,7 +243,7 @@
             <!-- Product 1: Plastic Free Steel Bottle 1 Litre -->
             <div onclick="window.location='/product.html'" class="group cursor-pointer reveal bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] hover:shadow-[0_4px_28px_rgba(0,107,150,0.12)] transition-shadow duration-300 flex flex-col" style="border-top:2px solid transparent;" onmouseenter="this.style.borderTopColor='#006B96'" onmouseleave="this.style.borderTopColor='transparent'">
               <div class="relative aspect-square overflow-hidden bg-brand-surface">
-                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1781025150/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/opdo2msffmbuadqb816m.png" alt="Eqo Logiq Plastic Free Steel Bottle 1 Litre" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1781025150/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/opdo2msffmbuadqb816m.png" alt="Eqo Logiq Plastic Free Steel Bottle 1 Litre" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-sans font-bold uppercase tracking-wider rounded-full bg-brand-secondary text-brand-text">No Plastic</span>
               </div>
               <div class="p-6 flex flex-col flex-1">
@@ -412,7 +260,7 @@
             <!-- Product 2: Bamboo Toothbrush -->
             <div onclick="window.location='/product.html'" class="group cursor-pointer reveal bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] hover:shadow-[0_4px_28px_rgba(0,107,150,0.12)] transition-shadow duration-300 flex flex-col" style="transition-delay:60ms;border-top:2px solid transparent;" onmouseenter="this.style.borderTopColor='#006B96'" onmouseleave="this.style.borderTopColor='transparent'">
               <div class="relative aspect-square overflow-hidden bg-brand-surface">
-                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1778267634/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/vuzufg44n8rhxwrnivbc.png" alt="Eqo Logiq Bamboo Toothbrush" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1778267634/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/vuzufg44n8rhxwrnivbc.png" alt="Eqo Logiq Bamboo Toothbrush" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
               </div>
               <div class="p-6 flex flex-col flex-1">
                 <h3 class="font-sans font-bold text-base text-brand-text mb-1">Bamboo Toothbrush</h3>
@@ -428,7 +276,7 @@
             <!-- Product 3: Starter Switch Bundle -->
             <div onclick="window.location='/product.html'" class="group cursor-pointer reveal bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] hover:shadow-[0_4px_28px_rgba(0,107,150,0.12)] transition-shadow duration-300 flex flex-col" style="transition-delay:120ms;border-top:2px solid transparent;" onmouseenter="this.style.borderTopColor='#006B96'" onmouseleave="this.style.borderTopColor='transparent'">
               <div class="relative aspect-square overflow-hidden bg-brand-surface">
-                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1778267347/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/py8i68nkn06bua2g4h3t.png" alt="The Starter Switch Bundle" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105" />
+                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1778267347/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/py8i68nkn06bua2g4h3t.png" alt="The Starter Switch Bundle" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105">
                 <span class="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-sans font-bold uppercase tracking-wider rounded-full bg-brand-primary text-white">New</span>
               </div>
               <div class="p-6 flex flex-col flex-1">
@@ -454,11 +302,7 @@
             <!-- Left column — image -->
             <div class="w-full md:w-1/2 reveal flex items-center justify-center p-0 md:p-8 mb-10 md:mb-0">
               <div class="relative w-full">
-                <img
-                  src="https://static.kite.ai/image/upload/v1780377709/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/onomtskivtohrfet7bkt.png"
-                  alt="Eqo Logiq zero plastic components"
-                  class="w-full h-auto object-contain"
-                />
+                <img src="https://static.kite.ai/image/upload/v1780377709/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/onomtskivtohrfet7bkt.png" alt="Eqo Logiq zero plastic components" class="w-full h-auto object-contain">
               </div>
             </div>
 
@@ -469,7 +313,7 @@
             <div class="w-full md:w-1/2 reveal flex flex-col justify-center px-0 md:pl-12 md:pr-0 text-center md:text-left" style="transition-delay:100ms;">
               <p class="kicker mb-4" style="color:#006B96;letter-spacing:0.18em;">EVERY COMPONENT. ZERO PLASTIC.</p>
               <h2 class="font-sans font-bold text-white mb-6" style="font-size:clamp(2rem,4vw,3.5rem);line-height:1.05;">
-                Not a drop of plastic.<br/>Not one hidden compromise.
+                Not a drop of plastic.<br>Not one hidden compromise.
               </h2>
               <p class="font-body mb-8 mx-auto md:mx-0" style="font-size:18px;color:rgba(255,255,255,0.65);line-height:1.7;max-width:420px;">
                 The outer wall. The inner wall. The lid. The seal. The base. Every single component of every Eqo Logiq product is stainless steel or food-grade silicone. We did not make a single exception.
@@ -500,7 +344,7 @@
               </ul>
 
               <!-- CTA text link -->
-              <a href="/shop.html" class="font-body font-medium text-sm" style="color:#006B96;">See what we make →</a>
+              <a href="/shop/" class="font-body font-medium text-sm" style="color:#006B96;">See what we make →</a>
             </div>
 
           </div>
@@ -515,7 +359,7 @@
             <div class="w-full md:w-1/2 reveal flex flex-col justify-center px-0 md:pr-12 md:pl-0 py-16 text-left">
               <p class="kicker mb-4" style="color:#006B96;letter-spacing:0.18em;">THE CAP RING</p>
               <h2 class="font-sans font-bold text-white mb-5" style="font-size:clamp(1.75rem,3vw,2.75rem);line-height:1.1;">
-                Silicone, not plastic.<br/>It is not a small detail.
+                Silicone, not plastic.<br>It is not a small detail.
               </h2>
               <p class="font-body mb-7" style="font-size:17px;color:rgba(255,255,255,0.65);line-height:1.75;max-width:400px;">
                 The cap ring is food-grade silicone. Unlike plastic, it does not break into micro pieces over time. It contains no BPA and no BPS. It is detachable: remove it, clean it, put it back. That is the whole point.
@@ -540,12 +384,7 @@
             <!-- Right column — image -->
             <div class="w-full md:w-1/2 reveal flex items-center justify-center p-0 mb-10 md:mb-0" style="transition-delay:100ms;">
               <div class="relative w-full overflow-hidden" style="border-radius:12px;aspect-ratio:4/3;min-height:320px;">
-                <img
-                  src="https://static.kite.ai/image/upload/v1780377816/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/xamhdakuuqyzu9bhvdag.png"
-                  alt="Food-grade silicone cap ring"
-                  class="absolute inset-0 w-full h-full object-contain"
-                  style="border-radius:12px;display:block;"
-                />
+                <img src="https://static.kite.ai/image/upload/v1780377816/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/xamhdakuuqyzu9bhvdag.png" alt="Food-grade silicone cap ring" class="absolute inset-0 w-full h-full object-contain" style="border-radius:12px;display:block;">
                 <!-- Warm vignette overlay -->
                 <div class="absolute inset-0 pointer-events-none" style="border-radius:12px;background:radial-gradient(ellipse at center, transparent 55%, rgba(28,28,28,0.55) 100%);"></div>
               </div>
@@ -573,7 +412,7 @@
 
             <!-- Tile 1: Large — Plastic-Free (lifestyle image backdrop) -->
             <div class="md:col-span-7 relative overflow-hidden rounded-2xl reveal" style="min-height:340px;">
-              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_1000,c_fill,g_auto/v1777952844/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/g6uec6ksdecsgs8ybt9r.png" alt="Plastic-free Eqo Logiq products" class="absolute inset-0 w-full h-full object-cover" />
+              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_1000,c_fill,g_auto/v1777952844/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/g6uec6ksdecsgs8ybt9r.png" alt="Plastic-free Eqo Logiq products" class="absolute inset-0 w-full h-full object-cover">
               <div class="absolute inset-0" style="background:linear-gradient(135deg,rgba(153,189,5,0.75) 0%,rgba(0,0,0,0.45) 100%);"></div>
               <div class="relative p-8 md:p-10 h-full flex flex-col justify-end" style="min-height:340px;">
                 <div class="w-10 h-10 rounded-full flex items-center justify-center mb-6" style="background:rgba(168,230,163,0.2);border:1px solid rgba(168,230,163,0.3);">
@@ -613,7 +452,7 @@
 
             <!-- Tile 4: Medium — Indian Conditions (warm surface) -->
             <div class="md:col-span-4 relative overflow-hidden rounded-2xl reveal" style="min-height:280px;background:#2B2B2B;">
-              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1778266283/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/chxw58bwncsz3p2whm3k.png" alt="Built for India" class="absolute inset-0 w-full h-full object-cover opacity-40" />
+              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1778266283/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/chxw58bwncsz3p2whm3k.png" alt="Built for India" class="absolute inset-0 w-full h-full object-cover opacity-40">
               <div class="absolute inset-0 rounded-2xl" style="background:linear-gradient(160deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.6) 100%);"></div>
               <div class="relative p-8 h-full flex flex-col justify-between" style="min-height:280px;">
                 <div class="w-10 h-10 rounded-full flex items-center justify-center" style="background:rgba(255,200,80,0.15);">
@@ -695,7 +534,7 @@
               <p class="font-body text-base text-white/60 mb-8">
                 These are the documented figures for this product category.
               </p>
-              <a href="/qrash-qourse.html" class="inline-flex items-center gap-2 font-sans font-bold text-sm hover:opacity-80 transition-opacity group" style="color:#A8E6A3;">
+              <a href="/qrash-qourse/" class="inline-flex items-center gap-2 font-sans font-bold text-sm hover:opacity-80 transition-opacity group" style="color:#A8E6A3;">
                 Read our impact report 
                 <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
               </a>
@@ -703,7 +542,7 @@
           </div>
           <!-- Bottom: image strip -->
           <div class="h-48 md:h-56 overflow-hidden relative">
-              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_900,c_fill,g_auto/v1777952952/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/ujtxtyda6cbyz0mqt1pz.png" alt="Eqo Logiq in daily use" class="w-full h-full object-cover opacity-70" />
+              <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_900,c_fill,g_auto/v1777952952/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/ujtxtyda6cbyz0mqt1pz.png" alt="Eqo Logiq in daily use" class="w-full h-full object-cover opacity-70">
             <div class="absolute inset-0" style="background:linear-gradient(to right, rgba(13,31,14,0.8) 0%, transparent 60%);"></div>
           </div>
         </div>
@@ -723,12 +562,12 @@
             <div class="flex items-center justify-center gap-10 md:gap-0 md:contents">
               <!-- Myntra -->
               <a href="#" aria-label="Myntra" class="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300 md:ml-auto">
-                <img src="https://static.kite.ai/image/upload/v1779596008/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/i3ouvm5yrhazprfkwdbp.png" alt="Myntra" class="h-8 w-auto object-contain" />
+                <img src="https://static.kite.ai/image/upload/v1779596008/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/i3ouvm5yrhazprfkwdbp.png" alt="Myntra" class="h-8 w-auto object-contain">
               </a>
 
               <!-- Amazon -->
               <a href="#" aria-label="Amazon" class="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300 md:ml-16">
-                <img src="https://static.kite.ai/image/upload/v1779596021/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/l0mdqu4qcwzuquaiwirf.png" alt="Amazon" class="h-8 w-auto object-contain" />
+                <img src="https://static.kite.ai/image/upload/v1779596021/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/l0mdqu4qcwzuquaiwirf.png" alt="Amazon" class="h-8 w-auto object-contain">
               </a>
             </div>
 
@@ -757,7 +596,7 @@
         <!-- Mobile swipe cue — visible only on phones -->
         <div class="md:hidden max-w-[1400px] mx-auto px-6 mb-4 flex items-center justify-end gap-1.5">
           <span class="font-body text-[10px] uppercase tracking-widest text-brand-text/35">Swipe</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-text/35"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="text-brand-text/35"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
         </div>
 
         <!-- Card row: horizontal scroll on mobile, fixed layout on desktop -->
@@ -792,12 +631,12 @@
               <!-- Center featured card — image-heavy, drives the row height -->
               <div class="reveal rounded-2xl overflow-hidden relative group" style="min-height:520px;">
                 <!-- Background image -->
-                <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.002,w_1.000,h_0.997/v1778267347/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/py8i68nkn06bua2g4h3t.png" alt="Priya M. — Mumbai, Eqo Logiq customer" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+                <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.002,w_1.000,h_0.997/v1778267347/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/py8i68nkn06bua2g4h3t.png" alt="Priya M. — Mumbai, Eqo Logiq customer" class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]">
                 <!-- Gradient overlay -->
                 <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.08) 40%, rgba(0,0,0,0.72) 100%);"></div>
                 <!-- Story-reel accent (subtle, not a real button) -->
                 <div class="absolute top-5 right-5 w-9 h-9 rounded-full flex items-center justify-center" style="background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.25);backdrop-filter:blur(4px);">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="white"><path d="M1 1.5l10 5-10 5V1.5z"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="12" height="14" viewBox="0 0 12 14" fill="white"><path d="M1 1.5l10 5-10 5V1.5z"></path></svg>
                 </div>
                 <!-- Top: profile avatar -->
                 <div class="absolute top-5 left-5">
@@ -872,7 +711,7 @@
 
               <!-- Featured card mobile -->
               <div class="snap-start flex-shrink-0 w-[82vw] rounded-2xl overflow-hidden relative" style="min-height:380px;">
-                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_700,c_fill,g_face/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/proof-1.png" alt="Priya M. — Eqo Logiq customer" class="absolute inset-0 w-full h-full object-cover" />
+                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_700,c_fill,g_face/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/proof-1.png" alt="Priya M. — Eqo Logiq customer" class="absolute inset-0 w-full h-full object-cover">
                 <div class="absolute inset-0" style="background:linear-gradient(to bottom,rgba(0,0,0,0.05) 30%,rgba(0,0,0,0.75) 100%);"></div>
                 <div class="absolute top-4 left-4">
                   <div class="w-10 h-10 rounded-full border-2 border-white/30 flex items-center justify-center font-bold text-white text-sm" style="background:#006B96;">P</div>
@@ -934,19 +773,19 @@
 
                 <!-- Primary image -->
                 <div class="relative w-full max-w-[420px] mx-auto rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6)] transition-transform duration-700 hover:scale-[1.02]" style="aspect-ratio:3/4;">
-                  <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_840,c_fill,g_auto/v1777952795/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/laptop-youtube-mockup.png" alt="Premium laptop showing YouTube-style video page" class="w-full h-full object-cover bg-[#1C1C1C]" />
+                  <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_840,c_fill,g_auto/v1777952795/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/laptop-youtube-mockup.png" alt="Premium laptop showing YouTube-style video page" class="w-full h-full object-cover bg-[#1C1C1C]">
                   <!-- Cobalt accent strip -->
                   <div class="absolute bottom-0 left-0 right-0 h-1 bg-brand-primary"></div>
                 </div>
 
                 <!-- Secondary card 1 — lifestyle image -->
                 <div class="relative -mt-20 ml-auto mr-4 md:mr-0 md:-mr-8 w-[48%] max-w-[200px] rounded-xl overflow-hidden shadow-[0_16px_48px_rgba(0,0,0,0.55)] border border-white/5 transition-transform duration-700 hover:-translate-y-1" style="z-index:2;">
-                  <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_400,c_fill,g_auto/v1777841241/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/feature-lifestyle.png" alt="Eqo Logiq bottle in everyday use" class="w-full aspect-[3/4] object-cover" />
+                  <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_400,c_fill,g_auto/v1777841241/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/feature-lifestyle.png" alt="Eqo Logiq bottle in everyday use" class="w-full aspect-[3/4] object-cover">
                 </div>
 
                 <!-- Secondary card 2 — oral care image -->
                 <div class="relative -mt-12 mr-auto ml-4 md:ml-0 md:-ml-6 w-[42%] max-w-[170px] rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.5)] border border-white/5 transition-transform duration-700 hover:-translate-y-1" style="z-index:1;">
-                  <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_340,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/proof-2.png" alt="Eqo Logiq oral care on vanity" class="w-full aspect-square object-cover" />
+                  <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_340,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/proof-2.png" alt="Eqo Logiq oral care on vanity" class="w-full aspect-square object-cover">
                 </div>
 
               </div>
@@ -960,8 +799,8 @@
               </p>
 
               <h2 class="font-sans font-bold text-4xl md:text-5xl lg:text-6xl leading-[1.05] tracking-tight mb-8" style="color:#F0EDE8;">
-                Products that earn<br/>
-                their place<br/>
+                Products that earn<br>
+                their place<br>
                 <span style="color:rgba(240,237,232,0.35);">in your day.</span>
               </h2>
 
@@ -976,7 +815,7 @@
               <!-- Trust line -->
               <div class="flex items-center gap-3 mb-10">
                 <div class="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style="background:rgba(0,107,150,0.15);border:1px solid rgba(0,107,150,0.3);">
-                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="#006B96" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg xmlns="http://www.w3.org/2000/svg" class="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="#006B96" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
                 </div>
                 <span class="font-body text-xs uppercase tracking-widest" style="color:rgba(240,237,232,0.4);">Trusted by 10,000+ households across India</span>
               </div>
@@ -1004,7 +843,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-24">
           
           <div class="md:col-span-1">
-            <img src="https://static.kite.ai/image/upload/v1780371329/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/fdqs1mpfbswxcq4trn6k.png" alt="Eqo Logiq" class="h-10 w-auto object-contain mb-6" />
+            <img src="https://static.kite.ai/image/upload/v1780371329/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/fdqs1mpfbswxcq4trn6k.png" alt="Eqo Logiq" class="h-10 w-auto object-contain mb-6">
             <p class="font-body text-white/50 text-sm max-w-xs">
               Plastic-free steel bottles and daily essentials. No plastic in any product.
             </p>
@@ -1013,19 +852,19 @@
           <div>
             <h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Shop</h5>
             <ul class="space-y-4">
-              <li><a href="/shop.html" class="font-body text-white/50 hover:text-brand-primary transition-colors">Steel Bottles</a></li>
-              <li><a href="/shop.html" class="font-body text-white/50 hover:text-brand-primary transition-colors">Daily Essentials</a></li>
-              <li><a href="/contact.html" class="font-body text-white/50 hover:text-brand-primary transition-colors">Corporate Gifting</a></li>
+              <li><a href="/shop/" class="font-body text-white/50 hover:text-brand-primary transition-colors">Steel Bottles</a></li>
+              <li><a href="/shop/" class="font-body text-white/50 hover:text-brand-primary transition-colors">Daily Essentials</a></li>
+              <li><a href="/contact/" class="font-body text-white/50 hover:text-brand-primary transition-colors">Corporate Gifting</a></li>
             </ul>
           </div>
 
           <div>
             <h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Company</h5>
             <ul class="space-y-4">
-              <li><a href="/about.html" class="font-body text-white/50 hover:text-brand-primary transition-colors">Our Story</a></li>
-              <li><a href="/qrash-qourse.html" class="font-body text-white/50 hover:text-brand-primary transition-colors">The Impact</a></li>
-              <li><a href="/blog.html" class="font-body text-white/50 hover:text-brand-primary transition-colors">Blogs</a></li>
-              <li><a href="/contact.html" class="font-body text-white/50 hover:text-brand-primary transition-colors">Contact</a></li>
+              <li><a href="/about/" class="font-body text-white/50 hover:text-brand-primary transition-colors">Our Story</a></li>
+              <li><a href="/qrash-qourse/" class="font-body text-white/50 hover:text-brand-primary transition-colors">The Impact</a></li>
+              <li><a href="/blog/" class="font-body text-white/50 hover:text-brand-primary transition-colors">Blogs</a></li>
+              <li><a href="/contact/" class="font-body text-white/50 hover:text-brand-primary transition-colors">Contact</a></li>
             </ul>
           </div>
 
@@ -1033,7 +872,7 @@
             <h5 class="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Stay Updated</h5>
             <p class="font-body text-white/50 text-sm mb-4">No spam. Just product drops and real updates.</p>
             <form class="flex border-b border-white/20 pb-2">
-              <input type="email" placeholder="Email address" class="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30" />
+              <input type="email" placeholder="Email address" class="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30">
               <button type="submit" class="text-brand-primary hover:text-white transition-colors">
                 <i data-lucide="arrow-right" class="w-5 h-5"></i>
               </button>
@@ -1166,17 +1005,17 @@
           searchResults.innerHTML = '<p class="font-body text-sm text-brand-text/40 px-5 py-6 text-center">No results for "' + q + '"</p>';
           return;
         }
-        searchResults.innerHTML = hits.map((h, i) => `
-          <a href="${h.url}" class="search-result-item flex items-center gap-4 px-5 py-3.5 hover:bg-brand-surface transition-colors group" data-idx="${i}">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${h.type==='product' ? 'bg-brand-primary/10' : 'bg-brand-text/6'}">
-              ${h.type==='product' ? '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#006B96" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'}
+        searchResults.innerHTML = hits.map((h, i) => \`
+          <a href="\${h.url}" class="search-result-item flex items-center gap-4 px-5 py-3.5 hover:bg-brand-surface transition-colors group" data-idx="\${i}">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 \${h.type==='product' ? 'bg-brand-primary/10' : 'bg-brand-text/6'}">
+              \${h.type==='product' ? '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#006B96" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>' : '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity=".4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'}
             </div>
             <div class="flex-1 min-w-0">
-              <p class="font-sans font-bold text-sm text-brand-text truncate">${h.title}</p>
-              <p class="font-body text-xs text-brand-text/45 truncate mt-0.5">${h.desc}</p>
+              <p class="font-sans font-bold text-sm text-brand-text truncate">\${h.title}</p>
+              <p class="font-body text-xs text-brand-text/45 truncate mt-0.5">\${h.desc}</p>
             </div>
-            <span class="text-xs font-body text-brand-text/30 flex-shrink-0 hidden md:block">${h.meta}</span>
-          </a>`).join('');
+            <span class="text-xs font-body text-brand-text/30 flex-shrink-0 hidden md:block">\${h.meta}</span>
+          </a>\`).join('');
         activeIdx = -1;
       }
       function navigateResults(dir) {
@@ -1226,7 +1065,7 @@
     </div>
     <div style="flex:1;overflow-y:auto;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:1rem;">
       <div style="background:#fff;border-radius:1rem;padding:1rem;display:flex;gap:1rem;align-items:center;box-shadow:0 2px 12px rgba(34,34,34,0.06);">
-        <div style="width:64px;height:64px;border-radius:0.75rem;background:#EAE6DF;flex-shrink:0;overflow:hidden;"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1781025150/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/opdo2msffmbuadqb816m.png" alt="Plastic Free Steel Bottle 1L" style="width:100%;height:100%;object-fit:cover;" /></div>
+        <div style="width:64px;height:64px;border-radius:0.75rem;background:#EAE6DF;flex-shrink:0;overflow:hidden;"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1781025150/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/opdo2msffmbuadqb816m.png" alt="Plastic Free Steel Bottle 1L" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="flex:1;min-width:0;">
           <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.875rem;color:#222;">Plastic Free Steel Bottle | 1 Litre</p>
           <p style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(34,34,34,0.5);margin-top:0.125rem;">Double wall • Food-grade steel • No plastic</p>
@@ -1241,7 +1080,7 @@
         </div>
       </div>
       <div style="background:#fff;border-radius:1rem;padding:1rem;display:flex;gap:1rem;align-items:center;box-shadow:0 2px 12px rgba(34,34,34,0.06);">
-        <div style="width:64px;height:64px;border-radius:0.75rem;background:#EAE6DF;flex-shrink:0;overflow:hidden;"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-brush.png" alt="Bamboo Brush" style="width:100%;height:100%;object-fit:cover;" /></div>
+        <div style="width:64px;height:64px;border-radius:0.75rem;background:#EAE6DF;flex-shrink:0;overflow:hidden;"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-brush.png" alt="Bamboo Brush" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="flex:1;min-width:0;">
           <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.875rem;color:#222;">Bamboo Toothbrush</p>
           <p style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(34,34,34,0.5);margin-top:0.125rem;">Biodegradable handle • BPA-free</p>
@@ -1262,23 +1101,15 @@
         <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:#222;">₹1,498</span>
       </div>
       <p style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(34,34,34,0.4);margin-bottom:1rem;">Inclusive of all taxes · Free shipping</p>
-      <a href="/checkout.html" style="display:block;width:100%;padding:1rem;background:#006B96;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9375rem;border-radius:0.75rem;text-align:center;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#005580'" onmouseout="this.style.background='#006B96'">Proceed to Checkout</a>
-      <a href="/cart.html" style="display:block;text-align:center;margin-top:0.75rem;font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:rgba(34,34,34,0.5);text-decoration:none;" onmouseover="this.style.color='#006B96'" onmouseout="this.style.color='rgba(34,34,34,0.5)'">View full cart →</a>
+      <a href="/checkout/" style="display:block;width:100%;padding:1rem;background:#006B96;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9375rem;border-radius:0.75rem;text-align:center;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#005580'" onmouseout="this.style.background='#006B96'">Proceed to Checkout</a>
+      <a href="/cart/" style="display:block;text-align:center;margin-top:0.75rem;font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:rgba(34,34,34,0.5);text-decoration:none;" onmouseover="this.style.color='#006B96'" onmouseout="this.style.color='rgba(34,34,34,0.5)'">View full cart →</a>
     </div>
   </div>
   <!-- WhatsApp Support Button -->
-  <a id="wa-support-btn"
-     href="https://wa.me/919667691316"
-     target="_blank"
-     rel="noopener noreferrer"
-     aria-label="Chat with us on WhatsApp"
-     style="position:fixed;bottom:28px;right:24px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:12px 20px;background:#1C1C1C;color:#fff;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;letter-spacing:0.01em;border-radius:100px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,0.22);opacity:0;transform:translateY(10px);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1),background 0.2s ease,box-shadow 0.2s ease;will-change:transform,opacity;"
-     onmouseover="this.style.background='#006B96';this.style.boxShadow='0 6px 24px rgba(0,107,150,0.28)';this.style.transform='translateY(-2px)';"
-     onmouseout="this.style.background='#1C1C1C';this.style.boxShadow='0 4px 18px rgba(0,0,0,0.22)';this.style.transform='translateY(0)';"
-  >
+  <a id="wa-support-btn" href="https://wa.me/919667691316" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp" style="position:fixed;bottom:28px;right:24px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:12px 20px;background:#1C1C1C;color:#fff;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;letter-spacing:0.01em;border-radius:100px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,0.22);opacity:0;transform:translateY(10px);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1),background 0.2s ease,box-shadow 0.2s ease;will-change:transform,opacity;" onmouseover="this.style.background='#006B96';this.style.boxShadow='0 6px 24px rgba(0,107,150,0.28)';this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#1C1C1C';this.style.boxShadow='0 4px 18px rgba(0,0,0,0.22)';this.style.transform='translateY(0)';">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"/>
-      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.405A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.099-1.132l-.293-.174-3.046.86.861-3.047-.191-.311A7.96 7.96 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z" fill="#25D366"/>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"></path>
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.405A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.099-1.132l-.293-.174-3.046.86.861-3.047-.191-.311A7.96 7.96 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z" fill="#25D366"></path>
     </svg>
     <span>Questions Before Ordering?</span>
   </a>
@@ -1295,5 +1126,8 @@
       setTimeout(function(){ btn.style.opacity = '1'; btn.style.transform = 'translateY(0)'; }, 600);
     })();
   </script>
-</body>
-</html>
+
+` }} suppressHydrationWarning />
+    </>
+  );
+}

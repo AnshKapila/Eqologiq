@@ -1,60 +1,29 @@
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>My Account | Eqo Logiq</title>
-  <meta name="description" content="Your Eqo Logiq member area. View orders, manage preferences, and track your impact." />
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <script src="https://unpkg.com/lucide@0.469.0/dist/umd/lucide.min.js"></script>
-  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { base:'#F7F5F0', surface:'#EAE6DF', primary:'#006B96', secondary:'#99BD05', text:'#222222', light:'#FFFFFF' }
-          },
-          fontFamily: {
-            display:['Space Grotesk','sans-serif'], sans:['Space Grotesk','sans-serif'], body:['Inter','sans-serif']
-          }
-        }
-      }
-    }
-  </script>
-  <style>
-    body { background-color:#F7F5F0; color:#222222; -webkit-font-smoothing:antialiased; overflow-x:hidden; }
-    .kicker { font-family:'Inter',sans-serif; font-size:0.75rem; text-transform:uppercase; letter-spacing:0.2em; font-weight:600; }
-    #navbar { transition: background-color 0.4s ease, border-color 0.4s ease; }
-    #navbar.scrolled { background-color:#F7F5F0; border-bottom:1px solid rgba(34,34,34,0.1); }
-    .reveal { opacity:0; transform:translateY(20px); transition: opacity 0.7s cubic-bezier(0.16,1,0.3,1), transform 0.7s cubic-bezier(0.16,1,0.3,1); }
-    .reveal.active { opacity:1; transform:translateY(0); }
-    .stat-card { background:#fff; border-radius:1rem; padding:1.5rem; border:1.5px solid rgba(34,34,34,0.06); }
-    .order-row { border-bottom:1px solid rgba(34,34,34,0.07); }
-    .order-row:last-child { border-bottom:none; }
-    .tab-btn { border-bottom:2px solid transparent; transition: color 0.2s, border-color 0.2s; }
-    .tab-btn.active { color:#006B96; border-bottom-color:#006B96; }
-    .tab-content { display:none; }
-    .tab-content.active { display:block; }
-  </style>
-</head>
-<body>
+export const metadata = {
+  title: `My Account | Eqo Logiq`,
+  description: `Your Eqo Logiq member area. View orders, manage preferences, and track your impact.`,
+};
+
+export default function Page() {
+  return (
+    <>
+      
+      <div dangerouslySetInnerHTML={{ __html: `
 
   <!-- NAV -->
   <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 py-4 bg-brand-base border-b border-brand-text/10 transition-all duration-300">
     <div class="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
       <a href="/" class="flex items-center gap-2 z-50">
-        <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto object-contain" />
+        <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto object-contain">
       </a>
       <div class="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
-        <a href="/shop.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Shop</a>
-        <a href="/about.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
-        <a href="/qrash-qourse.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Impact</a>
-        <a href="/blog.html" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
+        <a href="/shop/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Shop</a>
+        <a href="/about/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
+        <a href="/qrash-qourse/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Impact</a>
+        <a href="/blog/" class="text-sm font-body font-medium text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
       </div>
       <div class="flex items-center gap-6 z-50">
         <button id="search-btn" class="text-brand-text hover:text-brand-primary transition-colors" aria-label="Search"><i data-lucide="search" class="w-5 h-5"></i></button>
-        <a href="/account.html" class="text-brand-primary hidden md:flex items-center" aria-label="Account">
+        <a href="/account/" class="text-brand-primary hidden md:flex items-center" aria-label="Account">
           <i data-lucide="user" class="w-5 h-5"></i>
         </a>
         <button id="cart-drawer-btn" class="relative flex items-center gap-2 text-brand-text hover:text-brand-primary transition-colors" aria-label="Open cart">
@@ -72,15 +41,15 @@
   <!-- MOBILE MENU -->
   <div id="mobile-menu" class="fixed inset-0 z-[60] bg-brand-base transform translate-x-full transition-transform duration-500 ease-in-out flex flex-col">
     <div class="h-20 flex items-center justify-between px-6">
-      <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto" />
+      <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-9 w-auto">
       <button id="close-mobile-menu" class="p-2 text-brand-text"><i data-lucide="x" class="w-8 h-8"></i></button>
     </div>
     <div class="flex-1 flex flex-col justify-center px-12 gap-8">
-      <a href="/shop.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Shop</a>
-      <a href="/about.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
-      <a href="/qrash-qourse.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Impact</a>
-      <a href="/blog.html" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
-      <a href="/account.html" class="text-4xl font-sans font-bold text-brand-primary">Account</a>
+      <a href="/shop/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Shop</a>
+      <a href="/about/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Our Story</a>
+      <a href="/qrash-qourse/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Impact</a>
+      <a href="/blog/" class="text-4xl font-sans font-bold text-brand-text hover:text-brand-primary transition-colors">Blogs</a>
+      <a href="/account/" class="text-4xl font-sans font-bold text-brand-primary">Account</a>
     </div>
   </div>
 
@@ -89,7 +58,7 @@
     <div class="w-full max-w-2xl bg-brand-base rounded-2xl shadow-2xl overflow-hidden">
       <div class="flex items-center gap-3 px-5 py-4 border-b border-brand-text/10">
         <i data-lucide="search" class="w-5 h-5 text-brand-text/40 flex-shrink-0"></i>
-        <input id="search-input" type="text" placeholder="Search products, pages…" autocomplete="off" class="flex-1 bg-transparent font-body text-base text-brand-text placeholder-brand-text/35 outline-none" />
+        <input id="search-input" type="text" placeholder="Search products, pages…" autocomplete="off" class="flex-1 bg-transparent font-body text-base text-brand-text placeholder-brand-text/35 outline-none">
         <button id="search-close" class="p-1 text-brand-text/40 hover:text-brand-text transition-colors" aria-label="Close search"><i data-lucide="x" class="w-5 h-5"></i></button>
       </div>
       <div id="search-results" class="max-h-[60vh] overflow-y-auto py-2"></div>
@@ -109,7 +78,7 @@
           <p class="font-body text-brand-text/55 text-base leading-relaxed mb-8">
             Your member area is waiting. Sign in to access orders, saved items, and member benefits.
           </p>
-          <a href="/login.html" class="inline-flex items-center gap-2.5 px-8 py-4 bg-brand-primary text-white font-sans font-bold text-base rounded-xl hover:bg-[#005580] transition-colors shadow-[0_4px_24px_rgba(0,107,150,0.25)]">
+          <a href="/login/" class="inline-flex items-center gap-2.5 px-8 py-4 bg-brand-primary text-white font-sans font-bold text-base rounded-xl hover:bg-[#005580] transition-colors shadow-[0_4px_24px_rgba(0,107,150,0.25)]">
             Sign In
             <i data-lucide="arrow-right" class="w-4 h-4"></i>
           </a>
@@ -183,7 +152,7 @@
               <div class="order-row px-6 py-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                 <div class="flex items-center gap-4">
                   <div class="w-12 h-12 rounded-xl overflow-hidden bg-brand-surface flex-shrink-0">
-                    <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_96,c_fill/v1777952844/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/g6uec6ksdecsgs8ybt9r.png" alt="Steel Bottle" class="w-full h-full object-cover" />
+                    <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_96,c_fill/v1777952844/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/g6uec6ksdecsgs8ybt9r.png" alt="Steel Bottle" class="w-full h-full object-cover">
                   </div>
                   <div>
                     <p class="font-sans font-bold text-sm text-brand-text">Steel Water Bottle - 750ml</p>
@@ -193,7 +162,7 @@
                 <div class="flex items-center gap-4 md:gap-6">
                   <p class="font-sans font-bold text-sm text-brand-text">₹799</p>
                   <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider" style="background:rgba(153,189,5,0.1);color:#99BD05;">Delivered</span>
-                  <a href="/product.html" class="font-body text-xs text-brand-primary hover:underline">View product</a>
+                  <a href="/product/" class="font-body text-xs text-brand-primary hover:underline">View product</a>
                 </div>
               </div>
               <!-- Order 2 -->
@@ -210,7 +179,7 @@
                 <div class="flex items-center gap-4 md:gap-6">
                   <p class="font-sans font-bold text-sm text-brand-text">₹298</p>
                   <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider" style="background:rgba(153,189,5,0.1);color:#99BD05;">Delivered</span>
-                  <a href="/product.html" class="font-body text-xs text-brand-primary hover:underline">View product</a>
+                  <a href="/product/" class="font-body text-xs text-brand-primary hover:underline">View product</a>
                 </div>
               </div>
               <!-- Order 3 -->
@@ -227,7 +196,7 @@
                 <div class="flex items-center gap-4 md:gap-6">
                   <p class="font-sans font-bold text-sm text-brand-text">₹1,199</p>
                   <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider" style="background:rgba(153,189,5,0.1);color:#99BD05;">Delivered</span>
-                  <a href="/product.html" class="font-body text-xs text-brand-primary hover:underline">View product</a>
+                  <a href="/product/" class="font-body text-xs text-brand-primary hover:underline">View product</a>
                 </div>
               </div>
             </div>
@@ -238,13 +207,13 @@
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div class="bg-white rounded-2xl overflow-hidden flex items-center gap-4 p-6" style="border:1.5px solid rgba(34,34,34,0.07);">
                 <div class="w-16 h-16 rounded-xl overflow-hidden bg-brand-surface flex-shrink-0">
-                  <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_128,c_fill/v1777952844/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/g6uec6ksdecsgs8ybt9r.png" alt="Steel Bottle" class="w-full h-full object-cover" />
+                  <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_128,c_fill/v1777952844/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/g6uec6ksdecsgs8ybt9r.png" alt="Steel Bottle" class="w-full h-full object-cover">
                 </div>
                 <div class="flex-1 min-w-0">
                   <p class="font-sans font-bold text-sm text-brand-text">Steel Water Bottle - 1 Litre</p>
                   <p class="font-body text-xs text-brand-text/45 mt-0.5">₹999 onwards</p>
                 </div>
-                <a href="/product.html" class="flex-shrink-0 px-4 py-2 bg-brand-primary text-white font-sans font-bold text-xs rounded-lg hover:bg-[#005580] transition-colors">Buy now</a>
+                <a href="/product/" class="flex-shrink-0 px-4 py-2 bg-brand-primary text-white font-sans font-bold text-xs rounded-lg hover:bg-[#005580] transition-colors">Buy now</a>
               </div>
               <div class="bg-white rounded-2xl overflow-hidden flex items-center gap-4 p-6" style="border:1.5px solid rgba(34,34,34,0.07);">
                 <div class="w-16 h-16 rounded-xl overflow-hidden bg-brand-surface flex-shrink-0 flex items-center justify-center">
@@ -254,7 +223,7 @@
                   <p class="font-sans font-bold text-sm text-brand-text">Stainless Steel Tongue Scraper</p>
                   <p class="font-body text-xs text-brand-text/45 mt-0.5">₹299 onwards</p>
                 </div>
-                <a href="/product.html" class="flex-shrink-0 px-4 py-2 bg-brand-primary text-white font-sans font-bold text-xs rounded-lg hover:bg-[#005580] transition-colors">Buy now</a>
+                <a href="/product/" class="flex-shrink-0 px-4 py-2 bg-brand-primary text-white font-sans font-bold text-xs rounded-lg hover:bg-[#005580] transition-colors">Buy now</a>
               </div>
             </div>
           </div>
@@ -301,11 +270,11 @@
                 <div class="space-y-5">
                   <div>
                     <label class="font-sans font-bold text-xs text-brand-text/50 uppercase tracking-wider block mb-1.5">Display Name</label>
-                    <input type="text" id="settings-name" class="w-full px-4 py-3 rounded-xl font-body text-sm text-brand-text bg-brand-surface outline-none border-2 border-transparent focus:border-brand-primary transition-colors" />
+                    <input type="text" id="settings-name" class="w-full px-4 py-3 rounded-xl font-body text-sm text-brand-text bg-brand-surface outline-none border-2 border-transparent focus:border-brand-primary transition-colors">
                   </div>
                   <div>
                     <label class="font-sans font-bold text-xs text-brand-text/50 uppercase tracking-wider block mb-1.5">Email Address</label>
-                    <input type="email" id="settings-email" class="w-full px-4 py-3 rounded-xl font-body text-sm text-brand-text bg-brand-surface outline-none border-2 border-transparent focus:border-brand-primary transition-colors" />
+                    <input type="email" id="settings-email" class="w-full px-4 py-3 rounded-xl font-body text-sm text-brand-text bg-brand-surface outline-none border-2 border-transparent focus:border-brand-primary transition-colors">
                   </div>
                   <div class="pt-2">
                     <button id="save-settings-btn" class="px-6 py-3 bg-brand-primary text-white font-sans font-bold text-sm rounded-xl hover:bg-[#005580] transition-colors">
@@ -338,7 +307,7 @@
               <p class="kicker text-brand-primary mb-2 flex items-center gap-2"><span class="w-4 h-px bg-brand-primary"></span>You might also like</p>
               <h2 class="font-sans font-bold text-2xl text-brand-text">Complete your setup.</h2>
             </div>
-            <a href="/shop.html" class="hidden md:flex items-center gap-2 font-sans font-bold text-sm text-brand-primary hover:text-[#005580] transition-colors group">
+            <a href="/shop/" class="hidden md:flex items-center gap-2 font-sans font-bold text-sm text-brand-primary hover:text-[#005580] transition-colors group">
               View all
               <i data-lucide="arrow-right" class="w-4 h-4 transform group-hover:translate-x-1 transition-transform"></i>
             </a>
@@ -346,7 +315,7 @@
           <div class="grid grid-cols-2 md:grid-cols-3 gap-6 reveal active" style="transition-delay:80ms;">
             <div class="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
               <div class="aspect-square overflow-hidden bg-brand-surface">
-                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_400,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-brush.png" alt="Bamboo Toothbrush" class="w-full h-full object-cover" />
+                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_400,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-brush.png" alt="Bamboo Toothbrush" class="w-full h-full object-cover">
               </div>
               <div class="p-4">
                 <p class="font-sans font-bold text-sm text-brand-text mb-0.5">Bamboo Toothbrush</p>
@@ -355,7 +324,7 @@
             </div>
             <div class="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
               <div class="aspect-square overflow-hidden bg-brand-surface">
-                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_400,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-cleaner.png" alt="Tongue Scraper" class="w-full h-full object-cover" />
+                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_400,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-cleaner.png" alt="Tongue Scraper" class="w-full h-full object-cover">
               </div>
               <div class="p-4">
                 <p class="font-sans font-bold text-sm text-brand-text mb-0.5">Stainless Tongue Scraper</p>
@@ -364,7 +333,7 @@
             </div>
             <div class="hidden md:block bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
               <div class="aspect-square overflow-hidden bg-brand-surface">
-                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_400,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-bottle.png" alt="Steel Bottle 1L" class="w-full h-full object-cover" />
+                <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_400,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-bottle.png" alt="Steel Bottle 1L" class="w-full h-full object-cover">
               </div>
               <div class="p-4">
                 <p class="font-sans font-bold text-sm text-brand-text mb-0.5">Steel Bottle - 1 Litre</p>
@@ -381,12 +350,12 @@
 
   <footer class="bg-[#111111] text-white pt-12 pb-8 px-6 md:px-12" style="border-top:3px solid #006B96;">
     <div class="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
-      <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-8 w-auto object-contain" />
+      <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" class="h-8 w-auto object-contain">
       <p class="font-body text-white/30 text-sm">© <span id="year"></span> Eqo Logiq. All rights reserved.</p>
       <div class="flex items-center gap-6">
-        <a href="/policy.html" class="font-body text-white/30 hover:text-brand-primary text-sm transition-colors">Privacy</a>
-        <a href="/shop.html" class="font-body text-white/30 hover:text-brand-primary text-sm transition-colors">Shop</a>
-        <a href="/contact.html" class="font-body text-white/30 hover:text-brand-primary text-sm transition-colors">Contact</a>
+        <a href="/policy/" class="font-body text-white/30 hover:text-brand-primary text-sm transition-colors">Privacy</a>
+        <a href="/shop/" class="font-body text-white/30 hover:text-brand-primary text-sm transition-colors">Shop</a>
+        <a href="/contact/" class="font-body text-white/30 hover:text-brand-primary text-sm transition-colors">Contact</a>
       </div>
     </div>
   </footer>
@@ -454,7 +423,7 @@
     const searchModal=document.getElementById('search-modal'),searchInput=document.getElementById('search-input'),searchResults=document.getElementById('search-results');
     function openSearch(){searchModal.classList.remove('pointer-events-none','opacity-0');searchModal.classList.add('pointer-events-auto','opacity-100');searchInput.value='';renderResults('');setTimeout(()=>searchInput.focus(),50);}
     function closeSearch(){searchModal.classList.add('pointer-events-none','opacity-0');searchModal.classList.remove('pointer-events-auto','opacity-100');}
-    function renderResults(q){const t=q.trim().toLowerCase();const hits=t.length===0?SEARCH_DATA.slice(0,5):SEARCH_DATA.filter(d=>(d.title+' '+d.desc).toLowerCase().includes(t));if(!hits.length){searchResults.innerHTML='<p class="font-body text-sm text-brand-text/40 px-5 py-6 text-center">No results</p>';return;}searchResults.innerHTML=hits.map(h=>`<a href="${h.url}" class="flex items-center gap-4 px-5 py-3.5 hover:bg-brand-surface transition-colors"><div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 ${h.type==='product'?'bg-brand-primary/10':'bg-brand-text/6'}"></div><div class="flex-1 min-w-0"><p class="font-sans font-bold text-sm text-brand-text truncate">${h.title}</p></div></a>`).join('');}
+    function renderResults(q){const t=q.trim().toLowerCase();const hits=t.length===0?SEARCH_DATA.slice(0,5):SEARCH_DATA.filter(d=>(d.title+' '+d.desc).toLowerCase().includes(t));if(!hits.length){searchResults.innerHTML='<p class="font-body text-sm text-brand-text/40 px-5 py-6 text-center">No results</p>';return;}searchResults.innerHTML=hits.map(h=>\`<a href="\${h.url}" class="flex items-center gap-4 px-5 py-3.5 hover:bg-brand-surface transition-colors"><div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 \${h.type==='product'?'bg-brand-primary/10':'bg-brand-text/6'}"></div><div class="flex-1 min-w-0"><p class="font-sans font-bold text-sm text-brand-text truncate">\${h.title}</p></div></a>\`).join('');}
     document.getElementById('search-btn').addEventListener('click',openSearch);
     document.getElementById('search-close').addEventListener('click',closeSearch);
     searchModal.addEventListener('click',e=>{if(e.target===searchModal)closeSearch();});
@@ -482,7 +451,7 @@
     </div>
     <div style="flex:1;overflow-y:auto;padding:1.25rem 1.5rem;display:flex;flex-direction:column;gap:1rem;">
       <div style="background:#fff;border-radius:1rem;padding:1rem;display:flex;gap:1rem;align-items:center;box-shadow:0 2px 12px rgba(34,34,34,0.06);">
-        <div style="width:64px;height:64px;border-radius:0.75rem;background:#EAE6DF;flex-shrink:0;overflow:hidden;"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-bottle.png" alt="Core Bottle" style="width:100%;height:100%;object-fit:cover;" /></div>
+        <div style="width:64px;height:64px;border-radius:0.75rem;background:#EAE6DF;flex-shrink:0;overflow:hidden;"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-bottle.png" alt="Core Bottle" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="flex:1;min-width:0;">
           <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.875rem;color:#222;">Steel Water Bottle - 750ml</p>
           <p style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(34,34,34,0.5);margin-top:0.125rem;">Food-grade steel • Leak-proof</p>
@@ -497,7 +466,7 @@
         </div>
       </div>
       <div style="background:#fff;border-radius:1rem;padding:1rem;display:flex;gap:1rem;align-items:center;box-shadow:0 2px 12px rgba(34,34,34,0.06);">
-        <div style="width:64px;height:64px;border-radius:0.75rem;background:#EAE6DF;flex-shrink:0;overflow:hidden;"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-brush.png" alt="Bamboo Brush" style="width:100%;height:100%;object-fit:cover;" /></div>
+        <div style="width:64px;height:64px;border-radius:0.75rem;background:#EAE6DF;flex-shrink:0;overflow:hidden;"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-brush.png" alt="Bamboo Brush" style="width:100%;height:100%;object-fit:cover;"></div>
         <div style="flex:1;min-width:0;">
           <p style="font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.875rem;color:#222;">Bamboo Toothbrush</p>
           <p style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(34,34,34,0.5);margin-top:0.125rem;">Biodegradable handle • BPA-free</p>
@@ -518,23 +487,15 @@
         <span style="font-family:'Space Grotesk',sans-serif;font-weight:700;color:#222;">₹1,097</span>
       </div>
       <p style="font-family:'Inter',sans-serif;font-size:0.75rem;color:rgba(34,34,34,0.4);margin-bottom:1rem;">Inclusive of all taxes · Free shipping</p>
-      <a href="/checkout.html" style="display:block;width:100%;padding:1rem;background:#006B96;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9375rem;border-radius:0.75rem;text-align:center;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#005580'" onmouseout="this.style.background='#006B96'">Proceed to Checkout</a>
-      <a href="/cart.html" style="display:block;text-align:center;margin-top:0.75rem;font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:rgba(34,34,34,0.5);text-decoration:none;" onmouseover="this.style.color='#006B96'" onmouseout="this.style.color='rgba(34,34,34,0.5)'">View full cart →</a>
+      <a href="/checkout/" style="display:block;width:100%;padding:1rem;background:#006B96;color:#fff;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:0.9375rem;border-radius:0.75rem;text-align:center;text-decoration:none;transition:background 0.2s;" onmouseover="this.style.background='#005580'" onmouseout="this.style.background='#006B96'">Proceed to Checkout</a>
+      <a href="/cart/" style="display:block;text-align:center;margin-top:0.75rem;font-family:'Inter',sans-serif;font-size:0.8125rem;font-weight:500;color:rgba(34,34,34,0.5);text-decoration:none;" onmouseover="this.style.color='#006B96'" onmouseout="this.style.color='rgba(34,34,34,0.5)'">View full cart →</a>
     </div>
   </div>
   <!-- WhatsApp Support Button -->
-  <a id="wa-support-btn"
-     href="https://wa.me/919667691316"
-     target="_blank"
-     rel="noopener noreferrer"
-     aria-label="Chat with us on WhatsApp"
-     style="position:fixed;bottom:28px;right:24px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:12px 20px;background:#1C1C1C;color:#fff;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;letter-spacing:0.01em;border-radius:100px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,0.22);opacity:0;transform:translateY(10px);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1),background 0.2s ease,box-shadow 0.2s ease;will-change:transform,opacity;"
-     onmouseover="this.style.background='#006B96';this.style.boxShadow='0 6px 24px rgba(0,107,150,0.28)';this.style.transform='translateY(-2px)';"
-     onmouseout="this.style.background='#1C1C1C';this.style.boxShadow='0 4px 18px rgba(0,0,0,0.22)';this.style.transform='translateY(0)';"
-  >
+  <a id="wa-support-btn" href="https://wa.me/919667691316" target="_blank" rel="noopener noreferrer" aria-label="Chat with us on WhatsApp" style="position:fixed;bottom:28px;right:24px;z-index:9999;display:inline-flex;align-items:center;gap:9px;padding:12px 20px;background:#1C1C1C;color:#fff;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;letter-spacing:0.01em;border-radius:100px;text-decoration:none;box-shadow:0 4px 18px rgba(0,0,0,0.22);opacity:0;transform:translateY(10px);transition:opacity 0.45s cubic-bezier(0.22,1,0.36,1),transform 0.45s cubic-bezier(0.22,1,0.36,1),background 0.2s ease,box-shadow 0.2s ease;will-change:transform,opacity;" onmouseover="this.style.background='#006B96';this.style.boxShadow='0 6px 24px rgba(0,107,150,0.28)';this.style.transform='translateY(-2px)';" onmouseout="this.style.background='#1C1C1C';this.style.boxShadow='0 4px 18px rgba(0,0,0,0.22)';this.style.transform='translateY(0)';">
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink:0;">
-      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"/>
-      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.405A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.099-1.132l-.293-.174-3.046.86.861-3.047-.191-.311A7.96 7.96 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z" fill="#25D366"/>
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" fill="#25D366"></path>
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.89.525 3.66 1.438 5.168L2 22l4.979-1.405A9.96 9.96 0 0012 22c5.523 0 10-4.477 10-10S17.523 2 12 2zm0 18a7.96 7.96 0 01-4.099-1.132l-.293-.174-3.046.86.861-3.047-.191-.311A7.96 7.96 0 014 12c0-4.418 3.582-8 8-8s8 3.582 8 8-3.582 8-8 8z" fill="#25D366"></path>
     </svg>
     <span>Questions Before Ordering?</span>
   </a>
@@ -551,5 +512,9 @@
       setTimeout(function(){ btn.style.opacity = '1'; btn.style.transform = 'translateY(0)'; }, 600);
     })();
   </script>
-</body>
-</html>
+
+
+` }} suppressHydrationWarning />
+    </>
+  );
+}
