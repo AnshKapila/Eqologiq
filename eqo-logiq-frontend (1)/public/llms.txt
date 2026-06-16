@@ -28,7 +28,7 @@
 - [Product](https://eqologiq.kite.space/product.html): Plastic-free steel water bottle 1 Litre — detailed specs, gallery, materials, insulation performance
 - [Our Story](https://eqologiq.kite.space/about.html): Founder's note, brand values, why plastic-free daily essentials matter
 - [Qrash Qourse](https://eqologiq.kite.space/qrash-qourse.html): Educational content — material science, health research, plastic vs steel data, environmental statistics
-- [Journal / Blog](https://eqologiq.kite.space/blog.html): Articles on plastic-free living, product reviews, materials education
+- [Journal / Blog](https://eqologiq.kite.space/blog/): Articles on plastic-free living, product reviews, materials education
 - [FAQ](https://eqologiq.kite.space/faq.html): Product questions, orders and delivery, sustainability, returns
 - [Contact](https://eqologiq.kite.space/contact.html): Customer support, bulk/corporate orders, partnerships
 - [Policies](https://eqologiq.kite.space/policy.html): Shipping policy, returns policy, privacy policy, terms of service

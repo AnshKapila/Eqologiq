@@ -21,7 +21,7 @@ export function Header() {
       <nav id="navbar" className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-300 ${isScrolled ? 'scrolled bg-[#F7F5F0] border-b border-black/10 shadow-sm py-2' : ''}`}>
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group z-50">
-            <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" className="h-10 w-auto object-contain" />
+            <img src="/images/logo.png" alt="Eqo Logiq" className="h-10 w-auto object-contain" />
           </Link>
 
           <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
@@ -54,7 +54,7 @@ export function Header() {
       <div className={`fixed inset-0 z-[60] bg-[#F7F5F0] transform transition-transform duration-500 ease-in-out flex flex-col ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}`}>
         <div className="h-24 flex items-center justify-between px-6">
           <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-            <img src="https://static.kite.ai/image/upload/c_crop,x_0.000,y_0.196,w_1.000,h_0.609/v1780077526/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/wbsbvykvt63upqxf8tmm.png" alt="Eqo Logiq" className="h-8 w-auto object-contain" />
+            <img src="/images/logo.png" alt="Eqo Logiq" className="h-8 w-auto object-contain" />
           </Link>
           <button onClick={() => setIsMobileMenuOpen(false)} className="text-[#222222]"><i data-lucide="x" className="w-6 h-6"></i></button>
         </div>
@@ -76,7 +76,7 @@ export function Header() {
         {/* Hardcoded Cart Items */}
         <div className="flex-1 overflow-y-auto px-6 py-5 flex flex-col gap-4">
            <div className="bg-white rounded-2xl p-4 flex gap-4 items-center shadow-sm">
-             <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1781025150/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/opdo2msffmbuadqb816m.png" alt="Bottle" className="w-16 h-16 rounded-xl bg-[#EAE6DF] object-cover" />
+             <img src="/images/steel-bottle.png" alt="Bottle" className="w-16 h-16 rounded-xl bg-[#EAE6DF] object-cover" />
              <div className="flex-1">
                 <p className="font-sans font-bold text-sm text-[#222222]">Plastic Free Steel Bottle | 1 Litre</p>
                 <div className="flex items-center justify-between mt-3">

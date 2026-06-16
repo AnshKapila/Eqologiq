@@ -43,6 +43,7 @@ for (const file of htmlFiles) {
   $('#cart-overlay').remove();
   $('#cart-drawer').remove();
   $('#wa-support-btn').remove();
+  $('footer').remove();
   
   // Remove trailing scripts at the bottom of the body
   $('script').each((i, el) => {
@@ -65,11 +66,42 @@ for (const file of htmlFiles) {
     }
   });
 
+  // Strip inline HTML event handlers (invalid in React JSX)
+  $('*').each((i, el) => {
+    const attrs = el.attribs || {};
+    for (const name of Object.keys(attrs)) {
+      if (/^on[a-z]+$/i.test(name)) {
+        $(el).removeAttr(name);
+      }
+    }
+  });
+
+  // Product cards: div[onclick*="product"] → data-href for post-processing
+  $('div[onclick*="product"]').each((i, el) => {
+    $(el).removeAttr('onclick');
+    $(el).attr('data-product-link', 'true');
+  });
+
   // Extract body contents after removing layout elements
   let bodyHtml = $('body').html() || '';
 
   // Convert to JSX
   let jsxCode = converter.convert(bodyHtml);
+
+  // Post-process JSX: product card divs → Link, hover styles → Tailwind
+  jsxCode = jsxCode
+    .replace(/<div data-product-link="true"/g, '<Link href="/product/"')
+    .replace(/(<Link href="\/product\/"[\s\S]*?)<\/div>/g, (match) => {
+      const opens = (match.match(/<div[\s>]/g) || []).length;
+      const closes = (match.match(/<\/div>/g) || []).length;
+      if (closes === 1 && opens === 0) return match.replace('</div>', '</Link>');
+      return match;
+    })
+    .replace(/\s+onmouseenter="[^"]*"/g, '')
+    .replace(/\s+onmouseleave="[^"]*"/g, '')
+    .replace(/\s+onmouseover="[^"]*"/g, '')
+    .replace(/\s+onmouseout="[^"]*"/g, '')
+    .replace(/\s+onclick="[^"]*"/g, '');
   
   // Ensure we have a single root element if needed, though htmltojsx usually handles it 
   // if it's multiple elements, let's wrap in a Fragment just in case.
@@ -158,7 +190,7 @@ export const JsonLd${idx} = () => (
     componentStr = componentStr.replace('<>', `<>\n      ${jsonLdInjected}`);
   }
 
-  const finalCode = `import React from 'react';\n\n${metadataExport}${staticParamsStr}${componentStr}`;
+  const finalCode = `import React from 'react';\nimport Link from 'next/link';\n\n${metadataExport}${staticParamsStr}${componentStr}`;
   
   fs.writeFileSync(outPath, finalCode);
   console.log(`Migrated ${file} -> ${outPath}`);
