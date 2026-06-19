@@ -429,9 +429,9 @@ export default function Page() {
           <div className="max-w-xl">
             <p className="kicker mb-6 flex items-center gap-3" style={{color: '#006B96'}}>
               <span className="w-6 h-px bg-[#006B96] hover:bg-[#005580]" />
-              Customer reviews
+              What they said
             </p>
-            <h2 className="font-sans font-bold leading-[1.02] tracking-tight text-brand-text" style={{fontSize: 'clamp(2.4rem,5vw,4rem)'}}>Customer reviews.</h2>
+            <h2 className="font-sans font-bold leading-[1.02] tracking-tight text-brand-text" style={{fontSize: 'clamp(2.4rem,5vw,4rem)'}}>From the people who carried it.</h2>
             <p className="font-body text-brand-text/55 text-sm mt-3">Reviews from verified purchases.</p>
           </div>
         </div>
@@ -451,26 +451,21 @@ export default function Page() {
             <div className="reveal rounded-2xl p-8 pt-16 flex flex-col justify-between" style={{background: '#EDEAE3'}}>
               {/* Avatar */}
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0 flex items-center justify-center font-bold text-white text-sm bg-[#006B96] hover:bg-[#005580]">N</div>
+                <div className="w-11 h-11 rounded-full overflow-hidden flex-shrink-0 flex items-center justify-center font-bold text-white text-sm bg-[#006B96] hover:bg-[#005580]">B</div>
                 <div>
-                  <p className="font-sans font-bold text-sm text-brand-text">Nandita R.</p>
-                  <p className="font-body text-xs text-brand-text/45">Fitness enthusiast · Pune</p>
+                  <p className="font-sans font-bold text-sm text-brand-text">Bhavana</p>
+                  <p className="font-body text-xs text-brand-text/45">Andhra Pradesh</p>
                 </div>
               </div>
               {/* Quote */}
               <div className="flex-1 flex flex-col justify-center">
-                <p className="font-body text-brand-text/80 leading-relaxed text-base mb-6">"My gym bag used to smell like old plastic. Switched to the 750ml and it's been six months. Cold water every single session, zero taste issues. Genuinely can't go back."</p>
-              </div>
-              {/* Product tag */}
-              <div className="flex items-center gap-2 pt-4 border-t border-brand-text/8">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider" style={{background: 'rgba(0,107,150,0.08)', color: '#006B96'}}>Steel Bottle 750ml</span>
-                <span className="font-body text-[10px] text-brand-text/30">Verified purchase</span>
+                <p className="font-body text-brand-text/80 leading-relaxed text-base mb-6">"Very excited to get the products, will book onsite! And I found other products too like yours but they didn't disclose about the steel grade and silicone ring details even though they used one as per their pictures. As a business owner I understand, and I appreciate your initiative and transparency."</p>
               </div>
             </div>
             {/* Center featured card — image-heavy, drives the row height */}
             <div className="reveal rounded-2xl overflow-hidden relative group" style={{minHeight: 520}}>
               {/* Background image */}
-              <img src="/images/testimonial-priya-crop.png" alt="Priya M. — Mumbai, Eqo Logiq customer" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+              <img src="/images/testimonial-priya-crop.png" alt="Sandeep Mathur — Hamara Kartavyya, Eqo Logiq customer" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
               {/* Gradient overlay */}
               <div className="absolute inset-0" style={{background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.08) 40%, rgba(0,0,0,0.72) 100%)'}} />
               {/* Story-reel accent (subtle, not a real button) */}
@@ -479,17 +474,16 @@ export default function Page() {
               </div>
               {/* Top: profile avatar */}
               <div className="absolute top-5 left-5">
-                <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-white/30 flex items-center justify-center font-bold text-white text-sm bg-[#006B96] hover:bg-[#005580]">P</div>
+                <div className="w-11 h-11 rounded-full overflow-hidden border-2 border-white/30 flex items-center justify-center font-bold text-white text-sm bg-[#006B96] hover:bg-[#005580]">S</div>
               </div>
               {/* Bottom: quote and name */}
               <div className="absolute bottom-0 left-0 right-0 p-8">
-                <p className="font-body text-white leading-relaxed text-base mb-4">"I didn't buy it for the planet. I bought it because every plastic bottle I owned made my water taste like the container. This just works, on every level."</p>
+                <p className="font-body text-white leading-relaxed text-base mb-4">"The bottle is stylish, safe and long lasting and we will have it at our Kartavyya cleaning drives."</p>
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-sans font-bold text-sm text-white">Priya M.</p>
-                    <p className="font-body text-xs text-white/55">Daily commuter · Mumbai</p>
+                    <p className="font-sans font-bold text-sm text-white">Sandeep Mathur</p>
+                    <p className="font-body text-xs text-white/55">Hamara Kartavyya</p>
                   </div>
-                  <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider" style={{background: 'rgba(0,107,150,0.5)', color: 'white', border: '1px solid rgba(0,107,150,0.6)'}}>★ 5.0</span>
                 </div>
               </div>
             </div>
@@ -498,20 +492,16 @@ export default function Page() {
               {/* Right main card — grows to take most of the space */}
               <div className="reveal rounded-2xl p-8 flex flex-col flex-1" style={{background: '#EDEAE3'}}>
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white text-xs" style={{background: '#2B4C2B'}}>R</div>
+                  <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white text-xs" style={{background: '#2B4C2B'}}>P</div>
                   <div>
-                    <p className="font-sans font-bold text-sm text-brand-text">Rahul S.</p>
-                    <p className="font-body text-xs text-brand-text/45">Designer · Bengaluru</p>
+                    <p className="font-sans font-bold text-sm text-brand-text">Pratikcha Karki</p>
+                    <p className="font-body text-xs text-brand-text/45">Traveller</p>
                   </div>
                 </div>
-                <p className="font-body text-brand-text/75 leading-relaxed text-sm flex-1">"Switched my entire bathroom over. The tongue scraper alone is worth it. Feels like an actual tool, not something that'll snap after a week."</p>
-                <div className="mt-6 pt-4 border-t border-brand-text/8 flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider" style={{background: 'rgba(0,107,150,0.08)', color: '#006B96'}}>Oral Care</span>
-                  <span style={{color: '#F5A623', fontSize: '0.72rem', letterSpacing: '0.5px'}}>★★★★★</span>
-                </div>
+                <p className="font-body text-brand-text/75 leading-relaxed text-sm flex-1">"It's beautiful, meaningful and I'm going to carry it with me everywhere, no matter where I go."</p>
               </div>
-              {/* Peek card — fills remaining height */}
-              <div className="reveal rounded-2xl p-8 flex flex-col flex-1" style={{background: '#E5E2D9'}}>
+              {/* Peek card — hidden */}
+              <div className="reveal rounded-2xl p-8 flex flex-col flex-1" style={{background: '#E5E2D9', display: 'none'}}>
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white text-xs" style={{background: '#5A4A3A'}}>A</div>
                   <div>
@@ -530,46 +520,39 @@ export default function Page() {
             {/* Left card */}
             <div className="snap-start flex-shrink-0 w-[82vw] rounded-2xl p-6 flex flex-col" style={{background: '#EDEAE3', minHeight: 320}}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white text-sm bg-[#006B96] hover:bg-[#005580]">N</div>
+                <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white text-sm bg-[#006B96] hover:bg-[#005580]">B</div>
                 <div>
-                  <p className="font-sans font-bold text-sm text-brand-text">Nandita R.</p>
-                  <p className="font-body text-xs text-brand-text/45">Fitness enthusiast · Pune</p>
+                  <p className="font-sans font-bold text-sm text-brand-text">Bhavana</p>
+                  <p className="font-body text-xs text-brand-text/45">Andhra Pradesh</p>
                 </div>
               </div>
-              <p className="font-body text-brand-text/75 leading-relaxed text-sm flex-1">"My gym bag used to smell like old plastic. Switched to the 750ml. Cold water every session, zero taste issues."</p>
-              <div className="mt-6 pt-4 border-t border-brand-text/8">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider" style={{background: 'rgba(0,107,150,0.08)', color: '#006B96'}}>Steel Bottle 750ml</span>
-              </div>
+              <p className="font-body text-brand-text/75 leading-relaxed text-sm flex-1">"Very excited to get the products, will book onsite! And I found other products too like yours but they didn't disclose about the steel grade and silicone ring details even though they used one as per their pictures. As a business owner I understand, and I appreciate your initiative and transparency."</p>
             </div>
             {/* Featured card mobile */}
             <div className="snap-start flex-shrink-0 w-[82vw] rounded-2xl overflow-hidden relative" style={{minHeight: 380}}>
-              <img src="/images/proof-1.png" alt="Priya M. — Eqo Logiq customer" className="absolute inset-0 w-full h-full object-cover" />
+              <img src="/images/proof-1.png" alt="Sandeep Mathur — Eqo Logiq customer" className="absolute inset-0 w-full h-full object-cover" />
               <div className="absolute inset-0" style={{background: 'linear-gradient(to bottom,rgba(0,0,0,0.05) 30%,rgba(0,0,0,0.75) 100%)'}} />
               <div className="absolute top-4 left-4">
-                <div className="w-10 h-10 rounded-full border-2 border-white/30 flex items-center justify-center font-bold text-white text-sm bg-[#006B96] hover:bg-[#005580]">P</div>
+                <div className="w-10 h-10 rounded-full border-2 border-white/30 flex items-center justify-center font-bold text-white text-sm bg-[#006B96] hover:bg-[#005580]">S</div>
               </div>
               <div className="absolute bottom-0 left-0 right-0 p-6">
-                <p className="font-body text-white leading-relaxed text-sm mb-3">"Bought it because every plastic bottle made my water taste like the container. This just works."</p>
-                <p className="font-sans font-bold text-sm text-white">Priya M. <span className="font-body font-normal text-white/50 text-xs">· Mumbai</span></p>
+                <p className="font-body text-white leading-relaxed text-sm mb-3">"The bottle is stylish, safe and long lasting and we will have it at our Kartavyya cleaning drives."</p>
+                <p className="font-sans font-bold text-sm text-white">Sandeep Mathur <span className="font-body font-normal text-white/50 text-xs">· Hamara Kartavyya</span></p>
               </div>
             </div>
             {/* Rahul card mobile */}
             <div className="snap-start flex-shrink-0 w-[82vw] rounded-2xl p-6 flex flex-col" style={{background: '#EDEAE3', minHeight: 320}}>
               <div className="flex items-center gap-3 mb-6">
-                <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white text-xs" style={{background: '#2B4C2B'}}>R</div>
+                <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white text-xs" style={{background: '#2B4C2B'}}>P</div>
                 <div>
-                  <p className="font-sans font-bold text-sm text-brand-text">Rahul S.</p>
-                  <p className="font-body text-xs text-brand-text/45">Designer · Bengaluru</p>
+                  <p className="font-sans font-bold text-sm text-brand-text">Pratikcha Karki</p>
+                  <p className="font-body text-xs text-brand-text/45">Traveller</p>
                 </div>
               </div>
-              <p className="font-body text-brand-text/75 leading-relaxed text-sm flex-1">"Switched my entire bathroom over. The tongue scraper alone is worth it. Feels like an actual tool, not something that'll snap after a week."</p>
-              <div className="mt-6 pt-4 border-t border-brand-text/8 flex items-center justify-between">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[10px] font-sans font-bold uppercase tracking-wider" style={{background: 'rgba(0,107,150,0.08)', color: '#006B96'}}>Oral Care</span>
-                <span style={{color: '#F5A623', fontSize: '0.72rem'}}>★★★★★</span>
-              </div>
+              <p className="font-body text-brand-text/75 leading-relaxed text-sm flex-1">"It's beautiful, meaningful and I'm going to carry it with me everywhere, no matter where I go."</p>
             </div>
-            {/* Aarav peek card mobile */}
-            <div className="snap-start flex-shrink-0 w-[72vw] rounded-2xl p-6 flex flex-col" style={{background: '#E5E2D9', minHeight: 280}}>
+            {/* Aarav peek card mobile — hidden */}
+            <div className="snap-start flex-shrink-0 w-[72vw] rounded-2xl p-6 flex flex-col" style={{background: '#E5E2D9', minHeight: 280, display: 'none'}}>
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-bold text-white text-xs" style={{background: '#5A4A3A'}}>A</div>
                 <div>
