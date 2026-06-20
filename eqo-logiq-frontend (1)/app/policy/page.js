@@ -1,13 +1,17 @@
 import React from 'react';
+import Link from 'next/link';
 
 export const metadata = {
-  title: `Shipping, Returns & Privacy Policy | Eqo Logiq`,
-  description: `Eqo Logiq shipping policy, returns policy, privacy policy, and terms of service. Free shipping over ₹1,500. 7-day returns on eligible items.`,
-  alternates: { canonical: `https://eqologiq.kite.space/policy.html` },
+  title: 'Shipping, Returns & Privacy Policy',
+  description: 'Eqo Logiq shipping policy, returns policy, privacy policy, and terms of service. Free shipping over ₹1,500. 7-day returns on eligible items.',
   openGraph: {
-    title: `Shipping, Returns & Privacy Policy | Eqo Logiq`,
-    description: `Eqo Logiq shipping policy, returns policy, privacy policy, and terms of service. Free shipping over ₹1,500. 7-day returns on eligible items.`,
-    images: [{ url: `https://static.kite.ai/image/upload/f_auto,q_auto,w_1200/v1777921391/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/dblcljacximlbkcgccyk.png` }],
+    title: 'Shipping, Returns & Privacy Policy',
+    description: 'Eqo Logiq shipping policy, returns policy, privacy policy, and terms of service. Free shipping over ₹1,500. 7-day returns on eligible items.',
+    images: [{ url: '/images/hero-banner.png' }],
+  },
+  twitter: {
+    title: 'Shipping, Returns & Privacy Policy',
+    description: 'Eqo Logiq shipping policy, returns policy, privacy policy, and terms of service. Free shipping over ₹1,500. 7-day returns on eligible items.',
   },
 };
 
@@ -29,7 +33,7 @@ export default function Page() {
   <main className="pt-20">
     {/* BACK LINK + HEADER */}
     <div className="max-w-[860px] mx-auto px-6 md:px-12 pt-8">
-      <a href="/" className="inline-flex items-center gap-2 font-body text-sm text-brand-text/50 hover:text-brand-primary transition-colors mb-8"><i data-lucide="arrow-left" className="w-3.5 h-3.5" /> Back to Home</a>
+      <Link href="/" className="inline-flex items-center gap-2 font-body text-sm text-brand-text/50 hover:text-brand-primary transition-colors mb-8"><i data-lucide="arrow-left" className="w-3.5 h-3.5" /> Back to Home</Link>
     </div>
     <section className="max-w-[860px] mx-auto px-6 md:px-12 pb-6 reveal">
       <h1 className="font-sans font-bold text-3xl md:text-4xl text-brand-text mb-2">Policies &amp; Terms</h1>
@@ -61,7 +65,7 @@ export default function Page() {
         <h2>Address Accuracy</h2>
         <p>Customers must provide accurate and complete shipping information at the time of placing an order. Eqo Logiq is not responsible for delays or lost packages resulting from incorrect or incomplete addresses provided by the customer.</p>
         <h2>Order Status and Support</h2>
-        <p>For assistance with your order status or tracking information, please contact our support team at <a href="mailto:be.dysw4@slmail.me" style={{color: '#006B96'}}>be.dysw4@slmail.me</a>. If you have any further questions or concerns regarding your shipment, feel free to reach out and we will be happy to help.</p>
+        <p>For assistance with your order status or tracking information, please contact our support team at <Link href="mailto:be.dysw4@slmail.me" style={{color: '#006B96'}}>be.dysw4@slmail.me</Link>. If you have any further questions or concerns regarding your shipment, feel free to reach out and we will be happy to help.</p>
         <p style={{marginTop: '1.5rem', fontSize: '0.8125rem', color: 'rgba(34,34,34,0.4)'}}>Last updated: 12/12/25</p>
       </div>
       <div id="policy-returns" className="policy-content prose">
@@ -76,11 +80,11 @@ export default function Page() {
         <h2>Late or Missing Refunds</h2>
         <p>If you have not received your refund, please first check your bank account or statement again. If you still have not received it, please contact us and we will look into it for you.</p>
         <h2>Exchanges</h2>
-        <p>If you need to exchange an item for the same product, please email <a href="mailto:vbdmail@tutanota.com" style={{color: '#006B96'}}>vbdmail@tutanota.com</a> and send your item to our business address.</p>
+        <p>If you need to exchange an item for the same product, please email <Link href="mailto:vbdmail@tutanota.com" style={{color: '#006B96'}}>vbdmail@tutanota.com</Link> and send your item to our business address.</p>
         <h2>Shipping Returns</h2>
         <p>Customers are responsible for paying their own shipping costs when returning an item, unless the item is damaged, defective, or incorrect. Shipping costs are non-refundable in standard return cases.</p>
         <h2>Need Help?</h2>
-        <p>For any questions related to refunds and returns, please contact us at <a href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</a>.</p>
+        <p>For any questions related to refunds and returns, please contact us at <Link href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</Link>.</p>
       </div>
       <div id="policy-privacy" className="policy-content prose">
         <p>This is the Privacy Policy regarding your data and information that is collected by us. It is our responsibility to disclose the details about its collection and usage. We understand the importance and threats when it comes to data protection and want to provide people a shopping experience that respects their privacy.</p>
@@ -92,14 +96,14 @@ export default function Page() {
         <h2>Who We Share Data With</h2>
         <p>We do not share your data outside the organisation. We use the information only for our relationship with customers regarding the trade of products and services.</p>
         <h2>Data Retention and Deletion</h2>
-        <p>If you would like your data to be deleted or would like confirmation of what data we hold about you, please contact us at <a href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</a>.</p>
+        <p>If you would like your data to be deleted or would like confirmation of what data we hold about you, please contact us at <Link href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</Link>.</p>
         <h2>Your Data &amp; Privacy Rights</h2>
         <p>Different countries have their own privacy rights and regulations. While India does not currently have the most comprehensive privacy laws, Eqo Logiq aims to take care of user data through the use of open source software and encryption wherever possible.</p>
         <h2>Grievance Redressal</h2>
         <p>For any privacy-related concerns, please contact our grievance officer:</p>
         <ul>
           <li><strong>Name:</strong> Vaibhav</li>
-          <li><strong>Email:</strong> <a href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</a></li>
+          <li><strong>Email:</strong> <Link href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</Link></li>
           <li><strong>Phone:</strong> +91 9667691316</li>
         </ul>
       </div>
@@ -125,21 +129,7 @@ export default function Page() {
       </div>
     </section>
   </main>
-  <footer className="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-white/10">
-    <div className="max-w-[1400px] mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-        <div className="md:col-span-1"><img src="https://static.kite.ai/image/upload/v1780371329/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/fdqs1mpfbswxcq4trn6k.png" alt="Eqo Logiq" className="h-10 w-auto object-contain mb-6" /><p className="font-body text-white/50 text-sm max-w-xs">Plastic-free steel bottles and daily essentials. No plastic in any product.</p></div>
-        <div><h5 className="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Shop</h5><ul className="space-y-4"><li><a href="/shop/" className="font-body text-white/50 hover:text-white transition-colors">Steel Bottles</a></li><li><a href="/shop/" className="font-body text-white/50 hover:text-white transition-colors">Oral Care</a></li><li><a href="/shop/" className="font-body text-white/50 hover:text-white transition-colors">Bundles</a></li><li><a href="/contact/" className="font-body text-white/50 hover:text-white transition-colors">Corporate Gifting</a></li></ul></div>
-        <div><h5 className="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Company</h5><ul className="space-y-4"><li><a href="/about/" className="font-body text-white/50 hover:text-white transition-colors">Our Story</a></li><li><a href="/qrash-qourse/" className="font-body text-white/50 hover:text-white transition-colors">Impact Report</a></li><li><a href="/blog/" className="font-body text-white/50 hover:text-white transition-colors">Blogs</a></li><li><a href="/contact/" className="font-body text-white/50 hover:text-white transition-colors">Contact</a></li></ul></div>
-        <div><h5 className="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Stay Updated</h5><p className="font-body text-white/50 text-sm mb-4">No spam. Just product drops and real updates.</p><form className="flex border-b border-white/20 pb-2"><input type="email" placeholder="Email address" className="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30" /><button type="submit" className="text-white hover:text-brand-primary transition-colors"><i data-lucide="arrow-right" className="w-5 h-5" /></button></form></div>
-      </div>
-      <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 gap-6">
-        <p className="font-body text-white/30 text-sm">© <span id="year" /> Eqo Logiq. All rights reserved.</p>
-        <div className="flex items-center gap-6"><a href="/policy/" className="font-body text-white/30 hover:text-white text-sm transition-colors">Privacy Policy</a><a href="/policy/" className="font-body text-white/30 hover:text-white text-sm transition-colors">Terms of Service</a><a href="/policy/" className="font-body text-white/30 hover:text-white text-sm transition-colors">Shipping &amp; Returns</a></div>
-      </div>
-    </div>
-  </footer>
-  {/* CART DRAWER */}
+{/* CART DRAWER */}
   {/* WhatsApp Support Button */}
   <style dangerouslySetInnerHTML={{__html: "\n    @media (max-width:640px){\n      #wa-support-btn { padding:10px 16px !important; font-size:12.5px !important; bottom:20px !important; right:16px !important; gap:7px !important; }\n      #wa-support-btn svg { width:16px !important; height:16px !important; }\n    }\n  " }} />
 </div>

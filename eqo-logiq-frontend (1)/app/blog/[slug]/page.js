@@ -1,25 +1,153 @@
-import React from 'react';
+import Link from 'next/link';
+import Image from 'next/image';
+import Reveal from '../../../components/Reveal';
+import { stripHtml } from '../../../lib/woocommerce';
 
-export const metadata = {
-  title: `The math behind switching to a reusable bottle | Eqo Logiq Journal`,
-  description: `We ran the numbers on plastic bottle consumption for a typical Indian household. The results are not dramatic, they're just arithmetic.`,
+export const dynamicParams = false;
+
+function getWpOrigin() {
+  return (
+    process.env.WP_ORIGIN ||
+    process.env.NEXT_PUBLIC_WP_ORIGIN ||
+    process.env.NEXT_PUBLIC_WP_BASE_URL ||
+    'https://eqologiq.in'
+  );
+}
+
+async function fetchJson(url) {
+  const res = await fetch(url, { method: 'GET', next: { revalidate: false } });
+  if (!res.ok) return null;
+  return await res.json().catch(() => null);
+}
+
+async function fetchPost(slug) {
+  const origin = getWpOrigin();
+  const url = `${origin}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_embed=1`;
+  const data = await fetchJson(url);
+  return Array.isArray(data) ? data[0] : null;
+}
+
+const POST = {
+  slug: 'example-post',
+  title: `The math behind switching to a reusable bottle, and why it's simpler than you think.`,
+  shortTitle: 'The math behind switching',
+  description:
+    `We ran the numbers on plastic bottle consumption for a typical Indian household. The results are not dramatic, they're just arithmetic.`,
+  category: 'Impact',
+  coverImage: '/images/feature-lifestyle.png',
+  coverAlt: 'Eqo Logiq Core Bottle in use',
 };
+
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  if (!slug) return {};
+
+  const post = await fetchPost(slug);
+  if (!post) {
+    if (slug !== POST.slug) return {};
+    return {
+      title: POST.title,
+      description: POST.description,
+      openGraph: {
+        title: POST.title,
+        description: POST.description,
+        images: [{ url: POST.coverImage }],
+      },
+      twitter: {
+        title: POST.title,
+        description: POST.description,
+        images: [POST.coverImage],
+      },
+    };
+  }
+
+  const title = stripHtml(post.title?.rendered || '');
+  const description = stripHtml(post.excerpt?.rendered || '');
+  const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || POST.coverImage;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${baseUrl}/blog/${slug}/`,
+      images: [{ url: image }],
+    },
+    twitter: {
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
 
 export function generateStaticParams() {
   return [{ slug: 'example-post' }];
 }
 
-export default function Page() {
+export default async function Page({ params }) {
+  const { slug } = await params;
+  const post = await fetchPost(slug);
+
+  if (slug !== POST.slug) {
+    return (
+      <main className="pt-28 pb-24 bg-brand-base">
+        <div className="max-w-[780px] mx-auto px-6 md:px-12">
+          <h1 className="font-sans font-bold text-3xl text-brand-text">Post not found</h1>
+          <p className="font-body text-brand-text/60 mt-3">
+            This article hasn&apos;t been migrated yet.
+          </p>
+          <Link href="/blog/" className="inline-flex mt-6 text-brand-primary font-body font-medium hover:underline">
+            Back to blog
+          </Link>
+        </div>
+      </main>
+    );
+  }
+
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
+  const ldJson = post ? {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": stripHtml(post.title?.rendered || POST.title),
+    "image": post._embedded?.['wp:featuredmedia']?.[0]?.source_url || `${baseUrl}${POST.coverImage}`,
+    "datePublished": post.date || new Date().toISOString(),
+    "dateModified": post.modified || new Date().toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": post._embedded?.author?.[0]?.name || "Eqo Logiq Team"
+    }
+  } : {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": POST.title,
+    "image": `${baseUrl}${POST.coverImage}`,
+    "datePublished": new Date().toISOString(),
+    "dateModified": new Date().toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": "Eqo Logiq Team"
+    }
+  };
+
   return (
     <>
-<div>
-  {/* SEARCH MODAL */}
-  <div id="search-modal" className="fixed inset-0 z-[70] flex flex-col items-center pt-24 px-4 pointer-events-none opacity-0 transition-opacity duration-200" style={{background: 'rgba(34,34,34,0.6)', backdropFilter: 'blur(6px)'}}>
-    <div className="w-full max-w-2xl bg-brand-base rounded-2xl shadow-2xl overflow-hidden">
-      <div className="flex items-center gap-3 px-5 py-4 border-b border-brand-text/10">
-        <i data-lucide="search" className="w-5 h-5 text-brand-text/40 flex-shrink-0" />
-        <input id="search-input" type="text" placeholder="Search products, pages…" autoComplete="off" className="flex-1 bg-transparent font-body text-base text-brand-text placeholder-brand-text/35 outline-none" />
-        <button id="search-close" className="p-1 text-brand-text/40 hover:text-brand-text transition-colors" aria-label="Close search"><i data-lucide="x" className="w-5 h-5" /></button>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
+      <main className="pt-20">
+      <div className="max-w-[780px] mx-auto px-6 md:px-12 pt-8 pb-4">
+        <nav className="flex items-center gap-2 font-body text-sm text-brand-text/40">
+          <Link href="/" className="hover:text-brand-primary transition-colors">
+            Home
+          </Link>
+          <span className="w-1 h-1 rounded-full bg-brand-text/15" aria-hidden="true" />
+          <Link href="/blog/" className="hover:text-brand-primary transition-colors">
+            Blogs
+          </Link>
+          <span className="w-1 h-1 rounded-full bg-brand-text/15" aria-hidden="true" />
+          <span className="text-brand-text/70 truncate">{POST.shortTitle}</span>
+        </nav>
       </div>
       <div id="search-results" className="max-h-[60vh] overflow-y-auto py-2" />
     </div>
@@ -91,6 +219,32 @@ export default function Page() {
   <style dangerouslySetInnerHTML={{__html: "\n    @media (max-width:640px){\n      #wa-support-btn { padding:10px 16px !important; font-size:12.5px !important; bottom:20px !important; right:16px !important; gap:7px !important; }\n      #wa-support-btn svg { width:16px !important; height:16px !important; }\n    }\n  " }} />
 </div>
 
-</>
+        <Reveal className="mt-16 pt-10 border-t border-brand-text/8">
+          <p className="kicker text-brand-text/40 mb-6">What we recommend</p>
+          <div className="flex flex-col sm:flex-row gap-6 items-center bg-white rounded-2xl p-6 shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
+            <div className="w-24 h-24 bg-brand-surface rounded-xl flex-shrink-0 overflow-hidden">
+              <Image src="/images/prod-bottle.png" alt="Core Bottle Cobalt Blue" fill sizes="96px" className="object-cover" />
+            </div>
+            <div className="flex-1">
+              <h3 className="font-sans font-bold text-lg text-brand-text mb-1">The Core Bottle</h3>
+              <p className="font-body text-sm text-brand-text/60 mb-1">
+                Matte Cobalt • 750ml • Food-grade stainless steel
+              </p>
+              <div className="flex items-baseline gap-2">
+                <span className="font-sans font-bold text-xl text-brand-text">₹1,299</span>
+                <span className="text-sm text-brand-text/35 line-through font-body">₹1,799</span>
+              </div>
+            </div>
+            <Link
+              href="/product/example-product/"
+              className="inline-flex items-center justify-center px-6 py-3 bg-brand-primary text-white font-sans font-bold text-sm rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap"
+            >
+              Shop this
+            </Link>
+          </div>
+        </Reveal>
+      </article>
+    </main>
+    </>
   );
 }

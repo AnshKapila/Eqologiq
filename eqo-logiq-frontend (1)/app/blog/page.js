@@ -1,15 +1,73 @@
-import React from 'react';
+import Link from 'next/link';
+import Reveal from '../../components/Reveal';
 
 export const metadata = {
   title: `Journal | Eqo Logiq Blog on Plastic-Free Living`,
   description: `Short reads. Real thoughts. The Eqo Logiq journal on plastic-free products, materials science, and daily life without plastic.`,
-  alternates: { canonical: `https://eqologiq.kite.space/blog.html` },
+  alternates: { canonical: `https://eqologiq.kite.space/blog/` },
   openGraph: {
     title: `Journal | Eqo Logiq Blog on Plastic-Free Living`,
     description: `Short reads. Real thoughts. The Eqo Logiq journal on plastic-free products, materials science, and daily life without plastic.`,
-    images: [{ url: `https://static.kite.ai/image/upload/f_auto,q_auto,w_1200/v1777921391/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/dblcljacximlbkcgccyk.png` }],
+    images: [{ url: `/images/hero-banner.png` }],
   },
 };
+
+const POSTS = [
+  {
+    slug: 'example-post',
+    title: 'Five things I noticed after switching from plastic to steel for six months.',
+    excerpt:
+      'Water tastes different. Not better, exactly. Just neutral. Like how it should taste. That was the first thing I noticed, and it was unexpected.',
+    image: '/images/proof-1.png',
+    imageAlt: 'Person using an Eqo Logiq steel bottle',
+    delayMs: 0,
+  },
+  {
+    slug: 'example-post',
+    title: 'What I actually keep in my gym bag now, and why the bottle matters more than I expected.',
+    excerpt:
+      "Every litre you drink from plastic during a workout is a litre that's spent time in a container that wasn't designed for heat. Here's what I use instead.",
+    image: '/images/proof-2.png',
+    imageAlt: 'Steel water bottle in a gym bag',
+    delayMs: 80,
+  },
+  {
+    slug: 'example-post',
+    title: 'The honest review: I gave our Core Bottle to someone who buys cheap plastics and this is what they said.',
+    excerpt:
+      'I handed it to my flatmate without any sales pitch. Three weeks later, she asked where to buy one for her sister.',
+    image: '/images/feature-lifestyle.png',
+    imageAlt: 'Eqo Logiq Core Bottle in everyday lifestyle use',
+    delayMs: 160,
+  },
+  {
+    slug: 'example-post',
+    title: 'Bamboo toothbrushes: the good, the bad, and the bristle problem most brands ignore.',
+    excerpt:
+      "Most bamboo brushes advertise themselves as eco but use nylon-bristle alternatives that don't biodegrade. Here's the full picture.",
+    image: '/images/prod-brush.png',
+    imageAlt: 'Eqo Logiq bamboo toothbrush with vegan bristles',
+    delayMs: 0,
+  },
+  {
+    slug: 'example-post',
+    title: "I replaced my entire morning routine with three products. Here's what happened.",
+    excerpt:
+      "Steel bottle, bamboo brush, copper tongue cleaner. That's the whole stack. Two months in, I haven't added anything back.",
+    image: '/images/prod-cleaner.png',
+    imageAlt: 'Copper tongue cleaner from Eqo Logiq morning routine',
+    delayMs: 80,
+  },
+  {
+    slug: 'example-post',
+    title: 'Why "eco-friendly" has become meaningless and what to look for instead.',
+    excerpt:
+      'Any brand can print "eco-friendly" on a label. Here are the four questions that actually separate real from performance-washing.',
+    image: '/images/daily-use.png',
+    imageAlt: 'Eco-friendly product packaging vs plastic alternatives',
+    delayMs: 160,
+  },
+];
 
 export default function Page() {
   return (
@@ -80,34 +138,19 @@ export default function Page() {
             </div>
           </div>
         </div>
-      </div>
-    </section>
-    {/* Internal link: Qrash Qourse */}
-    <section className="bg-brand-base py-10 border-t border-brand-text/8">
-      <div className="max-w-[1400px] mx-auto px-6 md:px-12 text-center">
-        <p className="font-body text-brand-text/60 text-sm">Want the full science behind plastic-free living? Read the <a href="/qrash-qourse/" className="text-brand-primary font-medium hover:underline">Qrash Qourse</a>.</p>
-      </div>
-    </section>
-  </main>
-  <footer className="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-white/10">
-    <div className="max-w-[1400px] mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-        <div className="md:col-span-1"><img src="https://static.kite.ai/image/upload/v1780371329/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/fdqs1mpfbswxcq4trn6k.png" alt="Eqo Logiq" className="h-10 w-auto object-contain mb-6" /><p className="font-body text-white/50 text-sm max-w-xs">Plastic-free steel bottles and daily essentials. No plastic in any product.</p></div>
-        <div><h5 className="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Shop</h5><ul className="space-y-4"><li><a href="/shop/" className="font-body text-white/50 hover:text-white transition-colors">Steel Bottles</a></li><li><a href="/shop/" className="font-body text-white/50 hover:text-white transition-colors">Oral Care</a></li><li><a href="/shop/" className="font-body text-white/50 hover:text-white transition-colors">Bundles</a></li><li><a href="/contact/" className="font-body text-white/50 hover:text-white transition-colors">Corporate Gifting</a></li></ul></div>
-        <div><h5 className="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Company</h5><ul className="space-y-4"><li><a href="/about/" className="font-body text-white/50 hover:text-white transition-colors">Our Story</a></li><li><a href="/qrash-qourse/" className="font-body text-white/50 hover:text-white transition-colors">Impact Report</a></li><li><a href="/blog/" className="font-body text-white/50 hover:text-white transition-colors">Blogs</a></li><li><a href="/contact/" className="font-body text-white/50 hover:text-white transition-colors">Contact</a></li></ul></div>
-        <div><h5 className="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Stay Updated</h5><p className="font-body text-white/50 text-sm mb-4">No spam. Just product drops and real updates.</p><form className="flex border-b border-white/20 pb-2"><input type="email" placeholder="Email address" className="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30" /><button type="submit" className="text-white hover:text-brand-primary transition-colors"><i data-lucide="arrow-right" className="w-5 h-5" /></button></form></div>
-      </div>
-      <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 gap-6">
-        <p className="font-body text-white/30 text-sm">© <span id="year" /> Eqo Logiq. All rights reserved.</p>
-        <div className="flex items-center gap-6"><a href="/policy.html#privacy" className="font-body text-white/30 hover:text-white text-sm transition-colors">Privacy Policy</a><a href="/policy.html#terms" className="font-body text-white/30 hover:text-white text-sm transition-colors">Terms of Use</a><a href="/policy.html#shipping" className="font-body text-white/30 hover:text-white text-sm transition-colors">Shipping Policy</a><a href="/policy.html#returns" className="font-body text-white/30 hover:text-white text-sm transition-colors">Refund &amp; Returns</a></div>
-      </div>
-    </div>
-  </footer>
-  {/* CART DRAWER */}
-  {/* WhatsApp Support Button */}
-  <style dangerouslySetInnerHTML={{__html: "\n    @media (max-width:640px){\n      #wa-support-btn { padding:10px 16px !important; font-size:12.5px !important; bottom:20px !important; right:16px !important; gap:7px !important; }\n      #wa-support-btn svg { width:16px !important; height:16px !important; }\n    }\n  " }} />
-</div>
+      </section>
 
-</>
+      <section className="bg-brand-base py-10 border-t border-brand-text/8">
+        <div className="max-w-[1400px] mx-auto px-6 md:px-12 text-center">
+          <p className="font-body text-brand-text/60 text-sm">
+            Want the full science behind plastic-free living? Read the{' '}
+            <Link href="/qrash-qourse/" className="text-brand-primary font-medium hover:underline">
+              Qrash Qourse
+            </Link>
+            .
+          </p>
+        </div>
+      </section>
+    </main>
   );
 }

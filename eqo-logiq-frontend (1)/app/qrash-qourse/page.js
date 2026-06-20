@@ -1,17 +1,48 @@
-import React from 'react';
+import QrashQourseContent from './QrashQourseContent';
 
 export const metadata = {
-  title: `The Qrash Qourse | Plastic-Free Living Explained | Eqo Logiq`,
-  description: `The science behind plastic-free living. Materials, health data, and environmental impact — why what you use every day matters more than you think.`,
-  alternates: { canonical: `https://eqologiq.kite.space/qrash-qourse.html` },
+  title: 'The Qrash Qourse | Plastic-Free Living Explained | Eqo Logiq',
+  description:
+    'The science behind plastic-free living. Materials, health data, and environmental impact — why what you use every day matters more than you think.',
+  alternates: { canonical: 'https://eqologiq.kite.space/qrash-qourse/' },
   openGraph: {
-    title: `The Qrash Qourse | Plastic-Free Living Explained | Eqo Logiq`,
-    description: `The science behind plastic-free living. Materials, health data, and environmental impact — why what you use every day matters more than you think.`,
-    images: [{ url: `https://static.kite.ai/image/upload/f_auto,q_auto,w_1200/v1778268332/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/p791vnujzavosqtj0yla.png` }],
+    title: 'The Qrash Qourse | Plastic-Free Living Explained | Eqo Logiq',
+    description:
+      'The science behind plastic-free living. Materials, health data, and environmental impact — why what you use every day matters more than you think.',
+    images: [
+      {
+        url: '/images/about-hero.png',
+      },
+    ],
   },
 };
 
-export default function Page() {
+const articleJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: 'The Qrash Qourse: What You Use Every Day, Explained',
+  description:
+    'Material science, environmental data, and documented health research relevant to plastic-free daily essentials.',
+  image:
+    '/images/about-hero.png',
+  url: 'https://eqologiq.kite.space/qrash-qourse/',
+  author: {
+    '@type': 'Organization',
+    name: 'Eqo Logiq',
+    url: 'https://eqologiq.kite.space/',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Eqo Logiq',
+    logo: {
+      '@type': 'ImageObject',
+      url: '/images/logo-mark.png',
+    },
+  },
+  dateModified: '2026-06-12',
+};
+
+export default function QrashQoursePage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: `
