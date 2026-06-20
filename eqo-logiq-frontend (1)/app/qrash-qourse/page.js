@@ -105,7 +105,7 @@ export default function Page() {
           {/* Right: graphic */}
           <div className="w-full md:w-[45%] reveal" style={{transitionDelay: '80ms'}}>
             <div className="rounded-2xl overflow-hidden" style={{background: '#EAE6DF'}}>
-              <img src="https://static.kite.ai/image/upload/v1779973694/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/brmwveksy2kh8fyje8au.png" alt="Material science graphic: plastic vs stainless steel" className="w-full h-auto" onerror="this.outerHTML='<div style=\'min-height:360px;display:flex;align-items:center;justify-content:center;\'><p style=\'color:rgba(34,34,34,0.3);font-family:Inter,sans-serif;font-size:14px;text-align:center;padding:2rem;\'>Material Science Graphic</p></div>'" />
+              <img src="/images/impact-material-science.jpg" alt="Material science graphic: plastic vs stainless steel" className="w-full h-auto" />
             </div>
           </div>
         </div>
@@ -122,7 +122,7 @@ export default function Page() {
         {/* Health graphic full width */}
         <div className="reveal mb-14 flex justify-center">
           <div className="rounded-2xl overflow-hidden w-full" style={{maxWidth: 900, background: '#EAE6DF'}}>
-            <img src="https://static.kite.ai/image/upload/v1779973693/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/dederfvwn02qgnm5vtis.png" alt="Health impact research graphic" className="w-full" onerror="this.outerHTML='<div style=\'min-height:300px;display:flex;align-items:center;justify-content:center;\'><p style=\'color:rgba(34,34,34,0.3);font-family:Inter,sans-serif;font-size:14px;text-align:center;padding:2rem;\'>Health Research Graphic</p></div>'" />
+            <img src="/images/impact-health-research.png" alt="Health impact research graphic" className="w-full" />
           </div>
         </div>
         {/* Impact cards */}
@@ -171,7 +171,7 @@ export default function Page() {
           {/* Left: lifecycle graphic */}
           <div className="w-full md:w-1/2 reveal">
             <div className="rounded-2xl overflow-hidden" style={{background: '#2A2A2A'}}>
-              <img src="https://static.kite.ai/image/upload/v1779973693/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/sdyf0memcx5beapwiqtt.png" alt="Lifecycle comparison graphic: plastic bottle vs Eqo Logiq bottle" className="w-full h-auto" onerror="this.outerHTML='<div style=\'min-height:360px;display:flex;align-items:center;justify-content:center;\'><p style=\'color:rgba(255,255,255,0.3);font-family:Inter,sans-serif;font-size:14px;text-align:center;padding:2rem;\'>Lifecycle Comparison Graphic</p></div>'" />
+              <img src="/images/impact-lifecycle.png" alt="Lifecycle comparison graphic: plastic bottle vs Eqo Logiq bottle" className="w-full h-auto" />
             </div>
           </div>
           {/* Right: timeline */}

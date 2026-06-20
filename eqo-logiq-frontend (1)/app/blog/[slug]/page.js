@@ -40,9 +40,6 @@ export default function Page() {
       <div className="reveal">
         <span className="inline-block px-3 py-1 rounded-full text-xs font-sans font-bold uppercase tracking-wider bg-brand-primary/10 text-brand-primary mb-6">Impact</span>
         <h1 className="font-sans font-bold text-3xl md:text-4xl text-brand-text mb-6 leading-[1.15]">The math behind switching to a reusable bottle, and why it's simpler than you think.</h1>
-        <div className="w-full aspect-[16/9] rounded-2xl overflow-hidden bg-brand-surface mb-10">
-          <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_1200,c_fill,g_auto/v1777841241/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/feature-lifestyle.png" alt="Eqo Logiq Core Bottle in use" className="w-full h-full object-cover" />
-        </div>
       </div>
       <div className="prose reveal">
         <p>We ran the numbers on plastic bottle consumption for a typical household in Mumbai. Not the dramatic, globe-scale numbers that get used to make people feel guilty. The actual, household-scale numbers that are relevant to the decision you're considering right now.</p>
@@ -65,9 +62,6 @@ export default function Page() {
       <div className="mt-16 pt-10 border-t border-brand-text/8 reveal">
         <p className="kicker text-brand-text/40 mb-6">What we recommend</p>
         <div className="flex flex-col sm:flex-row gap-6 items-center bg-white rounded-2xl p-6 shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
-          <div className="w-24 h-24 bg-brand-surface rounded-xl flex-shrink-0 overflow-hidden">
-            <img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_200/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-bottle.png" alt="Core Bottle" className="w-full h-full object-cover" />
-          </div>
           <div className="flex-1">
             <h3 className="font-sans font-bold text-lg text-brand-text mb-1">The Core Bottle</h3>
             <p className="font-body text-sm text-brand-text/60 mb-1">Matte Cobalt • 750ml • Food-grade stainless steel</p>

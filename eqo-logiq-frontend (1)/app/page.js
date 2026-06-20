@@ -232,7 +232,7 @@ export default function Page() {
           {/* Left column — image */}
           <div className="w-full md:w-1/2 reveal flex items-center justify-center p-0 md:p-8 mb-10 md:mb-0">
             <div className="relative w-full">
-              <img src="https://static.kite.ai/image/upload/v1780377709/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/onomtskivtohrfet7bkt.png" alt="Eqo Logiq zero plastic components" className="w-full h-auto object-contain" />
+              <img src="/images/home-zero-plastic.png" alt="Eqo Logiq zero plastic components" className="w-full h-auto object-contain" />
             </div>
           </div>
           {/* Vertical divider — desktop only */}

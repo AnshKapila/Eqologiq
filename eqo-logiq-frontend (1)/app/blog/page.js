@@ -38,7 +38,6 @@ export default function Page() {
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
           <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] flex flex-col reveal group">
-            <div className="aspect-[4/3] overflow-hidden bg-brand-surface"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/proof-1.png" alt="Person using an Eqo Logiq steel bottle" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /></div>
             <div className="p-6 flex flex-col flex-1">
               <h3 className="font-sans font-bold text-lg text-brand-text mb-3 leading-tight">Five things I noticed after switching from plastic to steel for six months.</h3>
               <p className="font-body text-sm text-brand-text/60 leading-relaxed mb-6 flex-1">Water tastes different. Not better, exactly. Just neutral. Like how it should taste. That was the first thing I noticed, and it was unexpected.</p>
@@ -46,7 +45,6 @@ export default function Page() {
             </div>
           </div>
           <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] flex flex-col reveal group" style={{transitionDelay: '80ms'}}>
-            <div className="aspect-[4/3] overflow-hidden bg-brand-surface"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/proof-2.png" alt="Steel water bottle in a gym bag" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /></div>
             <div className="p-6 flex flex-col flex-1">
               <h3 className="font-sans font-bold text-lg text-brand-text mb-3 leading-tight">What I actually keep in my gym bag now, and why the bottle matters more than I expected.</h3>
               <p className="font-body text-sm text-brand-text/60 leading-relaxed mb-6 flex-1">Every litre you drink from plastic during a workout is a litre that's spent time in a container that wasn't designed for heat. Here's what I use instead.</p>
@@ -54,7 +52,6 @@ export default function Page() {
             </div>
           </div>
           <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] flex flex-col reveal group" style={{transitionDelay: '160ms'}}>
-            <div className="aspect-[4/3] overflow-hidden bg-brand-surface"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1777841241/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/feature-lifestyle.png" alt="Eqo Logiq Core Bottle in everyday lifestyle use" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /></div>
             <div className="p-6 flex flex-col flex-1">
               <h3 className="font-sans font-bold text-lg text-brand-text mb-3 leading-tight">The honest review: I gave our Core Bottle to someone who buys cheap plastics and this is what they said.</h3>
               <p className="font-body text-sm text-brand-text/60 leading-relaxed mb-6 flex-1">I handed it to my flatmate without any sales pitch. Three weeks later, she asked where to buy one for her sister.</p>
@@ -62,7 +59,6 @@ export default function Page() {
             </div>
           </div>
           <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] flex flex-col reveal group">
-            <div className="aspect-[4/3] overflow-hidden bg-brand-surface"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-brush.png" alt="Eqo Logiq bamboo toothbrush with vegan bristles" className="w-full h-full object-cover" /></div>
             <div className="p-6 flex flex-col flex-1">
               <h3 className="font-sans font-bold text-lg text-brand-text mb-3 leading-tight">Bamboo toothbrushes: the good, the bad, and the bristle problem most brands ignore.</h3>
               <p className="font-body text-sm text-brand-text/60 leading-relaxed mb-6 flex-1">Most bamboo brushes advertise themselves as eco but use nylon-bristle alternatives that don't biodegrade. Here's the full picture.</p>
@@ -70,7 +66,6 @@ export default function Page() {
             </div>
           </div>
           <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] flex flex-col reveal group" style={{transitionDelay: '80ms'}}>
-            <div className="aspect-[4/3] overflow-hidden bg-brand-surface"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1777841242/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/iter1/prod-cleaner.png" alt="Copper tongue cleaner from Eqo Logiq morning routine" className="w-full h-full object-cover" /></div>
             <div className="p-6 flex flex-col flex-1">
               <h3 className="font-sans font-bold text-lg text-brand-text mb-3 leading-tight">I replaced my entire morning routine with three products. Here's what happened.</h3>
               <p className="font-body text-sm text-brand-text/60 leading-relaxed mb-6 flex-1">Steel bottle, bamboo brush, copper tongue cleaner. That's the whole stack. Two months in, I haven't added anything back.</p>
@@ -78,7 +73,6 @@ export default function Page() {
             </div>
           </div>
           <div className="bg-white rounded-2xl overflow-hidden shadow-[0_2px_16px_rgba(34,34,34,0.07)] flex flex-col reveal group" style={{transitionDelay: '160ms'}}>
-            <div className="aspect-[4/3] overflow-hidden bg-brand-surface"><img src="https://static.kite.ai/image/upload/f_auto,q_auto,w_600,c_fill,g_auto/v1777952952/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/ujtxtyda6cbyz0mqt1pz.png" alt="Eco-friendly product packaging vs plastic alternatives" className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" /></div>
             <div className="p-6 flex flex-col flex-1">
               <h3 className="font-sans font-bold text-lg text-brand-text mb-3 leading-tight">Why "eco-friendly" has become meaningless and what to look for instead.</h3>
               <p className="font-body text-sm text-brand-text/60 leading-relaxed mb-6 flex-1">Any brand can print "eco-friendly" on a label. Here are the four questions that actually separate real from performance-washing.</p>
