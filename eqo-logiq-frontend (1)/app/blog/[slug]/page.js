@@ -136,33 +136,20 @@ export default async function Page({ params }) {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
       <main className="pt-20">
-      <div className="max-w-[780px] mx-auto px-6 md:px-12 pt-8 pb-4">
-        <nav className="flex items-center gap-2 font-body text-sm text-brand-text/40">
-          <Link href="/" className="hover:text-brand-primary transition-colors">
-            Home
-          </Link>
-          <span className="w-1 h-1 rounded-full bg-brand-text/15" aria-hidden="true" />
-          <Link href="/blog/" className="hover:text-brand-primary transition-colors">
-            Blogs
-          </Link>
-          <span className="w-1 h-1 rounded-full bg-brand-text/15" aria-hidden="true" />
-          <span className="text-brand-text/70 truncate">{POST.shortTitle}</span>
-        </nav>
-      </div>
-      <div id="search-results" className="max-h-[60vh] overflow-y-auto py-2" />
-    </div>
-  </div>
-  <main className="pt-20">
-    {/* BREADCRUMB */}
-    <div className="max-w-[780px] mx-auto px-6 md:px-12 pt-8 pb-4">
-      <nav className="flex items-center gap-2 font-body text-sm text-brand-text/40">
-        <a href="/" className="hover:text-brand-primary transition-colors">Home</a>
-        <i data-lucide="chevron-right" className="w-3 h-3" />
-        <a href="/blog/" className="hover:text-brand-primary transition-colors">Blogs</a>
-        <i data-lucide="chevron-right" className="w-3 h-3" />
-        <span className="text-brand-text/70 truncate">The math behind switching</span>
-      </nav>
-    </div>
+        {/* BREADCRUMB */}
+        <div className="max-w-[780px] mx-auto px-6 md:px-12 pt-8 pb-4">
+          <nav className="flex items-center gap-2 font-body text-sm text-brand-text/40">
+            <Link href="/" className="hover:text-brand-primary transition-colors">
+              Home
+            </Link>
+            <span className="w-1 h-1 rounded-full bg-brand-text/15" aria-hidden="true" />
+            <Link href="/blog/" className="hover:text-brand-primary transition-colors">
+              Blogs
+            </Link>
+            <span className="w-1 h-1 rounded-full bg-brand-text/15" aria-hidden="true" />
+            <span className="text-brand-text/70 truncate">{POST.shortTitle}</span>
+          </nav>
+        </div>
     {/* POST HEADER */}
     <article className="max-w-[780px] mx-auto px-6 md:px-12 pt-8 pb-20">
       <div className="reveal">
@@ -187,62 +174,27 @@ export default async function Page({ params }) {
         <p>The environmental benefit is not a sacrifice you make for the planet. It is a natural consequence of choosing something better. That distinction matters to us, and it should matter to you. Products that require sacrifice to justify themselves eventually get abandoned. Products that simply perform better, don't.</p>
       </div>
       {/* PRODUCT RECOMMENDATION */}
-      <div className="mt-16 pt-10 border-t border-brand-text/8 reveal">
+      <Reveal className="mt-16 pt-10 border-t border-brand-text/8">
         <p className="kicker text-brand-text/40 mb-6">What we recommend</p>
         <div className="flex flex-col sm:flex-row gap-6 items-center bg-white rounded-2xl p-6 shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
           <div className="flex-1">
             <h3 className="font-sans font-bold text-lg text-brand-text mb-1">The Core Bottle</h3>
-            <p className="font-body text-sm text-brand-text/60 mb-1">Matte Cobalt • 750ml • Food-grade stainless steel</p>
-            <div className="flex items-baseline gap-2"><span className="font-sans font-bold text-xl text-brand-text">₹1,299</span><span className="text-sm text-brand-text/35 line-through font-body">₹1,799</span></div>
+            <p className="font-body text-sm text-brand-text/60 mb-1">
+              Matte Cobalt • 750ml • Food-grade stainless steel
+            </p>
+            <div className="flex items-baseline gap-2">
+              <span className="font-sans font-bold text-xl text-brand-text">₹1,299</span>
+              <span className="text-sm text-brand-text/35 line-through font-body">₹1,799</span>
+            </div>
           </div>
-          <a href="/product/" className="inline-flex items-center justify-center px-6 py-3 bg-brand-primary text-white font-sans font-bold text-sm rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap">Shop this</a>
+          <Link
+            href="/product/example-product/"
+            className="inline-flex items-center justify-center px-6 py-3 bg-brand-primary text-white font-sans font-bold text-sm rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap"
+          >
+            Shop this
+          </Link>
         </div>
-      </div>
-    </article>
-  </main>
-  <footer className="bg-[#111111] text-white pt-20 pb-10 px-6 md:px-12 border-t border-white/10">
-    <div className="max-w-[1400px] mx-auto">
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
-        <div className="md:col-span-1"><img src="https://static.kite.ai/image/upload/v1780371329/app/2dc6a210-7df1-4cfe-b9c3-d73dbb7d3353/fdqs1mpfbswxcq4trn6k.png" alt="Eqo Logiq" className="h-10 w-auto object-contain mb-6" /><p className="font-body text-white/50 text-sm max-w-xs">Plastic-free steel bottles and daily essentials. No plastic in any product.</p></div>
-        <div><h5 className="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Shop</h5><ul className="space-y-4"><li><a href="/shop/" className="font-body text-white/50 hover:text-white transition-colors">Steel Bottles</a></li><li><a href="/shop/" className="font-body text-white/50 hover:text-white transition-colors">Oral Care</a></li><li><a href="/shop/" className="font-body text-white/50 hover:text-white transition-colors">Bundles</a></li><li><a href="/contact/" className="font-body text-white/50 hover:text-white transition-colors">Corporate Gifting</a></li></ul></div>
-        <div><h5 className="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Company</h5><ul className="space-y-4"><li><a href="/about/" className="font-body text-white/50 hover:text-white transition-colors">Our Story</a></li><li><a href="/qrash-qourse/" className="font-body text-white/50 hover:text-white transition-colors">Impact Report</a></li><li><a href="/blog/" className="font-body text-white/50 hover:text-white transition-colors">Blogs</a></li><li><a href="/contact/" className="font-body text-white/50 hover:text-white transition-colors">Contact</a></li></ul></div>
-        <div><h5 className="font-sans font-bold text-sm uppercase tracking-widest mb-6 text-white/80">Stay Updated</h5><p className="font-body text-white/50 text-sm mb-4">No spam. Just product drops and real updates.</p><form className="flex border-b border-white/20 pb-2"><input type="email" placeholder="Email address" className="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30" /><button type="submit" className="text-white hover:text-brand-primary transition-colors"><i data-lucide="arrow-right" className="w-5 h-5" /></button></form></div>
-      </div>
-      <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-white/10 gap-6">
-        <p className="font-body text-white/30 text-sm">© <span id="year" /> Eqo Logiq. All rights reserved.</p>
-        <div className="flex items-center gap-6"><a href="/policy.html#privacy" className="font-body text-white/30 hover:text-white text-sm transition-colors">Privacy Policy</a><a href="/policy.html#terms" className="font-body text-white/30 hover:text-white text-sm transition-colors">Terms of Use</a><a href="/policy.html#shipping" className="font-body text-white/30 hover:text-white text-sm transition-colors">Shipping Policy</a><a href="/policy.html#returns" className="font-body text-white/30 hover:text-white text-sm transition-colors">Refund &amp; Returns</a></div>
-      </div>
-    </div>
-  </footer>
-  {/* CART DRAWER */}
-  {/* WhatsApp Support Button */}
-  <style dangerouslySetInnerHTML={{__html: "\n    @media (max-width:640px){\n      #wa-support-btn { padding:10px 16px !important; font-size:12.5px !important; bottom:20px !important; right:16px !important; gap:7px !important; }\n      #wa-support-btn svg { width:16px !important; height:16px !important; }\n    }\n  " }} />
-</div>
-
-        <Reveal className="mt-16 pt-10 border-t border-brand-text/8">
-          <p className="kicker text-brand-text/40 mb-6">What we recommend</p>
-          <div className="flex flex-col sm:flex-row gap-6 items-center bg-white rounded-2xl p-6 shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
-            <div className="w-24 h-24 bg-brand-surface rounded-xl flex-shrink-0 overflow-hidden">
-              <Image src="/images/prod-bottle.png" alt="Core Bottle Cobalt Blue" fill sizes="96px" className="object-cover" />
-            </div>
-            <div className="flex-1">
-              <h3 className="font-sans font-bold text-lg text-brand-text mb-1">The Core Bottle</h3>
-              <p className="font-body text-sm text-brand-text/60 mb-1">
-                Matte Cobalt • 750ml • Food-grade stainless steel
-              </p>
-              <div className="flex items-baseline gap-2">
-                <span className="font-sans font-bold text-xl text-brand-text">₹1,299</span>
-                <span className="text-sm text-brand-text/35 line-through font-body">₹1,799</span>
-              </div>
-            </div>
-            <Link
-              href="/product/example-product/"
-              className="inline-flex items-center justify-center px-6 py-3 bg-brand-primary text-white font-sans font-bold text-sm rounded-xl hover:bg-blue-700 transition-colors whitespace-nowrap"
-            >
-              Shop this
-            </Link>
-          </div>
-        </Reveal>
+      </Reveal>
       </article>
     </main>
     </>
