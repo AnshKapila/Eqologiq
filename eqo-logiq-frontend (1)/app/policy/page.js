@@ -1,13 +1,17 @@
 import React from 'react';
+import Link from 'next/link';
 
 export const metadata = {
-  title: `Shipping, Returns & Privacy Policy | Eqo Logiq`,
-  description: `Eqo Logiq shipping policy, returns policy, privacy policy, and terms of service. Free shipping over ₹1,500. 7-day returns on eligible items.`,
-  alternates: { canonical: `https://eqologiq.kite.space/policy.html` },
+  title: 'Shipping, Returns & Privacy Policy',
+  description: 'Eqo Logiq shipping policy, returns policy, privacy policy, and terms of service. Free shipping over ₹1,500. 7-day returns on eligible items.',
   openGraph: {
-    title: `Shipping, Returns & Privacy Policy | Eqo Logiq`,
-    description: `Eqo Logiq shipping policy, returns policy, privacy policy, and terms of service. Free shipping over ₹1,500. 7-day returns on eligible items.`,
-    images: [{ url: `/images/hero-banner.png` }],
+    title: 'Shipping, Returns & Privacy Policy',
+    description: 'Eqo Logiq shipping policy, returns policy, privacy policy, and terms of service. Free shipping over ₹1,500. 7-day returns on eligible items.',
+    images: [{ url: '/images/hero-banner.png' }],
+  },
+  twitter: {
+    title: 'Shipping, Returns & Privacy Policy',
+    description: 'Eqo Logiq shipping policy, returns policy, privacy policy, and terms of service. Free shipping over ₹1,500. 7-day returns on eligible items.',
   },
 };
 
@@ -29,7 +33,7 @@ export default function Page() {
   <main className="pt-20">
     {/* BACK LINK + HEADER */}
     <div className="max-w-[860px] mx-auto px-6 md:px-12 pt-8">
-      <a href="/" className="inline-flex items-center gap-2 font-body text-sm text-brand-text/50 hover:text-brand-primary transition-colors mb-8"><i data-lucide="arrow-left" className="w-3.5 h-3.5" /> Back to Home</a>
+      <Link href="/" className="inline-flex items-center gap-2 font-body text-sm text-brand-text/50 hover:text-brand-primary transition-colors mb-8"><i data-lucide="arrow-left" className="w-3.5 h-3.5" /> Back to Home</Link>
     </div>
     <section className="max-w-[860px] mx-auto px-6 md:px-12 pb-6 reveal">
       <h1 className="font-sans font-bold text-3xl md:text-4xl text-brand-text mb-2">Policies &amp; Terms</h1>
@@ -61,7 +65,7 @@ export default function Page() {
         <h2>Address Accuracy</h2>
         <p>Customers must provide accurate and complete shipping information at the time of placing an order. Eqo Logiq is not responsible for delays or lost packages resulting from incorrect or incomplete addresses provided by the customer.</p>
         <h2>Order Status and Support</h2>
-        <p>For assistance with your order status or tracking information, please contact our support team at <a href="mailto:be.dysw4@slmail.me" style={{color: '#006B96'}}>be.dysw4@slmail.me</a>. If you have any further questions or concerns regarding your shipment, feel free to reach out and we will be happy to help.</p>
+        <p>For assistance with your order status or tracking information, please contact our support team at <Link href="mailto:be.dysw4@slmail.me" style={{color: '#006B96'}}>be.dysw4@slmail.me</Link>. If you have any further questions or concerns regarding your shipment, feel free to reach out and we will be happy to help.</p>
         <p style={{marginTop: '1.5rem', fontSize: '0.8125rem', color: 'rgba(34,34,34,0.4)'}}>Last updated: 12/12/25</p>
       </div>
       <div id="policy-returns" className="policy-content prose">
@@ -76,11 +80,11 @@ export default function Page() {
         <h2>Late or Missing Refunds</h2>
         <p>If you have not received your refund, please first check your bank account or statement again. If you still have not received it, please contact us and we will look into it for you.</p>
         <h2>Exchanges</h2>
-        <p>If you need to exchange an item for the same product, please email <a href="mailto:vbdmail@tutanota.com" style={{color: '#006B96'}}>vbdmail@tutanota.com</a> and send your item to our business address.</p>
+        <p>If you need to exchange an item for the same product, please email <Link href="mailto:vbdmail@tutanota.com" style={{color: '#006B96'}}>vbdmail@tutanota.com</Link> and send your item to our business address.</p>
         <h2>Shipping Returns</h2>
         <p>Customers are responsible for paying their own shipping costs when returning an item, unless the item is damaged, defective, or incorrect. Shipping costs are non-refundable in standard return cases.</p>
         <h2>Need Help?</h2>
-        <p>For any questions related to refunds and returns, please contact us at <a href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</a>.</p>
+        <p>For any questions related to refunds and returns, please contact us at <Link href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</Link>.</p>
       </div>
       <div id="policy-privacy" className="policy-content prose">
         <p>This is the Privacy Policy regarding your data and information that is collected by us. It is our responsibility to disclose the details about its collection and usage. We understand the importance and threats when it comes to data protection and want to provide people a shopping experience that respects their privacy.</p>
@@ -92,14 +96,14 @@ export default function Page() {
         <h2>Who We Share Data With</h2>
         <p>We do not share your data outside the organisation. We use the information only for our relationship with customers regarding the trade of products and services.</p>
         <h2>Data Retention and Deletion</h2>
-        <p>If you would like your data to be deleted or would like confirmation of what data we hold about you, please contact us at <a href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</a>.</p>
+        <p>If you would like your data to be deleted or would like confirmation of what data we hold about you, please contact us at <Link href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</Link>.</p>
         <h2>Your Data &amp; Privacy Rights</h2>
         <p>Different countries have their own privacy rights and regulations. While India does not currently have the most comprehensive privacy laws, Eqo Logiq aims to take care of user data through the use of open source software and encryption wherever possible.</p>
         <h2>Grievance Redressal</h2>
         <p>For any privacy-related concerns, please contact our grievance officer:</p>
         <ul>
           <li><strong>Name:</strong> Vaibhav</li>
-          <li><strong>Email:</strong> <a href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</a></li>
+          <li><strong>Email:</strong> <Link href="mailto:email@eqologiq.in" style={{color: '#006B96'}}>email@eqologiq.in</Link></li>
           <li><strong>Phone:</strong> +91 9667691316</li>
         </ul>
       </div>

@@ -1,6 +1,8 @@
 'use client';
 
+import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { ArrowRight } from 'lucide-react';
 
 const FOOTER_LOGO_URL =
@@ -25,7 +27,7 @@ export default function Footer({ variant = 'default' }) {
       <div className="max-w-[1400px] mx-auto">
         <div className={`grid grid-cols-1 md:grid-cols-4 gap-12 ${isHome ? 'mb-24' : 'mb-20'}`}>
           <div className="md:col-span-1">
-            <img src={FOOTER_LOGO_URL} alt="Eqo Logiq" className="h-10 w-auto object-contain mb-6" />
+            <Image src={FOOTER_LOGO_URL} alt="Eqo Logiq brand logo" width={120} height={40} className="h-10 w-auto object-contain mb-6" />
             <p className="font-body text-white/50 text-sm max-w-xs">
               Plastic-free steel bottles and daily essentials. No plastic in any product.
             </p>

@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import HomeProductGrid from '../components/HomeProductGrid';
 import HomePageEffects from '../components/HomePageEffects';
 import {
@@ -12,31 +13,33 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-  title: `Eqo Logiq | Plastic-Free Daily Essentials: Steel Bottles & More`,
-  description: `Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging. Built to last a decade.`,
-  alternates: { canonical: `https://eqologiq.kite.space/` },
+  title: 'Plastic-Free Daily Essentials: Steel Bottles & More',
+  description: 'Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging. Built to last a decade.',
   openGraph: {
-    title: `Eqo Logiq | Plastic-Free Daily Essentials: Steel Bottles & More`,
-    description: `Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging. Built to last a decade.`,
-    images: [{ url: `/images/hero-banner.png` }],
+    title: 'Plastic-Free Daily Essentials: Steel Bottles & More',
+    description: 'Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging. Built to last a decade.',
+    images: [{ url: '/images/feature-lifestyle.png' }],
+  },
+  twitter: {
+    title: 'Plastic-Free Daily Essentials: Steel Bottles & More',
+    description: 'Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging. Built to last a decade.',
   },
 };
 
 export default function Page() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: `
-    {
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
       "@context": "https://schema.org",
       "@graph": [
         {
           "@type": "Organization",
-          "@id": "https://eqologiq.kite.space/#organization",
+          "@id": `${process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in'}/#organization`,
           "name": "Eqo Logiq",
-          "url": "https://eqologiq.kite.space/",
+          "url": process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in',
           "logo": {
             "@type": "ImageObject",
-            "url": "/images/logo-mark.png"
+            "url": `${process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in'}/images/logo-mark.png`
           },
           "description": "Plastic-free steel water bottles and vegan oral care, made for India. Food-grade 304 stainless steel, zero plastic from product to packaging.",
           "foundingLocation": {
@@ -47,35 +50,39 @@ export default function Page() {
             "@type": "ContactPoint",
             "contactType": "customer service",
             "email": "hello@eqologic.com"
-          }
+          },
+          "sameAs": [
+            "https://facebook.com/eqologiq",
+            "https://instagram.com/eqologiq",
+            "https://linkedin.com/company/eqologiq"
+          ]
         },
         {
           "@type": "WebSite",
-          "@id": "https://eqologiq.kite.space/#website",
+          "@id": `${process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in'}/#website`,
           "name": "Eqo Logiq",
-          "url": "https://eqologiq.kite.space/",
+          "url": process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in',
           "publisher": {
-            "@id": "https://eqologiq.kite.space/#organization"
+            "@id": `${process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in'}/#organization`
           },
           "potentialAction": {
             "@type": "SearchAction",
             "target": {
               "@type": "EntryPoint",
-              "urlTemplate": "https://eqologiq.kite.space/shop.html?q={search_term_string}"
+              "urlTemplate": `${process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in'}/shop/?q={search_term_string}`
             },
             "query-input": "required name=search_term_string"
           }
         }
       ]
-    }
-    ` }} />
+    }) }} />
 <div>
   <HomePageEffects />
   <main>
     {/* 2. HERO (Curtain Layer 1) */}
     {/* Z-index 20 keeps it above the transition word. It scrolls normally. */}
     <section className="relative z-20 h-[100svh] w-full bg-brand-text overflow-hidden">
-      <img src="/images/hero-banner.png" alt="Eqo Logiq premium sustainable product hero" className="absolute inset-0 w-full h-full object-cover object-right md:object-right lg:object-center animate-slow-breathe" />
+      <Image src="/images/hero-banner.png" alt="Eqo Logiq premium sustainable product hero" fill priority sizes="100vw" className="object-cover object-right md:object-right lg:object-center animate-slow-breathe" />
       <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-black/20 to-black/70" />
       <div className="absolute bottom-0 left-0 right-0 pb-10 md:pb-14 px-6 md:px-12">
         <div className="max-w-[1400px] mx-auto">
@@ -87,10 +94,10 @@ export default function Page() {
               <p className="text-white/80 font-body text-sm">
                 Plastic-free steel bottles and daily essentials. Food-grade 304 stainless steel, no plastic in any component, built for daily use.
               </p>
-              <a href="#shop" className="inline-flex items-center gap-2.5 justify-center px-8 py-4 bg-brand-primary text-white font-body font-medium rounded-full hover:bg-[#005580] active:bg-[#004060] transition-colors duration-200 shadow-[0_4px_24px_rgba(0,107,150,0.35)] w-full lg:w-auto">
+              <Link href="#shop" className="inline-flex items-center gap-2.5 justify-center px-8 py-4 bg-brand-primary text-white font-body font-medium rounded-full hover:bg-[#005580] active:bg-[#004060] transition-colors duration-200 shadow-[0_4px_24px_rgba(0,107,150,0.35)] w-full lg:w-auto">
                 Check Out Collection
                 <ArrowRight className="w-4 h-4" aria-hidden="true" />
-              </a>
+              </Link>
               <p className="text-white/60 font-body text-xs">
                 BPA free · Food grade steel · Vegan · Zero plastic in product and packaging.
               </p>
@@ -120,7 +127,7 @@ export default function Page() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 items-stretch">
           {/* BEFORE card — light greige, restrained */}
           <div className="relative overflow-hidden rounded-2xl bg-[#DEDAD3] reveal" style={{minHeight: 420}}>
-            <img src="/images/inline-plastic.png" alt="Single-use plastic bottles" className="absolute inset-0 w-full h-full object-cover grayscale opacity-40" />
+            <Image src="/images/inline-plastic.png" alt="Single-use plastic bottles waste impact" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover grayscale opacity-40" />
             <div className="absolute inset-0" style={{background: 'linear-gradient(to top, rgba(30,30,30,0.7) 0%, transparent 55%)'}} />
             <div className="relative h-full flex flex-col justify-between p-8 md:p-10" style={{minHeight: 420}}>
               <span className="inline-block px-4 py-1.5 rounded-full text-xs font-sans font-bold uppercase tracking-widest w-fit" style={{background: 'rgba(180,30,30,0.25)', color: '#B41E1E', border: '1px solid rgba(180,30,30,0.45)'}}>With plastic</span>
@@ -136,7 +143,7 @@ export default function Page() {
           </div>
           {/* AFTER card — dark green, product-led */}
           <div className="relative overflow-hidden rounded-2xl reveal" style={{minHeight: 480, background: '#0D1F0E'}}>
-            <img src="/images/feature-lifestyle.png" alt="Eqo Logiq steel bottle in use" className="absolute inset-0 w-full h-full object-cover opacity-30" />
+            <Image src="/images/feature-lifestyle.png" alt="Eqo Logiq steel bottle in daily use" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-30" />
             <div className="absolute inset-0" style={{background: 'linear-gradient(135deg, rgba(153,189,5,0.55) 0%, rgba(0,107,150,0.15) 100%)'}} />
             <div className="absolute inset-0" style={{background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)'}} />
             <div className="relative h-full flex flex-col justify-between p-8 md:p-10" style={{minHeight: 480}}>
@@ -181,7 +188,7 @@ export default function Page() {
           {/* Left column — image */}
           <div className="w-full md:w-1/2 reveal flex items-center justify-center p-0 md:p-8 mb-10 md:mb-0">
             <div className="relative w-full">
-              <img src="/images/zero-plastic-components.png" alt="Eqo Logiq zero plastic components" className="w-full h-auto object-contain" />
+              <Image src="/images/zero-plastic-components.png" alt="Eqo Logiq zero plastic components" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" />
             </div>
           </div>
           {/* Vertical divider — desktop only */}
@@ -219,7 +226,7 @@ export default function Page() {
               </li>
             </ul>
             {/* CTA text link */}
-            <a href="/shop/" className="font-body font-medium text-sm" style={{color: '#006B96'}}>See what we make →</a>
+            <Link href="/shop/" className="font-body font-medium text-sm" style={{color: '#006B96'}}>See what we make →</Link>
           </div>
         </div>
         {/* Divider */}
@@ -254,7 +261,7 @@ export default function Page() {
           {/* Right column — image */}
           <div className="w-full md:w-1/2 reveal flex items-center justify-center p-0 mb-10 md:mb-0" style={{transitionDelay: '100ms'}}>
             <div className="relative w-full overflow-hidden" style={{borderRadius: 12, aspectRatio: '4/3', minHeight: 320}}>
-              <img src="/images/silicone-cap-ring.png" alt="Food-grade silicone cap ring" className="absolute inset-0 w-full h-full object-contain" style={{borderRadius: 12, display: 'block'}} />
+              <Image src="/images/silicone-cap-ring.png" alt="Food-grade silicone cap ring" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-contain" style={{borderRadius: 12, display: 'block'}} />
               {/* Warm vignette overlay */}
               <div className="absolute inset-0 pointer-events-none" style={{borderRadius: 12, background: 'radial-gradient(ellipse at center, transparent 55%, rgba(28,28,28,0.55) 100%)'}} />
             </div>
@@ -276,7 +283,7 @@ export default function Page() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4 md:gap-6">
           {/* Tile 1: Large — Plastic-Free (lifestyle image backdrop) */}
           <div className="md:col-span-7 relative overflow-hidden rounded-2xl reveal" style={{minHeight: 340}}>
-            <img src="/images/plastic-free-products.png" alt="Plastic-free Eqo Logiq products" className="absolute inset-0 w-full h-full object-cover" />
+            <Image src="/images/plastic-free-products.png" alt="Plastic-free Eqo Logiq products" fill sizes="(max-width: 768px) 100vw, 60vw" className="object-cover" />
             <div className="absolute inset-0" style={{background: 'linear-gradient(135deg,rgba(153,189,5,0.75) 0%,rgba(0,0,0,0.45) 100%)'}} />
             <div className="relative p-8 md:p-10 h-full flex flex-col justify-end" style={{minHeight: 340}}>
               <div className="w-10 h-10 rounded-full flex items-center justify-center mb-6" style={{background: 'rgba(168,230,163,0.2)', border: '1px solid rgba(168,230,163,0.3)'}}>
@@ -313,7 +320,7 @@ export default function Page() {
           </div>
           {/* Tile 4: Medium — Indian Conditions (warm surface) */}
           <div className="md:col-span-4 relative overflow-hidden rounded-2xl reveal" style={{minHeight: 280, background: '#2B2B2B'}}>
-            <img src="/images/built-for-india.png" alt="Built for India" className="absolute inset-0 w-full h-full object-cover opacity-40" />
+            <Image src="/images/built-for-india.png" alt="Built for India" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-40" />
             <div className="absolute inset-0 rounded-2xl" style={{background: 'linear-gradient(160deg,rgba(0,0,0,0.35) 0%,rgba(0,0,0,0.6) 100%)'}} />
             <div className="relative p-8 h-full flex flex-col justify-between" style={{minHeight: 280}}>
               <div className="w-10 h-10 rounded-full flex items-center justify-center" style={{background: 'rgba(255,200,80,0.15)'}}>
@@ -395,7 +402,7 @@ export default function Page() {
         </div>
         {/* Bottom: image strip */}
         <div className="h-48 md:h-56 overflow-hidden relative">
-          <img src="/images/daily-use.png" alt="Eqo Logiq in daily use" className="w-full h-full object-cover opacity-70" />
+          <Image src="/images/daily-use.png" alt="Eqo Logiq products in everyday use" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-70" />
           <div className="absolute inset-0" style={{background: 'linear-gradient(to right, rgba(13,31,14,0.8) 0%, transparent 60%)'}} />
         </div>
       </div>
@@ -410,13 +417,13 @@ export default function Page() {
           {/* Logos row */}
           <div className="flex items-center justify-center gap-10 md:gap-0 md:contents">
             {/* Myntra */}
-            <a href="#" aria-label="Myntra" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300 md:ml-auto">
-              <img src="/images/myntra-logo.png" alt="Myntra" className="h-8 w-auto object-contain" />
-            </a>
+            <Link href="#" aria-label="Myntra" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300 md:ml-auto">
+              <Image src="/images/myntra-logo.png" alt="Available on Myntra marketplace" width={100} height={32} className="h-8 w-auto object-contain" />
+            </Link>
             {/* Amazon */}
-            <a href="#" aria-label="Amazon" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300 md:ml-16">
-              <img src="/images/amazon-logo.png" alt="Amazon" className="h-8 w-auto object-contain" />
-            </a>
+            <Link href="#" aria-label="Amazon" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300 md:ml-16">
+              <Image src="/images/amazon-logo.png" alt="Available on Amazon marketplace" width={100} height={32} className="h-8 w-auto object-contain" />
+            </Link>
           </div>
         </div>
       </div>
@@ -465,7 +472,7 @@ export default function Page() {
             {/* Center featured card — image-heavy, drives the row height */}
             <div className="reveal rounded-2xl overflow-hidden relative group" style={{minHeight: 520}}>
               {/* Background image */}
-              <img src="/images/testimonial-priya-crop.png" alt="Sandeep Mathur — Hamara Kartavyya, Eqo Logiq customer" className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
+              <Image src="/images/testimonial-priya-crop.png" alt="Sandeep Mathur - Hamara Kartavyya, Eqo Logiq verified customer" fill sizes="(max-width: 768px) 100vw, 40vw" className="object-cover transition-transform duration-700 group-hover:scale-[1.02]" />
               {/* Gradient overlay */}
               <div className="absolute inset-0" style={{background: 'linear-gradient(to bottom, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.08) 40%, rgba(0,0,0,0.72) 100%)'}} />
               {/* Story-reel accent (subtle, not a real button) */}
@@ -530,7 +537,7 @@ export default function Page() {
             </div>
             {/* Featured card mobile */}
             <div className="snap-start flex-shrink-0 w-[82vw] rounded-2xl overflow-hidden relative" style={{minHeight: 380}}>
-              <img src="/images/proof-1.png" alt="Sandeep Mathur — Eqo Logiq customer" className="absolute inset-0 w-full h-full object-cover" />
+              <Image src="/images/proof-1.png" alt="Sandeep Mathur - Eqo Logiq customer testimonial" fill sizes="(max-width: 768px) 82vw, 100vw" className="object-cover" />
               <div className="absolute inset-0" style={{background: 'linear-gradient(to bottom,rgba(0,0,0,0.05) 30%,rgba(0,0,0,0.75) 100%)'}} />
               <div className="absolute top-4 left-4">
                 <div className="w-10 h-10 rounded-full border-2 border-white/30 flex items-center justify-center font-bold text-white text-sm bg-[#006B96] hover:bg-[#005580]">S</div>
@@ -579,17 +586,17 @@ export default function Page() {
             <div className="relative flex flex-col items-center">
               {/* Primary image */}
               <div className="relative w-full max-w-[420px] mx-auto rounded-2xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.6)] transition-transform duration-700 hover:scale-[1.02]" style={{aspectRatio: '3/4'}}>
-                <img src="/images/laptop-youtube-mockup.png" alt="Premium laptop showing YouTube-style video page" className="w-full h-full object-cover bg-[#1C1C1C]" />
+                <Image src="/images/laptop-youtube-mockup.png" alt="Premium laptop showing YouTube-style video page" fill sizes="(max-width: 1024px) 100vw, 420px" className="object-cover bg-[#1C1C1C]" />
                 {/* Cobalt accent strip */}
                 <div className="absolute bottom-0 left-0 right-0 h-1 bg-brand-primary" />
               </div>
               {/* Secondary card 1 — lifestyle image */}
               <div className="relative -mt-20 ml-auto mr-4 md:mr-0 md:-mr-8 w-[48%] max-w-[200px] rounded-xl overflow-hidden shadow-[0_16px_48px_rgba(0,0,0,0.55)] border border-white/5 transition-transform duration-700 hover:-translate-y-1" style={{zIndex: 2}}>
-                <img src="/images/feature-lifestyle.png" alt="Eqo Logiq bottle in everyday use" className="w-full aspect-[3/4] object-cover" />
+                <Image src="/images/feature-lifestyle.png" alt="Eqo Logiq bottle in everyday use" fill sizes="(max-width: 1024px) 48vw, 200px" className="object-cover" />
               </div>
               {/* Secondary card 2 — oral care image */}
               <div className="relative -mt-12 mr-auto ml-4 md:ml-0 md:-ml-6 w-[42%] max-w-[170px] rounded-xl overflow-hidden shadow-[0_12px_36px_rgba(0,0,0,0.5)] border border-white/5 transition-transform duration-700 hover:-translate-y-1" style={{zIndex: 1}}>
-                <img src="/images/proof-2.png" alt="Eqo Logiq oral care on vanity" className="w-full aspect-square object-cover" />
+                <Image src="/images/proof-2.png" alt="Eqo Logiq oral care on vanity" fill sizes="(max-width: 1024px) 42vw, 170px" className="object-cover" />
               </div>
             </div>
           </div>
@@ -619,12 +626,12 @@ export default function Page() {
             </div>
             {/* CTA group */}
             <div className="flex flex-col sm:flex-row items-start gap-4">
-              <a href="#shop" className="inline-flex items-center justify-center px-8 py-4 rounded-full font-sans font-bold text-sm transition-colors duration-300 bg-[#006B96] hover:bg-[#005580] text-white">
+              <Link href="#shop" className="inline-flex items-center justify-center px-8 py-4 rounded-full font-sans font-bold text-sm transition-colors duration-300 bg-[#006B96] hover:bg-[#005580] text-white">
                 Check Out Instagram
-              </a>
-              <a href="#" className="inline-flex items-center justify-center px-8 py-4 rounded-full font-sans font-bold text-sm transition-colors duration-300 bg-white/5 hover:bg-white/10 text-[rgba(240,237,232,0.7)] border border-white/10">
+              </Link>
+              <Link href="#" className="inline-flex items-center justify-center px-8 py-4 rounded-full font-sans font-bold text-sm transition-colors duration-300 bg-white/5 hover:bg-white/10 text-[rgba(240,237,232,0.7)] border border-white/10">
                 Visit Our Facebook
-              </a>
+              </Link>
             </div>
           </div>
         </div>

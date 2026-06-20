@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import {
   Search,
@@ -129,7 +130,7 @@ export default function Navbar() {
       >
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2 group z-50">
-            <img src={LOGO_URL} alt="Eqo Logiq" className="h-10 w-auto object-contain" />
+            <Image src={LOGO_URL} alt="Eqo Logiq official logo" width={120} height={40} priority className="h-10 w-auto object-contain" />
           </Link>
 
           <div className="hidden md:flex items-center gap-10 absolute left-1/2 -translate-x-1/2">
@@ -190,7 +191,7 @@ export default function Navbar() {
       >
         <div className="h-24 flex items-center justify-between px-6">
           <Link href="/" onClick={() => setIsMobileMenuOpen(false)}>
-            <img src={LOGO_URL} alt="Eqo Logiq" className="h-9 w-auto object-contain" />
+            <Image src={LOGO_URL} alt="Eqo Logiq official logo" width={108} height={36} className="h-9 w-auto object-contain" />
           </Link>
           <button
             type="button"

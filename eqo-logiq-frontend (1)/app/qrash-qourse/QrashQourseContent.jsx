@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Activity, Cpu, Heart, ShieldOff } from 'lucide-react';
 import Reveal from '../../components/Reveal';
 
@@ -16,7 +17,7 @@ function SafeImage({ src, alt, className, fallbackText, fallbackClassName = 'min
     );
   }
 
-  return <img src={src} alt={alt} className={className} onError={() => setFailed(true)} />;
+  return <Image src={src} alt={alt || "Educational impact graphic"} fill sizes="100vw" className={`object-cover ${className}`} onError={() => setFailed(true)} />;
 }
 
 const IMPACT_CARDS = [

@@ -69,14 +69,21 @@ export async function generateMetadata({ params }) {
 
   const image = product?.images?.[0]?.src || '/images/steel-bottle.png';
   const description = stripHtml(product?.short_description || product?.description || '');
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
 
   return {
-    title: `${product.name} | Eqo Logiq`,
+    title: product.name,
     description: description || `Shop ${product.name} on Eqo Logiq.`,
     openGraph: {
-      title: `${product.name} | Eqo Logiq`,
+      title: product.name,
       description: description || `Shop ${product.name} on Eqo Logiq.`,
+      url: `${baseUrl}/product/${slug}/`,
       images: [{ url: image }],
+    },
+    twitter: {
+      title: product.name,
+      description: description || `Shop ${product.name} on Eqo Logiq.`,
+      images: [image],
     },
   };
 }
@@ -98,8 +105,27 @@ export default async function Page({ params }) {
   const averageRating = Number(product?.average_rating) || 0;
   const images = product?.images || [];
 
+  const priceValue = product?.prices?.price ? Number(product.prices.price) / Math.pow(10, product.prices.currency_minor_unit ?? 2) : 0;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
+
   return (
-    <main className="pt-20 bg-brand-base">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+        "@context": "https://schema.org",
+        "@type": "Product",
+        "name": product.name,
+        "description": shortDescription,
+        "image": images?.[0]?.src || `${baseUrl}/images/steel-bottle.png`,
+        "sku": product.sku || '',
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "INR",
+          "price": priceValue,
+          "availability": product.is_in_stock ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+          "url": `${baseUrl}/product/${slug}/`
+        }
+      }) }} />
+      <main className="pt-20 bg-brand-base">
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-4">
         <nav className="flex items-center gap-2 font-body text-sm text-brand-text/40">
           <Link href="/" className="hover:text-brand-primary transition-colors">
@@ -211,5 +237,6 @@ export default async function Page({ params }) {
         </Reveal>
       ) : null}
     </main>
+    </>
   );
 }

@@ -1,5 +1,31 @@
 import Link from 'next/link';
+import Image from 'next/image';
 import Reveal from '../../../components/Reveal';
+import { stripHtml } from '../../../lib/woocommerce';
+
+export const dynamicParams = false;
+
+function getWpOrigin() {
+  return (
+    process.env.WP_ORIGIN ||
+    process.env.NEXT_PUBLIC_WP_ORIGIN ||
+    process.env.NEXT_PUBLIC_WP_BASE_URL ||
+    'https://eqologiq.in'
+  );
+}
+
+async function fetchJson(url) {
+  const res = await fetch(url, { method: 'GET', next: { revalidate: false } });
+  if (!res.ok) return null;
+  return await res.json().catch(() => null);
+}
+
+async function fetchPost(slug) {
+  const origin = getWpOrigin();
+  const url = `${origin}/wp-json/wp/v2/posts?slug=${encodeURIComponent(slug)}&_embed=1`;
+  const data = await fetchJson(url);
+  return Array.isArray(data) ? data[0] : null;
+}
 
 const POST = {
   slug: 'example-post',
@@ -12,16 +38,47 @@ const POST = {
   coverAlt: 'Eqo Logiq Core Bottle in use',
 };
 
-export function generateMetadata({ params }) {
-  if (params?.slug !== POST.slug) return {};
-  return {
-    title: `The math behind switching to a reusable bottle | Eqo Logiq Journal`,
-    description: POST.description,
-    alternates: { canonical: `https://eqologiq.kite.space/blog/${POST.slug}/` },
-    openGraph: {
-      title: `The math behind switching to a reusable bottle | Eqo Logiq Journal`,
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  if (!slug) return {};
+
+  const post = await fetchPost(slug);
+  if (!post) {
+    if (slug !== POST.slug) return {};
+    return {
+      title: POST.title,
       description: POST.description,
-      images: [{ url: POST.coverImage }],
+      openGraph: {
+        title: POST.title,
+        description: POST.description,
+        images: [{ url: POST.coverImage }],
+      },
+      twitter: {
+        title: POST.title,
+        description: POST.description,
+        images: [POST.coverImage],
+      },
+    };
+  }
+
+  const title = stripHtml(post.title?.rendered || '');
+  const description = stripHtml(post.excerpt?.rendered || '');
+  const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url || POST.coverImage;
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      url: `${baseUrl}/blog/${slug}/`,
+      images: [{ url: image }],
+    },
+    twitter: {
+      title,
+      description,
+      images: [image],
     },
   };
 }
@@ -30,8 +87,11 @@ export function generateStaticParams() {
   return [{ slug: 'example-post' }];
 }
 
-export default function Page({ params }) {
-  if (params?.slug !== POST.slug) {
+export default async function Page({ params }) {
+  const { slug } = await params;
+  const post = await fetchPost(slug);
+
+  if (slug !== POST.slug) {
     return (
       <main className="pt-28 pb-24 bg-brand-base">
         <div className="max-w-[780px] mx-auto px-6 md:px-12">
@@ -47,8 +107,35 @@ export default function Page({ params }) {
     );
   }
 
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
+  const ldJson = post ? {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": stripHtml(post.title?.rendered || POST.title),
+    "image": post._embedded?.['wp:featuredmedia']?.[0]?.source_url || `${baseUrl}${POST.coverImage}`,
+    "datePublished": post.date || new Date().toISOString(),
+    "dateModified": post.modified || new Date().toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": post._embedded?.author?.[0]?.name || "Eqo Logiq Team"
+    }
+  } : {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": POST.title,
+    "image": `${baseUrl}${POST.coverImage}`,
+    "datePublished": new Date().toISOString(),
+    "dateModified": new Date().toISOString(),
+    "author": {
+      "@type": "Person",
+      "name": "Eqo Logiq Team"
+    }
+  };
+
   return (
-    <main className="pt-20">
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(ldJson) }} />
+      <main className="pt-20">
       <div className="max-w-[780px] mx-auto px-6 md:px-12 pt-8 pb-4">
         <nav className="flex items-center gap-2 font-body text-sm text-brand-text/40">
           <Link href="/" className="hover:text-brand-primary transition-colors">
@@ -72,7 +159,7 @@ export default function Page({ params }) {
             {POST.title}
           </h1>
           <div className="w-full aspect-[16/9] rounded-2xl overflow-hidden bg-brand-surface mb-10">
-            <img src={POST.coverImage} alt={POST.coverAlt} className="w-full h-full object-cover" />
+            <Image src={POST.coverImage} alt={POST.coverAlt || "Blog post featured image"} fill priority sizes="(max-width: 780px) 100vw, 780px" className="object-cover" />
           </div>
         </Reveal>
 
@@ -98,7 +185,7 @@ export default function Page({ params }) {
           <p className="kicker text-brand-text/40 mb-6">What we recommend</p>
           <div className="flex flex-col sm:flex-row gap-6 items-center bg-white rounded-2xl p-6 shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
             <div className="w-24 h-24 bg-brand-surface rounded-xl flex-shrink-0 overflow-hidden">
-              <img src="/images/prod-bottle.png" alt="Core Bottle" className="w-full h-full object-cover" />
+              <Image src="/images/prod-bottle.png" alt="Core Bottle Cobalt Blue" fill sizes="96px" className="object-cover" />
             </div>
             <div className="flex-1">
               <h3 className="font-sans font-bold text-lg text-brand-text mb-1">The Core Bottle</h3>
@@ -120,5 +207,6 @@ export default function Page({ params }) {
         </Reveal>
       </article>
     </main>
+    </>
   );
 }

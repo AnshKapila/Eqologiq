@@ -1,51 +1,16 @@
 # Eqo Logiq — AI Crawler Reference
 
-> Eqo Logiq is an Indian direct-to-consumer brand that makes plastic-free daily essentials: food-grade stainless steel water bottles and vegan oral care products. Zero plastic is used in any product component or packaging.
+> Eqo Logiq is a direct-to-consumer brand focused on providing plastic-free daily essentials, primarily selling ergonomic sustainable bags, food-grade stainless steel water bottles, and vegan oral care products.
 
 ## Brand Summary
-
 - **Brand name**: Eqo Logiq
-- **Website**: https://eqologiq.kite.space/
-- **Category**: Sustainable consumer goods / plastic-free daily essentials
-- **Primary products**: Plastic-free steel water bottles, bamboo toothbrushes, stainless steel tongue scrapers, bundles
-- **Market**: India (ships nationwide)
-- **Mission**: Replace single-use plastic in daily essentials with food-grade steel and plant-based alternatives
-
-## Key Facts
-
-- All bottles use 304 food-grade stainless steel (18/8 grade) — same as surgical instruments
-- No plastic in any product component: outer body, inner body, lid, cap, and seal are steel or food-grade silicone
-- Double-wall vacuum insulation: cold liquids stay cold 18–24 hours, hot liquids stay hot 12 hours
-- Packaging: 100% recycled kraft cardboard, no plastic tape, no bubble wrap
-- Products are strictly vegan: no animal byproducts in materials, adhesives, or packaging
-- Designed for a minimum 10-year lifespan under daily use
-- Price range: ₹149 (bamboo toothbrush) to ₹1,200 (1L steel bottle)
+- **Mission**: Replace single-use plastic in daily essentials with sustainable, ergonomic alternatives.
+- **Primary products**: Ergonomic sustainable bags, plastic-free steel water bottles, bamboo toothbrushes, stainless steel tongue scrapers.
 
 ## Pages
-
-- [Home](https://eqologiq.kite.space/): Brand landing page, hero section, featured products, impact metrics, customer reviews
-- [Shop](https://eqologiq.kite.space/shop.html): Full product catalogue — steel bottles (400ml, 500ml, 750ml, 1L), bamboo toothbrushes, tongue scrapers, bundles
-- [Product](https://eqologiq.kite.space/product.html): Plastic-free steel water bottle 1 Litre — detailed specs, gallery, materials, insulation performance
-- [Our Story](https://eqologiq.kite.space/about.html): Founder's note, brand values, why plastic-free daily essentials matter
-- [Qrash Qourse](https://eqologiq.kite.space/qrash-qourse.html): Educational content — material science, health research, plastic vs steel data, environmental statistics
-- [Journal / Blog](https://eqologiq.kite.space/blog/): Articles on plastic-free living, product reviews, materials education
-- [FAQ](https://eqologiq.kite.space/faq.html): Product questions, orders and delivery, sustainability, returns
-- [Contact](https://eqologiq.kite.space/contact.html): Customer support, bulk/corporate orders, partnerships
-- [Policies](https://eqologiq.kite.space/policy.html): Shipping policy, returns policy, privacy policy, terms of service
-
-## Products
-
-- **Steel Water Bottle 750ml** — ₹799 onwards. Food-grade steel, double wall, no plastic in any component.
-- **Plastic Free Steel Bottle 1 Litre** — ₹1,200 (was ₹2,000). Double wall vacuum insulated, 304 steel.
-- **Steel Flask 500ml** — ₹699 onwards. Compact, cupholder-friendly, no-spill seal.
-- **Kids Steel Bottle 400ml** — ₹599 onwards. Child-safe, lightweight, easy flip lid.
-- **Bamboo Toothbrush** — ₹149 onwards. Biodegradable handle, vegan nylon-6 bristles.
-- **Bamboo Toothbrush Pack of 4** — ₹499 onwards. Family pack.
-- **Stainless Steel Tongue Scraper** — ₹299 onwards. Food-grade steel, lasts for life.
-- **The Starter Switch Bundle** — ₹1,199 onwards. 750ml bottle + bamboo brush + tongue scraper.
-
-## Contact
-
-- Email: hello@eqologic.com
-- WhatsApp: +91 96676 91316
-- Also available on: Myntra, Amazon India
+- [Home](/): Brand landing page, featured products, and mission.
+- [Shop](/shop/): Full product catalogue.
+- [Our Story](/about/): Founder's note and brand values.
+- [Journal / Blog](/blog/): Articles on sustainability and product education.
+- [Policies](/policy/): Shipping, returns, and privacy policies.
+- [Contact](/contact/): Customer support and corporate gifting.

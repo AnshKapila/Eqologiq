@@ -1,9 +1,8 @@
 'use client';
 
-/* eslint-disable @next/next/no-img-element */
-
 import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Image from 'next/image';
 import Link from 'next/link';
 import { ArrowRight, Image as ImageIcon, Infinity, Leaf, Package, Search, TrendingUp, User, X } from 'lucide-react';
 import { useAuth } from '../../context/AuthContext';
@@ -665,7 +664,7 @@ export default function AccountClient() {
                           <div key={item.id} className="border border-gray-100 rounded-lg p-5 flex gap-4 items-center">
                             <div className="w-16 h-16 rounded-lg overflow-hidden bg-gray-50 flex-shrink-0 flex items-center justify-center">
                               {image ? (
-                                <img src={image} alt={imageAlt} className="w-full h-full object-cover" />
+                                <Image src={image} alt={imageAlt || "Purchased item"} fill sizes="48px" className="object-cover" />
                               ) : (
                                 <Package className="w-6 h-6 text-gray-400" />
                               )}
