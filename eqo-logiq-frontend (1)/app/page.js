@@ -2,7 +2,6 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import HomeProductGrid from '../components/HomeProductGrid';
-import HomePageEffects from '../components/HomePageEffects';
 import {
   ArrowRight,
   ShieldCheck,
@@ -76,8 +75,6 @@ export default function Page() {
         }
       ]
     }) }} />
-<div>
-  <HomePageEffects />
   <main>
     {/* 2. HERO (Curtain Layer 1) */}
     {/* Z-index 20 keeps it above the transition word. It scrolls normally. */}
@@ -638,8 +635,6 @@ export default function Page() {
       </div>
     </section>
   </main>
-</div>
-
 </>
   );
 }

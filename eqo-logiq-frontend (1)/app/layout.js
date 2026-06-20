@@ -2,6 +2,7 @@ import './globals.css';
 import Navbar from '../components/Navbar';
 import SiteFooter from '../components/SiteFooter';
 import Providers from '../components/Providers';
+import HomePageEffects from '../components/HomePageEffects';
 
 const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
 
@@ -77,6 +78,7 @@ export default function RootLayout({ children }) {
           <Navbar />
           {children}
           <SiteFooter />
+          <HomePageEffects />
         </Providers>
       </body>
     </html>

@@ -138,7 +138,8 @@ export default function Page() {
             </div>
           </div>
         </div>
-      </section>
+      </div>
+    </section>
 
       <section className="bg-brand-base py-10 border-t border-brand-text/8">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12 text-center">
@@ -152,5 +153,7 @@ export default function Page() {
         </div>
       </section>
     </main>
+  </div>
+  </>
   );
 }
