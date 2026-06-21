@@ -51,12 +51,6 @@ export function ProductCard({
         </div>
         <div className="p-6 flex flex-col flex-1">
           <h3 className="font-sans font-bold text-base text-brand-text mb-1">{product.name}</h3>
-          {descriptionHtml && (
-            <div
-              className="font-body text-xs text-brand-text/50 mb-3 line-clamp-2"
-              dangerouslySetInnerHTML={{ __html: descriptionHtml }}
-            />
-          )}
           <div className="mt-auto flex items-baseline gap-2 mb-4">
             <span className={`font-sans font-bold text-lg ${regularPrice ? 'text-brand-primary' : 'text-brand-text'}`}>
               {price}
