@@ -12,8 +12,33 @@ export default function Footer({ variant = 'default' }) {
   const year = new Date().getFullYear();
   const isHome = variant === 'home';
 
-  const handleNewsletterSubmit = (e) => {
+  const [email, setEmail] = React.useState('');
+  const [status, setStatus] = React.useState('idle'); // 'idle' | 'submitting' | 'success' | 'error'
+
+  const handleNewsletterSubmit = async (e) => {
     e.preventDefault();
+    if (!email) return;
+
+    setStatus('submitting');
+    try {
+      const response = await fetch('https://formspree.io/f/xaqgnykn', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      if (response.ok) {
+        setStatus('success');
+        setEmail('');
+      } else {
+        setStatus('error');
+      }
+    } catch (err) {
+      setStatus('error');
+    }
   };
 
   return (
@@ -91,17 +116,29 @@ export default function Footer({ variant = 'default' }) {
             <form className="flex border-b border-white/20 pb-2" onSubmit={handleNewsletterSubmit}>
               <input
                 type="email"
+                name="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Email address"
-                className="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30"
+                required
+                disabled={status === 'submitting'}
+                className="bg-transparent border-none outline-none text-white font-body text-sm w-full placeholder:text-white/30 disabled:opacity-50"
               />
               <button
                 type="submit"
-                className="text-white hover:text-brand-primary transition-colors"
+                disabled={status === 'submitting'}
+                className="text-white hover:text-brand-primary transition-colors disabled:opacity-50"
                 aria-label="Subscribe"
               >
                 <ArrowRight className="w-5 h-5" />
               </button>
             </form>
+            {status === 'success' && (
+              <p className="text-emerald-400 font-body text-xs mt-2 transition-all duration-300">Thanks for subscribing!</p>
+            )}
+            {status === 'error' && (
+              <p className="text-red-400 font-body text-xs mt-2 transition-all duration-300">Something went wrong. Please try again.</p>
+            )}
           </div>
         </div>
 
