@@ -212,7 +212,7 @@ export default function ContactContent() {
                     <strong>Mentioning &quot;Bulk Order&quot; in the subject line helps us prioritise your enquiry.</strong>
                   </p>
                   <a
-                    href="mailto:hello@eqologic.com?subject=Bulk+Order+Enquiry"
+                    href="mailto:mail@eqologiq.in?subject=Bulk+Order+Enquiry"
                     className="inline-block mt-4 text-sm font-body font-medium text-brand-secondary hover:underline"
                   >
                     Email us directly →

@@ -130,7 +130,7 @@ export default function QrashQoursePage() {
             <div>
               <p className="font-sans font-bold text-brand-text text-lg mb-3">What food-grade actually means.</p>
               <p className="font-body text-brand-text/70 leading-relaxed text-base">Not all steel is equal. Food-grade 18/8 stainless steel, 18 percent chromium, 8 percent nickel, is certified safe for direct food and water contact. It is the minimum standard Eqo Logiq uses across every product. Not a marketing term. A material specification.</p>
-              <p className="font-body text-brand-text/70 leading-relaxed text-base mt-4">Eqo Logiq products have been independently tested to verify the 304 food-grade steel composition. The full test report is available on request. Contact hello@eqologiq.in to receive a copy.</p>
+              <p className="font-body text-brand-text/70 leading-relaxed text-base mt-4">Eqo Logiq products have been independently tested to verify the 304 food-grade steel composition. The full test report is available on request. Contact mail@eqologiq.in to receive a copy.</p>
             </div>
           </div>
           {/* Right: graphic */}
@@ -188,7 +188,7 @@ export default function QrashQoursePage() {
           </div>
         </div>
         <p className="text-center font-body" style={{fontSize: 13, color: 'rgba(34,34,34,0.40)'}}>This section summarises published peer-reviewed research. Eqo Logiq does not make medical claims. Links to source studies available on request.</p>
-        <p className="text-center font-body mt-4" style={{fontSize: 13, color: 'rgba(34,34,34,0.40)'}}>Source studies available on request via hello@eqologiq.in</p>
+        <p className="text-center font-body mt-4" style={{fontSize: 13, color: 'rgba(34,34,34,0.40)'}}>Source studies available on request via mail@eqologiq.in</p>
       </div>
     </section>
     {/* SECTION THREE: THE LIFECYCLE */}

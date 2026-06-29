@@ -48,7 +48,7 @@ export default function Page() {
           "contactPoint": {
             "@type": "ContactPoint",
             "contactType": "customer service",
-            "email": "hello@eqologic.com"
+            "email": "mail@eqologiq.in"
           },
           "sameAs": [
             "https://facebook.com/eqologiq",
@@ -407,21 +407,18 @@ export default function Page() {
     {/* MARKETPLACE AVAILABILITY */}
     <section className="relative z-30 w-full py-10 md:py-20" style={{background: '#F7F5F0', borderTop: '1px solid rgba(34,34,34,0.08)'}}>
       <div className="max-w-[1400px] mx-auto px-6 md:px-12">
-        {/* Mobile: label top, logos below. Tablet+: single row */}
-        <div className="flex flex-col items-center gap-5 md:flex-row md:items-center md:justify-between md:gap-0">
+        {/* Mobile: one below the other. Tablet+: equidistant single row */}
+        <div className="flex flex-col items-center gap-6 md:flex-row md:justify-between md:gap-0">
           {/* Label */}
           <p className="kicker text-brand-text/40" style={{letterSpacing: '0.18em'}}>Also available on</p>
-          {/* Logos row */}
-          <div className="flex items-center justify-center gap-10 md:gap-0 md:contents">
-            {/* Myntra */}
-            <Link href="#" aria-label="Myntra" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300 md:ml-auto">
-              <Image src="/images/myntra-logo.png" alt="Available on Myntra marketplace" width={100} height={32} className="h-8 w-auto object-contain" />
-            </Link>
-            {/* Amazon */}
-            <Link href="#" aria-label="Amazon" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300 md:ml-16">
-              <Image src="/images/amazon-logo.png" alt="Available on Amazon marketplace" width={100} height={32} className="h-8 w-auto object-contain" />
-            </Link>
-          </div>
+          {/* Myntra */}
+          <Link href="#" aria-label="Myntra" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300">
+            <Image src="/images/myntra-logo.png" alt="Available on Myntra marketplace" width={100} height={32} className="h-8 w-auto object-contain" />
+          </Link>
+          {/* Amazon */}
+          <Link href="#" aria-label="Amazon" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300">
+            <Image src="/images/amazon-logo.png" alt="Available on Amazon marketplace" width={100} height={32} className="h-8 w-auto object-contain" />
+          </Link>
         </div>
       </div>
     </section>

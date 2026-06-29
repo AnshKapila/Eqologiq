@@ -25,7 +25,7 @@ export default function ContactPage() {
         "contactPoint": {
           "@type": "ContactPoint",
           "contactType": "customer service",
-          "email": "hello@eqologic.com"
+          "email": "mail@eqologiq.in"
         }
       }) }} />
       <ContactContent />
