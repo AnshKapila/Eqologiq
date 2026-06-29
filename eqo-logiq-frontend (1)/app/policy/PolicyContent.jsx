@@ -16,6 +16,24 @@ export default function PolicyContent() {
     return activeTab === tabId ? 'block' : 'hidden';
   };
 
+  React.useEffect(() => {
+    const handleHashChange = () => {
+      const hash = window.location.hash;
+      if (hash === '#privacy') setActiveTab('privacy');
+      else if (hash === '#terms') setActiveTab('terms');
+      else if (hash === '#returns') setActiveTab('returns');
+      else if (hash === '#shipping') setActiveTab('shipping');
+    };
+
+    // Run on initial mount
+    handleHashChange();
+
+    window.addEventListener('hashchange', handleHashChange);
+    return () => {
+      window.removeEventListener('hashchange', handleHashChange);
+    };
+  }, []);
+
   return (
     <main className="pt-20">
       {/* BACK LINK + HEADER */}

@@ -149,13 +149,13 @@ export default function Footer({ variant = 'default' }) {
               Privacy Policy
             </Link>
             <Link href="/policy/#terms" className="font-body text-white/30 hover:text-white text-sm transition-colors">
-              Terms of Use
+              Terms of Service
             </Link>
             <Link href="/policy/#shipping" className="font-body text-white/30 hover:text-white text-sm transition-colors">
               Shipping Policy
             </Link>
             <Link href="/policy/#returns" className="font-body text-white/30 hover:text-white text-sm transition-colors">
-              Refund &amp; Returns
+              Returns Policy
             </Link>
           </div>
         </div>
