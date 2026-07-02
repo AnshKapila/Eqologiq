@@ -436,7 +436,7 @@ export default function Navbar() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
-        className="fixed bottom-7 right-6 z-[9999] flex items-center gap-2 px-5 py-3 bg-[#1C1C1C] hover:bg-brand-primary hover:-translate-y-0.5 text-white font-body text-[13.5px] font-medium rounded-full shadow-lg hover:shadow-xl transition-all duration-300 max-sm:bottom-5 max-sm:right-4 max-sm:px-4 max-sm:py-2.5 max-sm:text-xs max-sm:gap-1.5 print:hidden"
+        className="fixed bottom-7 right-6 z-[9999] flex items-center justify-center w-12 h-12 hover:w-60 hover:justify-start hover:px-5 bg-[#1C1C1C] hover:bg-brand-primary hover:-translate-y-0.5 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out group print:hidden max-sm:bottom-5 max-sm:right-4"
         style={{
           opacity: waVisible ? 1 : 0,
           transform: waVisible ? 'translateY(0)' : 'translateY(10px)',
@@ -452,7 +452,9 @@ export default function Navbar() {
             fill="#25D366"
           />
         </svg>
-        <span>Questions Before Ordering?</span>
+        <span className="max-w-0 opacity-0 overflow-hidden whitespace-nowrap font-body text-[13.5px] font-medium transition-all duration-300 ease-in-out group-hover:max-w-xs group-hover:opacity-100 group-hover:ml-2">
+          Questions Before Ordering?
+        </span>
       </a>
     </>
   );
