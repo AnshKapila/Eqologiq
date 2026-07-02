@@ -436,7 +436,7 @@ export default function Navbar() {
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat with us on WhatsApp"
-        className="fixed bottom-7 right-6 z-[9999] flex items-center justify-center w-12 h-12 hover:w-60 hover:justify-start hover:px-5 bg-[#1C1C1C] hover:bg-brand-primary border-[1.5px] border-white hover:border-transparent hover:-translate-y-0.5 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out group print:hidden max-sm:bottom-5 max-sm:right-4"
+        className="fixed bottom-7 right-6 z-[9999] flex items-center justify-center w-12 h-12 hover:w-60 hover:justify-start hover:px-5 bg-[#1C1C1C] hover:bg-brand-primary hover:-translate-y-0.5 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out group print:hidden max-sm:bottom-5 max-sm:right-4"
         style={{
           opacity: waVisible ? 1 : 0,
           transform: waVisible ? 'translateY(0)' : 'translateY(10px)',
