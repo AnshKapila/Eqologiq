@@ -59,7 +59,7 @@ const FAQ_DATA = {
       {
         question: 'Can I modify or cancel my order after placing it?',
         answer:
-          "You can modify or cancel within 2 hours of placing your order by emailing us at hello@eqologic.com with your order number. After that, the order enters the fulfilment queue and we cannot guarantee a change. If the order has already shipped, you'll need to use our returns process after receiving it.",
+          "You can modify or cancel within 2 hours of placing your order by emailing us at mail@eqologiq.in with your order number. After that, the order enters the fulfilment queue and we cannot guarantee a change. If the order has already shipped, you'll need to use our returns process after receiving it.",
       },
       {
         question: 'Do you ship outside India?',
@@ -104,12 +104,12 @@ const FAQ_DATA = {
       {
         question: 'How do I initiate a return?',
         answer:
-          "Email hello@eqologic.com with your order number and the reason for return. We'll respond within 24 hours with a prepaid return label and instructions. You don't need to print anything. You can QR-scan the label at most courier drop-off points. Refunds are processed within 5–7 business days of receiving the return.",
+          "Email mail@eqologiq.in with your order number and the reason for return. We'll respond within 24 hours with a prepaid return label and instructions. You don't need to print anything. You can QR-scan the label at most courier drop-off points. Refunds are processed within 5–7 business days of receiving the return.",
       },
       {
         question: 'My bottle arrived dented. What do I do?',
         answer:
-          "Email us at hello@eqologic.com with a photo of the damage and your order number. We'll dispatch a replacement within 2 business days, free of charge. You don't need to return the damaged item. We'll arrange collection or ask you to dispose of it responsibly if it's not worth the shipping carbon.",
+          "Email us at mail@eqologiq.in with a photo of the damage and your order number. We'll dispatch a replacement within 2 business days, free of charge. You don't need to return the damaged item. We'll arrange collection or ask you to dispose of it responsibly if it's not worth the shipping carbon.",
       },
       {
         question: 'Can I exchange a colour or size instead of returning?',
