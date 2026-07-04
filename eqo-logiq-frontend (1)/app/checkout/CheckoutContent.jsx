@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, Package, ShieldCheck, Lock, RotateCcw } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
-import { formatProductPrice } from '../../lib/woocommerce';
+import { formatProductPrice, resolvePaymentRedirectUrl } from '../../lib/woocommerce';
 
 const STATES = [
   'Andhra Pradesh',
@@ -188,7 +188,7 @@ export default function CheckoutContent() {
       if (paymentMethod === 'phonepe') {
         const redirectUrl = responseData?.payment_result?.redirect_url;
         if (redirectUrl) {
-          window.location.href = redirectUrl;
+          window.location.href = resolvePaymentRedirectUrl(redirectUrl);
           return;
         }
       }

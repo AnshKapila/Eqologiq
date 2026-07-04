@@ -13,10 +13,9 @@ export default function ShopContent() {
             <span className="w-6 h-px bg-brand-primary" />
             The Collection
           </p>
-          <h1 className="font-sans font-bold text-4xl md:text-5xl text-brand-text mb-4">Everything we make.</h1>
+          <h1 className="font-sans font-bold text-4xl md:text-5xl text-brand-text mb-4">Everything we offer.</h1>
           <p className="font-body text-brand-text/60 text-lg max-w-lg">
-            Plastic-free steel water bottles India-made, vegan oral care, and curated bundles. Every product built to
-            perform and designed to outlast.
+            Plastic-free steel water bottles, vegan oral care, and curated bundles. Every product built to perform and designed to outlast.
           </p>
         </Reveal>
       </section>

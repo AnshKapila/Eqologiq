@@ -1,4 +1,4 @@
-import { WC_API_BASE, WC_FETCH_OPTIONS } from './woocommerce';
+import { EQO_API_BASE, WC_FETCH_OPTIONS } from './woocommerce';
 
 export async function handleDownloadInvoice(orderId, token) {
   if (!orderId) {
@@ -9,9 +9,8 @@ export async function handleDownloadInvoice(orderId, token) {
     throw new Error('Please sign in to download your invoice.');
   }
 
-  const apiBase = WC_API_BASE.replace('/wc/store/v1', '');
   const response = await fetch(
-    `${apiBase}/eqo/v1/download-invoice/${encodeURIComponent(orderId)}`,
+    `${EQO_API_BASE}/download-invoice/${encodeURIComponent(orderId)}`,
     {
       ...WC_FETCH_OPTIONS,
       headers: {

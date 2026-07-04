@@ -7,9 +7,9 @@ const AuthContext = createContext(null);
 export const AUTH_TOKEN_KEY = 'eqo_auth_token';
 export const AUTH_USER_KEY = 'eqo_auth_user';
 
-// Uses Next rewrites in dev (see next.config.mjs) and same-origin in export.
-const JWT_API_BASE = '/wp-json/jwt-auth/v1';
-const WP_API_BASE = '/wp-json/wp/v2';
+const WP_BASE = process.env.NEXT_PUBLIC_WP_BASE_URL || '';
+const JWT_API_BASE = `${WP_BASE}/wp-json/jwt-auth/v1`;
+const WP_API_BASE = `${WP_BASE}/wp-json/wp/v2`;
 
 const AUTH_FETCH_OPTIONS = {
   credentials: 'omit',

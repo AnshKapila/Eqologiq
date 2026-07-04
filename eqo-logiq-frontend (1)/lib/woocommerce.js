@@ -1,7 +1,9 @@
-// Relative path: proxied to eqologiq.in in dev (see next.config.mjs rewrites),
-// same-origin in production static export on Hostinger.
-// TODO: switch to /backend/wp-json/ once WordPress is moved to that subfolder.
-export const WC_API_BASE = '/wp-json/wc/store/v1';
+const WP_BASE = process.env.NEXT_PUBLIC_WP_BASE_URL || '';
+const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || '';
+
+export const WC_API_BASE = `${WP_BASE}/wp-json/wc/store/v1`;
+export const WP_JSON_BASE = `${WP_BASE}/wp-json`;
+export const EQO_API_BASE = `${WP_JSON_BASE}/eqo/v1`;
 
 export const CART_TOKEN_KEY = 'eqo_cart_token';
 export const CART_NONCE_KEY = 'eqo_cart_nonce';
@@ -10,6 +12,32 @@ export const CART_NONCE_KEY = 'eqo_cart_nonce';
 export const WC_FETCH_OPTIONS = {
   credentials: 'omit',
 };
+
+/** Rewrite WC payment redirects that point at the static frontend to the WP backend. */
+export function resolvePaymentRedirectUrl(redirectUrl) {
+  if (!redirectUrl || !WP_BASE) return redirectUrl;
+
+  try {
+    const target = new URL(redirectUrl);
+    const wpOrigin = new URL(WP_BASE).origin;
+    const frontendOrigins = new Set();
+
+    if (SITE_URL) {
+      frontendOrigins.add(new URL(SITE_URL).origin);
+    }
+    if (typeof window !== 'undefined') {
+      frontendOrigins.add(window.location.origin);
+    }
+
+    if (frontendOrigins.has(target.origin) && target.origin !== wpOrigin) {
+      return `${wpOrigin}${target.pathname}${target.search}${target.hash}`;
+    }
+  } catch {
+    // Not a parseable absolute URL — return unchanged.
+  }
+
+  return redirectUrl;
+}
 
 export function formatProductPrice(prices) {
   if (!prices?.price) return '';

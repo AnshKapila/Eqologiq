@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { ChevronRight, ShieldCheck, FlaskConical, Thermometer, Recycle, FileCheck } from 'lucide-react';
+import { ChevronRight, ShieldCheck, FlaskConical, Thermometer, Recycle } from 'lucide-react';
 import ProductClient from './ProductClient';
 import ProductGallery from './ProductGallery';
 import Reveal from '../../../components/Reveal';
@@ -38,7 +38,8 @@ async function fetchJson(url) {
 
 async function fetchProduct(slug) {
   const origin = getWpOrigin();
-  const url = `${origin}${WC_API_BASE}/products?slug=${encodeURIComponent(slug)}&per_page=1`;
+  const apiBase = WC_API_BASE.startsWith('http') ? WC_API_BASE : `${origin}${WC_API_BASE}`;
+  const url = `${apiBase}/products?slug=${encodeURIComponent(slug)}&per_page=1`;
   const data = await fetchJson(url);
   return Array.isArray(data) ? data[0] : null;
 }
@@ -212,15 +213,7 @@ export default async function Page({ params }) {
                 <Recycle className="w-4 h-4 text-brand-primary flex-shrink-0" />
                 <span className="font-body text-xs text-brand-text/60">Infinitely Recyclable Steel</span>
               </div>
-              <div className="col-span-2 flex flex-col gap-0.5 border-t border-brand-text/8 pt-3 mt-1">
-                <div className="flex items-center gap-2">
-                  <FileCheck className="w-4 h-4 text-brand-secondary flex-shrink-0" />
-                  <span className="font-body text-xs font-medium text-brand-text/80">Lab Tested</span>
-                </div>
-                <span className="font-body text-xs text-brand-text/55 pl-6">
-                  304 food-grade steel composition independently verified.
-                </span>
-              </div>
+
             </div>
           </Reveal>
         </div>

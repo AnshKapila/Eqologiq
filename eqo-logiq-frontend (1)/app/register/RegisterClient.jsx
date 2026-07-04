@@ -6,7 +6,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { useAuth } from '../../context/AuthContext';
-import { WC_API_BASE } from '../../lib/woocommerce';
+import { EQO_API_BASE } from '../../lib/woocommerce';
 
 export default function RegisterClient() {
   const router = useRouter();
@@ -24,7 +24,7 @@ export default function RegisterClient() {
   }, [isAuthenticated, router]);
 
   const registerUrl = useMemo(() => {
-    return `${WC_API_BASE.replace('/wc/store/v1', '')}/eqo/v1/register`;
+    return `${EQO_API_BASE}/register`;
   }, []);
 
   async function onSubmit(e) {

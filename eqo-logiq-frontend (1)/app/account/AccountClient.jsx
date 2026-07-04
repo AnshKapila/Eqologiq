@@ -8,7 +8,7 @@ import { ArrowRight, Image as ImageIcon, Infinity, Leaf, Package, Search, Trendi
 import { useAuth } from '../../context/AuthContext';
 import { useSavedItems } from '../../context/SavedItemsContext';
 import { handleDownloadInvoice } from '../../lib/downloadInvoice';
-import { INDIAN_STATE_CODES, WC_API_BASE, WC_FETCH_OPTIONS, formatProductPrice } from '../../lib/woocommerce';
+import { INDIAN_STATE_CODES, WC_API_BASE, EQO_API_BASE, WC_FETCH_OPTIONS, formatProductPrice } from '../../lib/woocommerce';
 
 const EMPTY_ADDRESS_FORM = {
   billing_first_name: '',
@@ -162,7 +162,7 @@ export default function AccountClient() {
       setOrdersError(null);
 
       try {
-        const ordersUrl = `${WC_API_BASE.replace('/wc/store/v1', '')}/eqo/v1/orders`;
+        const ordersUrl = `${EQO_API_BASE}/orders`;
         const response = await fetch(ordersUrl, {
           ...WC_FETCH_OPTIONS,
           headers: {
@@ -256,7 +256,7 @@ export default function AccountClient() {
 
     try {
       const response = await fetch(
-        `${WC_API_BASE.replace('/wc/store/v1', '')}/eqo/v1/update-profile`,
+        `${EQO_API_BASE}/update-profile`,
         {
           ...WC_FETCH_OPTIONS,
           method: 'POST',
@@ -310,7 +310,7 @@ export default function AccountClient() {
 
     try {
       const response = await fetch(
-        `${WC_API_BASE.replace('/wc/store/v1', '')}/eqo/v1/change-password`,
+        `${EQO_API_BASE}/change-password`,
         {
           ...WC_FETCH_OPTIONS,
           method: 'POST',
@@ -367,7 +367,7 @@ export default function AccountClient() {
 
     try {
       const response = await fetch(
-        `${WC_API_BASE.replace('/wc/store/v1', '')}/eqo/v1/update-address`,
+        `${EQO_API_BASE}/update-address`,
         {
           ...WC_FETCH_OPTIONS,
           method: 'POST',

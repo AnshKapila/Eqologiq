@@ -24,7 +24,8 @@ export default async function sitemap() {
 
   // Fetch products
   try {
-    const res = await fetch(`${wpOrigin}${WC_API_BASE}/products?per_page=100`);
+    const apiBase = WC_API_BASE.startsWith('http') ? WC_API_BASE : `${wpOrigin}${WC_API_BASE}`;
+    const res = await fetch(`${apiBase}/products?per_page=100`);
     if (res.ok) {
       const products = await res.json();
       if (Array.isArray(products)) {
