@@ -4,7 +4,14 @@ import { ChevronRight, ShieldCheck, FlaskConical, Thermometer, Recycle } from 'l
 import ProductClient from './ProductClient';
 import ProductGallery from './ProductGallery';
 import Reveal from '../../../components/Reveal';
-import { WC_API_BASE, formatProductPrice, stripHtml } from '../../../lib/woocommerce';
+import {
+  WC_API_BASE,
+  formatProductPrice,
+  getProductFallbackImage,
+  resolveProductImages,
+  stripHtml,
+  toAbsoluteImageUrl,
+} from '../../../lib/woocommerce';
 
 const PRODUCT_SLUGS = [
   'plastic-free-screw-cap-bottle-single-wall-1-liter',
@@ -68,9 +75,10 @@ export async function generateMetadata({ params }) {
   const product = await fetchProduct(slug);
   if (!product) return {};
 
-  const image = product?.images?.[0]?.src || '/images/steel-bottle.png';
   const description = stripHtml(product?.short_description || product?.description || '');
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
+  const image =
+    toAbsoluteImageUrl(product?.images?.[0]?.src, baseUrl) || `${baseUrl}/images/steel-bottle.png`;
 
   return {
     title: product.name,
@@ -104,7 +112,8 @@ export default async function Page({ params }) {
   const stockText = product?.stock_availability?.text || '';
   const reviewCount = Number(product?.review_count) || 0;
   const averageRating = Number(product?.average_rating) || 0;
-  const images = product?.images || [];
+  const images = resolveProductImages(product?.images || []);
+  const fallbackImage = getProductFallbackImage(product, slug);
 
   const priceValue = product?.prices?.price ? Number(product.prices.price) / Math.pow(10, product.prices.currency_minor_unit ?? 2) : 0;
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
@@ -116,7 +125,7 @@ export default async function Page({ params }) {
         "@type": "Product",
         "name": product.name,
         "description": shortDescription,
-        "image": images?.[0]?.src || `${baseUrl}/images/steel-bottle.png`,
+        "image": toAbsoluteImageUrl(images?.[0]?.src, baseUrl) || `${baseUrl}${fallbackImage}`,
         "sku": product.sku || '',
         "offers": {
           "@type": "Offer",
@@ -143,7 +152,7 @@ export default async function Page({ params }) {
 
       <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-20">
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
-          <ProductGallery images={images} productName={product.name} />
+          <ProductGallery images={images} productName={product.name} fallbackSrc={fallbackImage} />
 
           <Reveal className="lg:w-1/2" style={{ transitionDelay: '100ms' }}>
             {categoryLabel ? (
@@ -204,10 +213,6 @@ export default async function Page({ params }) {
               <div className="flex items-center gap-2">
                 <FlaskConical className="w-4 h-4 text-brand-primary flex-shrink-0" />
                 <span className="font-body text-xs text-brand-text/60">Food-Grade 304 Steel</span>
-              </div>
-              <div className="flex items-center gap-2">
-                <Thermometer className="w-4 h-4 text-brand-secondary flex-shrink-0" />
-                <span className="font-body text-xs text-brand-text/60">12+ Hours Hot &amp; Cold</span>
               </div>
               <div className="flex items-center gap-2">
                 <Recycle className="w-4 h-4 text-brand-primary flex-shrink-0" />

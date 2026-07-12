@@ -1,0 +1,4 @@
+RewriteEngine On
+
+# Optional fallback: serve mirrored uploads from public/wp-content/uploads/ when present.
+# Product images are normally loaded directly from backend.eqologiq.in.

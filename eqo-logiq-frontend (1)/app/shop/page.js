@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import ShopContent from './ShopContent';
 
 export const metadata = {
@@ -15,5 +16,19 @@ export const metadata = {
 };
 
 export default function ShopPage() {
-  return <ShopContent />;
+  return (
+    <Suspense
+      fallback={
+        <main className="pt-20">
+          <section className="bg-brand-base py-16 md:py-24 border-b border-brand-text/8">
+            <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+              <p className="font-body text-brand-text/40 text-lg">Loading shop collection...</p>
+            </div>
+          </section>
+        </main>
+      }
+    >
+      <ShopContent />
+    </Suspense>
+  );
 }

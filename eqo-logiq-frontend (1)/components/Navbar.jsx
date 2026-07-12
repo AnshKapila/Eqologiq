@@ -15,7 +15,7 @@ import {
   FileText,
 } from 'lucide-react';
 import { useCart } from '../context/CartContext';
-import { formatProductPrice } from '../lib/woocommerce';
+import { formatProductPrice, resolveProductImageUrl } from '../lib/woocommerce';
 
 const LOGO_URL =
   '/images/logo.png';
@@ -354,7 +354,7 @@ export default function Navbar() {
                 className="bg-white rounded-2xl p-4 flex gap-4 items-center shadow-sm"
               >
                 <img
-                  src={item.images?.[0]?.src || item.images?.[0]?.thumbnail || ''}
+                  src={resolveProductImageUrl(item.images?.[0]?.src || item.images?.[0]?.thumbnail || '')}
                   alt={item.name}
                   className="w-16 h-16 rounded-xl bg-brand-surface object-cover flex-shrink-0"
                 />

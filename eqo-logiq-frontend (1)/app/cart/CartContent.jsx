@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { ArrowLeft, ShieldCheck, Lock, RotateCcw, Truck, X } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
-import { formatProductPrice } from '../../lib/woocommerce';
+import { formatProductPrice, resolveProductImageUrl } from '../../lib/woocommerce';
 
 export default function CartContent() {
   const { cart, isHydrated, isLoading, updateQuantity, removeItem, updatingItemKey } = useCart();
@@ -48,7 +48,7 @@ export default function CartContent() {
                         >
                           <div className="w-20 h-20 rounded-xl bg-brand-surface flex-shrink-0 overflow-hidden">
                             <img
-                              src={item.images?.[0]?.src || item.images?.[0]?.thumbnail || ''}
+                              src={resolveProductImageUrl(item.images?.[0]?.src || item.images?.[0]?.thumbnail || '')}
                               alt={item.name}
                               className="w-full h-full object-cover"
                             />

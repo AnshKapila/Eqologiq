@@ -8,7 +8,7 @@ import { ArrowRight, Image as ImageIcon, Infinity, Leaf, Package, Search, Trendi
 import { useAuth } from '../../context/AuthContext';
 import { useSavedItems } from '../../context/SavedItemsContext';
 import { handleDownloadInvoice } from '../../lib/downloadInvoice';
-import { INDIAN_STATE_CODES, WC_API_BASE, EQO_API_BASE, WC_FETCH_OPTIONS, formatProductPrice } from '../../lib/woocommerce';
+import { INDIAN_STATE_CODES, WC_API_BASE, EQO_API_BASE, WC_FETCH_OPTIONS, formatProductPrice, resolveProductImageUrl } from '../../lib/woocommerce';
 
 const EMPTY_ADDRESS_FORM = {
   billing_first_name: '',
@@ -656,7 +656,7 @@ export default function AccountClient() {
                   ) : (
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                       {savedItems.map((item) => {
-                        const image = item?.images?.[0]?.src;
+                        const image = resolveProductImageUrl(item?.images?.[0]?.src);
                         const imageAlt = item?.images?.[0]?.alt || item?.name || 'Product';
                         const price = formatProductPrice(item?.prices);
 

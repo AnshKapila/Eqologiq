@@ -1,9 +1,30 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import Reveal from '../../../components/Reveal';
 
-export default function ProductGallery({ images = [], productName }) {
+function GalleryImage({ src, alt, className, fallbackSrc }) {
+  const [currentSrc, setCurrentSrc] = useState(src);
+
+  useEffect(() => {
+    setCurrentSrc(src);
+  }, [src]);
+
+  return (
+    <img
+      src={currentSrc}
+      alt={alt}
+      className={className}
+      onError={() => {
+        if (fallbackSrc && currentSrc !== fallbackSrc) {
+          setCurrentSrc(fallbackSrc);
+        }
+      }}
+    />
+  );
+}
+
+export default function ProductGallery({ images = [], productName, fallbackSrc = '/images/steel-bottle.png' }) {
   const [activeIndex, setActiveIndex] = useState(0);
   const main = images[activeIndex] || images[0];
 
@@ -11,7 +32,12 @@ export default function ProductGallery({ images = [], productName }) {
     return (
       <Reveal className="lg:w-1/2">
         <div className="bg-brand-surface rounded-2xl aspect-square overflow-hidden flex items-center justify-center">
-          <span className="font-body text-sm text-brand-text/30">No image available</span>
+          <GalleryImage
+            src={fallbackSrc}
+            alt={productName}
+            className="w-full h-full object-cover"
+            fallbackSrc={fallbackSrc}
+          />
         </div>
       </Reveal>
     );
@@ -20,11 +46,11 @@ export default function ProductGallery({ images = [], productName }) {
   return (
     <Reveal className="lg:w-1/2">
       <div className="bg-brand-surface rounded-2xl aspect-square overflow-hidden flex items-center justify-center mb-4">
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
+        <GalleryImage
           src={main.src}
           alt={main.alt || productName}
           className="w-full h-full object-cover transition-all duration-300"
+          fallbackSrc={fallbackSrc}
         />
       </div>
       {images.length > 1 ? (
@@ -42,11 +68,11 @@ export default function ProductGallery({ images = [], productName }) {
               aria-label={`View image ${index + 1}`}
               aria-pressed={activeIndex === index}
             >
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
+              <GalleryImage
                 src={img.thumbnail || img.src}
                 alt=""
                 className="w-full h-full object-cover"
+                fallbackSrc={fallbackSrc}
               />
             </button>
           ))}

@@ -140,7 +140,7 @@ export default function Page() {
           </div>
           {/* AFTER card — dark green, product-led */}
           <div className="relative overflow-hidden rounded-2xl reveal" style={{minHeight: 480, background: '#0D1F0E'}}>
-            <Image src="/images/feature-lifestyle.png" alt="Eqo Logiq steel bottle in daily use" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-30" />
+            <Image src="/images/feature-lifestyle.png" alt="Eqo Logiq steel bottle in daily use" fill sizes="(max-width: 768px) 100vw, 50vw" className="object-cover opacity-30 scale-125 object-right" />
             <div className="absolute inset-0" style={{background: 'linear-gradient(135deg, rgba(153,189,5,0.55) 0%, rgba(0,107,150,0.15) 100%)'}} />
             <div className="absolute inset-0" style={{background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)'}} />
             <div className="relative h-full flex flex-col justify-between p-8 md:p-10" style={{minHeight: 480}}>

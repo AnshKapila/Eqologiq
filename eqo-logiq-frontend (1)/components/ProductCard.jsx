@@ -1,7 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { formatProductPrice } from '../lib/woocommerce';
+import { formatProductPrice, getProductFallbackImage, resolveProductImageUrl } from '../lib/woocommerce';
 
 export function ProductCard({
   product,
@@ -11,8 +12,14 @@ export function ProductCard({
   onAddToCart,
   isAdding = false,
 }) {
-  const image = product.images?.[0]?.src;
+  const image = resolveProductImageUrl(product.images?.[0]?.src);
+  const fallbackImage = getProductFallbackImage(product, product.slug);
   const imageAlt = product.images?.[0]?.alt || product.name;
+  const [imageSrc, setImageSrc] = useState(image || fallbackImage);
+
+  useEffect(() => {
+    setImageSrc(image || fallbackImage);
+  }, [image, fallbackImage]);
   const price = formatProductPrice(product.prices);
   const regularPrice =
     product.prices?.regular_price &&
@@ -36,13 +43,14 @@ export function ProductCard({
     <div className={cardClass} data-cat={category} style={{ transitionDelay: delay || '0ms' }}>
       <Link href={href} className="flex flex-col flex-1">
         <div className="relative aspect-square overflow-hidden bg-brand-surface">
-          {image && (
-            <img
-              src={image}
-              alt={imageAlt}
-              className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-            />
-          )}
+          <img
+            src={imageSrc}
+            alt={imageAlt}
+            className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+            onError={() => {
+              if (imageSrc !== fallbackImage) setImageSrc(fallbackImage);
+            }}
+          />
           {product.on_sale && (
             <span className="absolute top-3 left-3 px-2.5 py-1 text-[10px] font-sans font-bold uppercase tracking-wider rounded-full bg-brand-secondary text-brand-text">
               Sale

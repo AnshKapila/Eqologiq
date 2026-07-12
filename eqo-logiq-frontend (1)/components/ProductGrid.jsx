@@ -1,6 +1,7 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { ProductCard } from './ProductCard';
 import { useProducts } from '../hooks/useProducts';
 import { useCart } from '../context/CartContext';
@@ -22,8 +23,16 @@ export default function ProductGrid({
 }) {
   const { products, loading, error } = useProducts();
   const { addToCart, isAdding } = useCart();
+  const searchParams = useSearchParams();
+  const filterParam = searchParams?.get('filter') || 'all';
   const [activeFilter, setActiveFilter] = useState('all');
   const [addingId, setAddingId] = useState(null);
+
+  useEffect(() => {
+    if (filterParam) {
+      setActiveFilter(filterParam);
+    }
+  }, [filterParam]);
 
   const filteredProducts = products.filter((product) => {
     if (activeFilter === 'all') return true;

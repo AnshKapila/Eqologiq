@@ -136,6 +136,64 @@ export function getCartAuthHeaders() {
   return headers;
 }
 
+const WP_MEDIA_BASE = (process.env.NEXT_PUBLIC_WP_BASE_URL || 'https://backend.eqologiq.in').replace(/\/$/, '');
+
+/** Point WooCommerce media URLs at the WordPress backend that hosts uploads. */
+export function resolveProductImageUrl(url) {
+  if (!url || typeof url !== 'string') return url || '';
+
+  try {
+    const parsed = new URL(url);
+    if (parsed.pathname.startsWith('/wp-content/uploads/')) {
+      return `${WP_MEDIA_BASE}${parsed.pathname}${parsed.search}`;
+    }
+  } catch {
+    if (url.startsWith('/wp-content/uploads/')) {
+      return `${WP_MEDIA_BASE}${url}`;
+    }
+  }
+
+  return url;
+}
+
+export function toAbsoluteImageUrl(url, baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in') {
+  const resolved = resolveProductImageUrl(url);
+  if (!resolved) return '';
+  if (resolved.startsWith('http://') || resolved.startsWith('https://')) return resolved;
+  if (resolved.startsWith('/')) return `${baseUrl.replace(/\/$/, '')}${resolved}`;
+  return resolved;
+}
+
+export function resolveProductImages(images) {
+  if (!Array.isArray(images)) return [];
+
+  return images.map((image) => ({
+    ...image,
+    src: resolveProductImageUrl(image?.src),
+    thumbnail: resolveProductImageUrl(image?.thumbnail || image?.src),
+  }));
+}
+
+export function getProductFallbackImage(product, slug = '') {
+  const haystack = [
+    slug,
+    product?.name,
+    ...(product?.categories || []).map((category) => category?.name || category?.slug || ''),
+  ]
+    .join(' ')
+    .toLowerCase();
+
+  if (haystack.includes('brush')) return '/images/prod-brush.png';
+  if (haystack.includes('cleaner') || haystack.includes('tongue') || haystack.includes('scraper')) {
+    return '/images/prod-cleaner.png';
+  }
+  if (haystack.includes('bottle') || haystack.includes('flask') || haystack.includes('tumbler')) {
+    return '/images/prod-bottle.png';
+  }
+
+  return '/images/steel-bottle.png';
+}
+
 export function inferProductCategory(product) {
   const haystack = [
     product.name,

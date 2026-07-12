@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { ArrowLeft, Package, ShieldCheck, Lock, RotateCcw } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
-import { formatProductPrice, resolvePaymentRedirectUrl } from '../../lib/woocommerce';
+import { formatProductPrice, resolvePaymentRedirectUrl, resolveProductImageUrl } from '../../lib/woocommerce';
 
 const STATES = [
   'Andhra Pradesh',
@@ -60,7 +60,6 @@ function isAddressComplete(form) {
   return Boolean(
     form.name?.trim() &&
       form.phone?.trim() &&
-      form.email?.trim() &&
       form.address?.trim() &&
       form.city?.trim() &&
       form.pincode?.trim() &&
@@ -282,13 +281,12 @@ export default function CheckoutContent() {
                   </div>
                   <div>
                     <label htmlFor="email" className="font-sans font-bold text-xs text-brand-text/50 uppercase tracking-wider block mb-1.5">
-                      Email Address <span className="text-red-400">*</span>
+                      Email Address <span className="text-brand-text/30 font-normal lowercase">(optional)</span>
                     </label>
                     <input
                       id="email"
                       type="email"
                       name="email"
-                      required
                       placeholder="your@email.com"
                       className="form-field"
                       value={form.email}
@@ -382,7 +380,7 @@ export default function CheckoutContent() {
                         <div className="w-12 h-12 rounded-xl bg-brand-surface flex-shrink-0 overflow-hidden flex items-center justify-center">
                           {item.images?.[0]?.src ? (
                             <img
-                              src={item.images[0].src}
+                              src={resolveProductImageUrl(item.images[0].src)}
                               alt={item.name}
                               className="w-full h-full object-cover"
                             />
@@ -473,7 +471,10 @@ export default function CheckoutContent() {
 
                 {paymentMethods.length > 0 && (
                   <div className="border-t border-brand-text/8 pt-4 mb-6">
-                    <p className="font-sans font-bold text-sm text-brand-text mb-3">Payment Method</p>
+                    <p className="font-sans font-bold text-sm text-brand-text mb-2">Payment Method</p>
+                    <p className="font-body text-xs text-red-500 mb-3">
+                      PhonePe is not available. Use Cash On Delivery only.
+                    </p>
                     <fieldset className="space-y-2" disabled={isCheckingOut}>
                       {paymentMethods.map((method) => {
                         const methodId = getPaymentMethodId(method);
