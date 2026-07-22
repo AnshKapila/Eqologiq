@@ -271,6 +271,9 @@ export function CartProvider({ children }) {
         syncSession(response);
 
         const data = await response.json().catch(() => null);
+        // #region agent log
+        fetch('http://127.0.0.1:7812/ingest/17e9cf14-25f8-4e03-be7e-97be2a641220',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2bacbb'},body:JSON.stringify({sessionId:'2bacbb',runId:'pre-fix',hypothesisId:'C',location:'context/CartContext.jsx:370',message:'Add-to-cart API result',data:{requestedProductId:id,requestedQuantity:qty,status:response.status,ok:response.ok,cartItems:Array.isArray(data?.items)?data.items.map((item)=>({id:item.id,quantity:item.quantity,price:item.prices?.price,lineTotal:item.totals?.line_total})):null},timestamp:Date.now()})}).catch(()=>{});
+        // #endregion
 
         if (!response.ok) {
           console.error('Cart API Error:', data);

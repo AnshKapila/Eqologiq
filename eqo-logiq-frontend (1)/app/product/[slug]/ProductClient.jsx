@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Heart } from 'lucide-react';
 import { useCart } from '../../../context/CartContext';
 import { useSavedItems } from '../../../context/SavedItemsContext';
@@ -12,6 +12,12 @@ export default function ProductClient({ product }) {
   const [error, setError] = useState(null);
 
   const saved = isItemSaved(product?.id);
+
+  useEffect(() => {
+    // #region agent log
+    fetch('http://127.0.0.1:7812/ingest/17e9cf14-25f8-4e03-be7e-97be2a641220',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'2bacbb'},body:JSON.stringify({sessionId:'2bacbb',runId:'pre-fix',hypothesisId:'B,D',location:'app/product/[slug]/ProductClient.jsx:17',message:'Product page payload rendered',data:{id:product?.id,slug:product?.slug,price:product?.prices?.price,regularPrice:product?.prices?.regular_price},timestamp:Date.now()})}).catch(()=>{});
+    // #endregion
+  }, [product]);
 
   async function onAdd() {
     setError(null);
