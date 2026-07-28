@@ -127,7 +127,7 @@ export default function AboutContent() {
             </Reveal>
             <Reveal className="lg:w-7/12" style={{ transitionDelay: '100ms' }}>
               <p className="kicker text-brand-primary mb-6 flex items-center gap-3">
-                <span className="w-6 h-px bg-brand-primary" />A note from the founder
+                <span className="w-6 h-px bg-brand-primary" />A note from our founder
               </p>
               <h2 className="font-sans font-bold text-3xl md:text-4xl text-brand-text mb-10 leading-tight">
                 Health and sustainability were always important to me, until I saw how badly the basics were failing both.
