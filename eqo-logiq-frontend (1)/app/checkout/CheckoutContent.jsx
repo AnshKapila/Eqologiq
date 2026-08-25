@@ -56,6 +56,26 @@ function getPaymentMethodLabel(method) {
   return method?.title || method?.id || 'Payment';
 }
 
+// `type=error` is the only signal that the payment did not go through, so the
+// "nothing has been charged" reassurance belongs to that branch alone. On any
+// other return — including "Your payment is successful." — it contradicts the
+// gateway's own message and invites the customer to pay a second time.
+function getGatewayDetail(failed, cartState) {
+  if (!failed) {
+    return 'Please do not pay again — if the amount has left your account, your order will appear under your account within a few minutes.';
+  }
+
+  if (cartState === 'kept') {
+    return 'Nothing has been charged and your items are still in your cart — you can try again below.';
+  }
+
+  if (cartState === 'none') {
+    return 'Nothing has been charged. Add your items again to place the order.';
+  }
+
+  return '';
+}
+
 function isAddressComplete(form) {
   return Boolean(
     form.name?.trim() &&
@@ -72,9 +92,11 @@ export default function CheckoutContent() {
   const searchParams = useSearchParams();
   const {
     cart,
+    isHydrated,
     isCheckingOut,
     isUpdating,
     error,
+    refreshCart,
     submitCheckout,
     updateCustomer,
     selectShippingRate,
@@ -85,6 +107,52 @@ export default function CheckoutContent() {
 
   const [form, setForm] = useState(initialForm);
   const [checkoutError, setCheckoutError] = useState(null);
+
+  // A cancelled or failed gateway payment returns here with its own message,
+  // e.g. ?phonepe_response=Your+payment+is+cancelled.&type=error
+  const gatewayMessage = searchParams.get('phonepe_response');
+  const gatewayFailed = searchParams.get('type') === 'error';
+  // 'kept' | 'restored' | 'none'
+  const [cartState, setCartState] = useState(null);
+  const restoreAttempted = useRef(false);
+
+  // Returning from the gateway, the cart on screen is stale: the server usually
+  // still holds the items, so re-syncing first is what matters. Only restore
+  // from the snapshot when the cart is genuinely empty — adding to a cart that
+  // already has the items is what doubled every line.
+  useEffect(() => {
+    if (!gatewayMessage || restoreAttempted.current) return;
+    if (!isHydrated) return;
+
+    restoreAttempted.current = true;
+
+    (async () => {
+      // The cart is not always re-associated with the session on the first read
+      // after the gateway round-trip, so an empty result may just be early.
+      // Re-read before concluding anything — never add items, or the cart the
+      // server already holds ends up counted twice.
+      for (let attempt = 0; attempt < 3; attempt += 1) {
+        let live = null;
+
+        try {
+          live = await refreshCart();
+        } catch {
+          live = null;
+        }
+
+        if ((live?.items?.length ?? 0) > 0) {
+          setCartState('kept');
+          return;
+        }
+
+        if (attempt < 2) {
+          await new Promise((resolve) => setTimeout(resolve, 600));
+        }
+      }
+
+      setCartState('none');
+    })();
+  }, [gatewayMessage, isHydrated, refreshCart]);
   const [paymentMethod, setPaymentMethod] = useState('cod');
   const [selectedShippingRate, setSelectedShippingRate] = useState(null);
   const [isUpdatingShipping, setIsUpdatingShipping] = useState(false);
@@ -212,6 +280,7 @@ export default function CheckoutContent() {
 
   const isPhonePe = paymentMethod === 'phonepe';
   const isCod = paymentMethod === 'cod';
+  const gatewayDetail = getGatewayDetail(gatewayFailed, cartState);
 
   return (
     <main className="pt-20">
@@ -234,6 +303,32 @@ export default function CheckoutContent() {
 
       <section className="bg-brand-base py-12 md:py-20">
         <div className="max-w-[1400px] mx-auto px-6 md:px-12">
+          {gatewayMessage ? (
+            <div
+              role="status"
+              className={`mb-8 rounded-xl border px-5 py-4 ${
+                gatewayFailed
+                  ? 'border-red-200 bg-red-50'
+                  : 'border-brand-secondary/30 bg-brand-secondary/10'
+              }`}
+            >
+              <p className="font-sans font-bold text-sm text-brand-text mb-1">
+                {gatewayFailed ? 'Payment not completed' : 'Payment update'}
+              </p>
+              <p className="font-body text-sm text-brand-text/70">
+                {gatewayMessage} {gatewayDetail}
+              </p>
+              {!gatewayFailed ? (
+                <Link
+                  href="/account/"
+                  className="inline-flex items-center gap-1.5 font-body text-sm text-brand-primary hover:underline mt-2"
+                >
+                  <Package className="w-3.5 h-3.5" />
+                  View your orders
+                </Link>
+              ) : null}
+            </div>
+          ) : null}
           <div className="flex flex-col lg:flex-row gap-12 lg:gap-16 items-start">
             <div className="lg:flex-1 w-full">
               <div className="bg-white rounded-2xl p-6 md:p-8 shadow-[0_2px_16px_rgba(34,34,34,0.07)]">
@@ -471,10 +566,7 @@ export default function CheckoutContent() {
 
                 {paymentMethods.length > 0 && (
                   <div className="border-t border-brand-text/8 pt-4 mb-6">
-                    <p className="font-sans font-bold text-sm text-brand-text mb-2">Payment Method</p>
-                    <p className="font-body text-xs text-red-500 mb-3">
-                      PhonePe is not available. Use Cash On Delivery only.
-                    </p>
+                    <p className="font-sans font-bold text-sm text-brand-text mb-3">Payment Method</p>
                     <fieldset className="space-y-2" disabled={isCheckingOut}>
                       {paymentMethods.map((method) => {
                         const methodId = getPaymentMethodId(method);

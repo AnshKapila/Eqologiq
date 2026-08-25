@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import { formatProductPrice, getProductFallbackImage, resolveProductImageUrl } from '../lib/woocommerce';
+import { formatProductPrice, getProductFallbackImage, isVariableProduct, resolveProductImageUrl } from '../lib/woocommerce';
 
 export function ProductCard({
   product,
@@ -28,6 +28,7 @@ export function ProductCard({
       : null;
   const descriptionHtml = product.short_description || product.description || '';
   const href = `/product/${product.slug}/`;
+  const isVariable = isVariableProduct(product);
 
   const cardClass =
     variant === 'home'
@@ -65,24 +66,30 @@ export function ProductCard({
             </span>
             {regularPrice ? (
               <span className="text-xs text-brand-text/40 font-body line-through">{regularPrice}</span>
-            ) : (
+            ) : isVariable ? (
               <span className="text-xs text-brand-text/40 font-body">onwards</span>
-            )}
+            ) : null}
           </div>
         </div>
       </Link>
       <div className="px-6 pb-6 -mt-2">
-        <button
-          type="button"
-          onClick={(e) => {
-            e.preventDefault();
-            onAddToCart?.(product);
-          }}
-          disabled={isAdding}
-          className={buttonClass}
-        >
-          {isAdding ? 'Adding…' : 'Add to Cart'}
-        </button>
+        {isVariable ? (
+          <Link href={href} className={`${buttonClass} block`}>
+            Select Options
+          </Link>
+        ) : (
+          <button
+            type="button"
+            onClick={(e) => {
+              e.preventDefault();
+              onAddToCart?.(product);
+            }}
+            disabled={isAdding}
+            className={buttonClass}
+          >
+            {isAdding ? 'Adding…' : 'Add to Cart'}
+          </button>
+        )}
       </div>
     </div>
   );

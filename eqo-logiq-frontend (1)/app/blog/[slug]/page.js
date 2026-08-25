@@ -14,10 +14,26 @@ function getWpOrigin() {
   );
 }
 
-async function fetchJson(url) {
-  const res = await fetch(url, { method: 'GET', next: { revalidate: false } });
-  if (!res.ok) return null;
-  return await res.json().catch(() => null);
+/**
+ * Build-time fetch with retry — see the matching helper on the product page.
+ * A refused connection during the parallel export must not abort the build.
+ */
+async function fetchJson(url, attempts = 4) {
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      const res = await fetch(url, { method: 'GET', next: { revalidate: false } });
+      if (res.ok) return await res.json().catch(() => null);
+      if (res.status >= 400 && res.status < 500) return null;
+    } catch {
+      // Connection-level failure; fall through and retry.
+    }
+
+    if (attempt < attempts) {
+      await new Promise((resolve) => setTimeout(resolve, 400 * attempt));
+    }
+  }
+
+  return null;
 }
 
 async function fetchPost(slug) {

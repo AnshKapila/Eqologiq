@@ -3,13 +3,33 @@
 import Link from 'next/link';
 import { ArrowLeft, ShieldCheck, Lock, RotateCcw, Truck, X } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
-import { formatProductPrice, resolveProductImageUrl } from '../../lib/woocommerce';
+import {
+  FREE_SHIPPING_MIN_RUPEES,
+  formatProductPrice,
+  resolveProductImageUrl,
+  toMajorAmount,
+} from '../../lib/woocommerce';
 
 export default function CartContent() {
   const { cart, isHydrated, isLoading, updateQuantity, removeItem, updatingItemKey } = useCart();
 
   const items = cart?.items ?? [];
   const isEmpty = isHydrated && !isLoading && items.length === 0;
+
+  // WooCommerce owns the real shipping cost; only report what it has told us.
+  const minorUnit = cart?.totals?.currency_minor_unit ?? 2;
+  const currencyPrefix = cart?.totals?.currency_prefix ?? '₹';
+  const needsShipping = cart?.needs_shipping !== false;
+  const shippingTotalRaw = cart?.totals?.total_shipping;
+  const hasShippingTotal = shippingTotalRaw !== null && shippingTotalRaw !== undefined;
+  const shippingIsFree = hasShippingTotal && Number(shippingTotalRaw) <= 0;
+
+  const subtotalRupees = toMajorAmount(cart?.totals?.total_items, minorUnit);
+  const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_MIN_RUPEES - subtotalRupees);
+  const freeShippingProgress = Math.min(
+    100,
+    Math.round((subtotalRupees / FREE_SHIPPING_MIN_RUPEES) * 100)
+  );
 
   return (
     <main className="pt-20">
@@ -152,14 +172,57 @@ export default function CartContent() {
                         })}
                       </span>
                     </div>
-                    <div className="flex justify-between font-body text-sm text-brand-secondary">
+                    <div
+                      className={`flex justify-between font-body text-sm ${
+                        shippingIsFree ? 'text-brand-secondary' : 'text-brand-text/70'
+                      }`}
+                    >
                       <span className="flex items-center gap-1">
                         <Truck className="w-3.5 h-3.5" />
                         Shipping
                       </span>
-                      <span>Free</span>
+                      <span>
+                        {!needsShipping
+                          ? '—'
+                          : !hasShippingTotal
+                            ? 'Calculated at checkout'
+                            : shippingIsFree
+                              ? 'Free'
+                              : formatProductPrice({
+                                  price: shippingTotalRaw,
+                                  currency_minor_unit: minorUnit,
+                                  currency_prefix: currencyPrefix,
+                                })}
+                      </span>
                     </div>
                   </div>
+
+                  {needsShipping && !shippingIsFree ? (
+                    <div className="mb-4 rounded-xl bg-brand-surface p-4">
+                      {remainingForFreeShipping > 0 ? (
+                        <>
+                          <p className="font-body text-xs text-brand-text/70 mb-2">
+                            Add{' '}
+                            <span className="font-sans font-bold text-brand-primary">
+                              {currencyPrefix}
+                              {remainingForFreeShipping.toLocaleString('en-IN')}
+                            </span>{' '}
+                            more to get free shipping.
+                          </p>
+                          <div className="h-1.5 w-full rounded-full bg-brand-text/10 overflow-hidden">
+                            <div
+                              className="h-full rounded-full bg-brand-primary transition-[width] duration-300"
+                              style={{ width: `${freeShippingProgress}%` }}
+                            />
+                          </div>
+                        </>
+                      ) : (
+                        <p className="font-body text-xs text-brand-secondary font-medium">
+                          You qualify for free shipping.
+                        </p>
+                      )}
+                    </div>
+                  ) : null}
                   <div className="border-t border-brand-text/8 pt-4 mb-6">
                     <div className="flex justify-between font-sans font-bold text-lg text-brand-text">
                       <span>Total</span>

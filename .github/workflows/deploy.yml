@@ -1,0 +1,99 @@
+name: Deploy frontend to Hostinger
+
+# PHASE 1 — manual only, dry run by default.
+# Deliberately no `push` trigger yet: the server path has not been confirmed,
+# and this action deletes server files that are absent locally. Run it by hand
+# from the Actions tab, read the dry-run log, and confirm what it intends to
+# delete before letting it write anything.
+#
+# PHASE 2 — once a real run has succeeded and the site looks right, restore
+# automatic deploys by uncommenting the two lines below.
+#
+# push:
+#   branches: [main]
+on:
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Dry run — log changes without uploading (untick to deploy for real)"
+        type: boolean
+        default: true
+
+# Deployments queue rather than cancel: aborting mid-upload would leave the
+# document root half-updated and the sync state file unwritten.
+concurrency:
+  group: deploy-hostinger
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: "eqo-logiq-frontend (1)"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+          cache-dependency-path: "eqo-logiq-frontend (1)/package-lock.json"
+
+      - name: Install dependencies
+        run: npm ci
+
+      # Reads NEXT_PUBLIC_* from the committed .env and pulls live products and
+      # posts from the WordPress backend to generate a page per product/article.
+      - name: Build static site
+        run: npm run build
+
+      # A build can exit 0 having produced very little. Publishing that would
+      # delete the live site, so confirm the export looks real before uploading.
+      - name: Verify build output
+        run: |
+          test -f out/index.html || { echo "::error::out/index.html missing — refusing to deploy"; exit 1; }
+          test -d out/product   || { echo "::error::out/product missing — refusing to deploy"; exit 1; }
+          pages=$(find out -name index.html | wc -l)
+          echo "Generated $pages pages, $(du -sh out | cut -f1) total"
+          [ "$pages" -ge 15 ] || { echo "::error::only $pages pages — expected at least 15"; exit 1; }
+
+      - name: Deploy to Hostinger via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          port: 21
+          # FTPS = the same port 21 login upgraded to TLS, so the password is not
+          # sent in cleartext. Hostinger supports it. If a run fails with a TLS or
+          # connection error, change this to `ftp` to confirm the credentials work,
+          # then raise FTPS with Hostinger support.
+          protocol: ftps
+          # Relative to the repo root, so the subfolder is included. Trailing slash required.
+          local-dir: "eqo-logiq-frontend (1)/out/"
+          # Where files land on Hostinger. If the FTP account is already scoped to
+          # the domain, this may need to be "./" or "/domains/eqologiq.in/public_html/".
+          server-dir: "public_html/"
+          dry-run: ${{ inputs.dry_run }}
+          # Never wipe the destination and re-upload; sync only what changed.
+          dangerous-clean-slate: false
+          # This action DELETES server files absent from local-dir. Everything the
+          # frontend build does not produce must be listed here or it will be
+          # removed — most importantly the WordPress installation.
+          exclude: |
+            **/backend/**
+            backend/**
+            **/wp-admin/**
+            **/wp-includes/**
+            **/wp-content/**
+            **/wp-config.php
+            **/wp-*.php
+            **/xmlrpc.php
+            **/.htaccess
+            **/.well-known/**
+            **/cgi-bin/**
+            **/.git*
+            **/.git*/**

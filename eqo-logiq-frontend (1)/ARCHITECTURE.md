@@ -424,3 +424,7 @@ Production:
 3. **Product slug list** in `product/[slug]/page.js` is hardcoded (10 slugs); sitemap pulls live slugs from API — they can diverge.
 4. **No runtime product revalidation** — catalog changes require rebuild for PDPs; shop page updates live via client fetch.
 5. **Planned WP path change** — comment in `woocommerce.js` references future `/backend/wp-json/` migration.
+
+
+
+This is new line

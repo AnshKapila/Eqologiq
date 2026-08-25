@@ -3,11 +3,13 @@ import { notFound } from 'next/navigation';
 import { ChevronRight, ShieldCheck, FlaskConical, Thermometer, Recycle } from 'lucide-react';
 import ProductClient from './ProductClient';
 import ProductGallery from './ProductGallery';
+import { VariationProvider } from './VariationContext';
 import Reveal from '../../../components/Reveal';
 import {
   WC_API_BASE,
   formatProductPrice,
   getProductFallbackImage,
+  resolveContentUrls,
   resolveProductImages,
   stripHtml,
   toAbsoluteImageUrl,
@@ -37,10 +39,29 @@ function getWpOrigin() {
   );
 }
 
-async function fetchJson(url) {
-  const res = await fetch(url, { method: 'GET', next: { revalidate: false } });
-  if (!res.ok) return null;
-  return await res.json().catch(() => null);
+/**
+ * Build-time fetch with retry. The static export renders many pages in parallel
+ * across build workers, and the backend intermittently refuses a connection
+ * under that burst. Without a retry a single refused connection aborts the whole
+ * export, so a transient blip would fail an otherwise good deployment.
+ */
+async function fetchJson(url, attempts = 4) {
+  for (let attempt = 1; attempt <= attempts; attempt += 1) {
+    try {
+      const res = await fetch(url, { method: 'GET', next: { revalidate: false } });
+      if (res.ok) return await res.json().catch(() => null);
+      // A 4xx is a real answer — the resource is absent, not unreachable.
+      if (res.status >= 400 && res.status < 500) return null;
+    } catch {
+      // Connection-level failure; fall through and retry.
+    }
+
+    if (attempt < attempts) {
+      await new Promise((resolve) => setTimeout(resolve, 400 * attempt));
+    }
+  }
+
+  return null;
 }
 
 async function fetchProduct(slug) {
@@ -64,8 +85,48 @@ function getDiscountPercent(prices) {
   return Math.round((1 - sale / regular) * 100);
 }
 
+/**
+ * The parent product payload lists variations as { id, attributes } only — no
+ * images. Fetch each variation so the gallery can show the right photo for the
+ * chosen option. Keyed by variation id.
+ */
+async function fetchVariationImages(product) {
+  const list = Array.isArray(product?.variations) ? product.variations : [];
+  if (list.length === 0) return {};
+
+  const origin = getWpOrigin();
+  const apiBase = WC_API_BASE.startsWith('http') ? WC_API_BASE : `${origin}${WC_API_BASE}`;
+
+  // Sequential on purpose. The export already renders many product pages at
+  // once, so firing every variation in parallel on top of that is what exhausts
+  // the backend's connection allowance. Variation counts are small.
+  const images = {};
+
+  for (const entry of list) {
+    if (!entry?.id) continue;
+    const data = await fetchJson(`${apiBase}/products/${entry.id}`);
+    const [image] = resolveProductImages(data?.images || []);
+    if (image) images[entry.id] = image;
+  }
+
+  return images;
+}
+
+async function fetchAllProductSlugs() {
+  const origin = getWpOrigin();
+  const apiBase = WC_API_BASE.startsWith('http') ? WC_API_BASE : `${origin}${WC_API_BASE}`;
+  const data = await fetchJson(`${apiBase}/products?per_page=100`);
+  if (!Array.isArray(data)) return [];
+  return data.map((product) => product?.slug).filter(Boolean);
+}
+
 export async function generateStaticParams() {
-  return PRODUCT_SLUGS.map((slug) => ({ slug }));
+  // Build a PDP for every published, catalog-visible product. Fall back to the
+  // static list only if the build-time fetch fails, so a network hiccup never
+  // produces zero product pages.
+  const liveSlugs = await fetchAllProductSlugs();
+  const slugs = liveSlugs.length > 0 ? liveSlugs : PRODUCT_SLUGS;
+  return slugs.map((slug) => ({ slug }));
 }
 
 export async function generateMetadata({ params }) {
@@ -114,6 +175,7 @@ export default async function Page({ params }) {
   const averageRating = Number(product?.average_rating) || 0;
   const images = resolveProductImages(product?.images || []);
   const fallbackImage = getProductFallbackImage(product, slug);
+  const variationImages = await fetchVariationImages(product);
 
   const priceValue = product?.prices?.price ? Number(product.prices.price) / Math.pow(10, product.prices.currency_minor_unit ?? 2) : 0;
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
@@ -151,6 +213,7 @@ export default async function Page({ params }) {
       </div>
 
       <section className="max-w-[1400px] mx-auto px-6 md:px-12 pb-20">
+        <VariationProvider>
         <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
           <ProductGallery images={images} productName={product.name} fallbackSrc={fallbackImage} />
 
@@ -203,7 +266,7 @@ export default async function Page({ params }) {
               </div>
             )}
 
-            <ProductClient product={product} />
+            <ProductClient product={product} variationImages={variationImages} />
 
             <div className="grid grid-cols-2 gap-3 border-t border-brand-text/8 pt-6">
               <div className="flex items-center gap-2">
@@ -222,6 +285,7 @@ export default async function Page({ params }) {
             </div>
           </Reveal>
         </div>
+        </VariationProvider>
       </section>
 
       {product?.description ? (
@@ -229,7 +293,7 @@ export default async function Page({ params }) {
           <div className="border-t border-brand-text/10 pt-16 max-w-2xl product-description">
             <div
               className="font-body text-brand-text/70 leading-relaxed prose prose-brand max-w-none [&_h2]:font-sans [&_h2]:font-bold [&_h2]:text-2xl [&_h2]:text-brand-text [&_h2]:mb-6 [&_h2]:mt-10 [&_h2:first-child]:mt-0 [&_p]:mb-4"
-              dangerouslySetInnerHTML={{ __html: product.description }}
+              dangerouslySetInnerHTML={{ __html: resolveContentUrls(product.description) }}
             />
           </div>
         </Reveal>

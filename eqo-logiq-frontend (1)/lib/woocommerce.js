@@ -156,6 +156,37 @@ export function resolveProductImageUrl(url) {
   return url;
 }
 
+/**
+ * Rewrite `/wp-content/` URLs inside WordPress HTML (product/post content) so they
+ * point at the WordPress backend. Legacy content can still reference the frontend
+ * origin, which has no `/wp-content/` on a static export and 404s.
+ */
+export function resolveContentUrls(html) {
+  if (!html || typeof html !== 'string') return html || '';
+  if (!WP_MEDIA_BASE) return html;
+
+  const frontendOrigins = new Set(['https://eqologiq.in', 'http://eqologiq.in']);
+  if (SITE_URL) {
+    try {
+      frontendOrigins.add(new URL(SITE_URL).origin);
+    } catch {
+      // Ignore an unparseable SITE_URL and keep the defaults.
+    }
+  }
+
+  let output = html;
+
+  for (const origin of frontendOrigins) {
+    if (origin === WP_MEDIA_BASE) continue;
+    output = output.split(`${origin}/wp-content/`).join(`${WP_MEDIA_BASE}/wp-content/`);
+  }
+
+  // Root-relative references (href="/wp-content/…", src="/wp-content/…").
+  output = output.replace(/(["'])\/wp-content\//g, `$1${WP_MEDIA_BASE}/wp-content/`);
+
+  return output;
+}
+
 export function toAbsoluteImageUrl(url, baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in') {
   const resolved = resolveProductImageUrl(url);
   if (!resolved) return '';
@@ -206,4 +237,26 @@ export function inferProductCategory(product) {
   if (haystack.includes('brush') || haystack.includes('oral') || haystack.includes('scraper')) return 'oral';
   if (haystack.includes('bottle') || haystack.includes('flask')) return 'bottles';
   return 'all';
+}
+
+/**
+ * Free-shipping threshold in rupees, used only for the storefront nudge.
+ * MUST match the "Minimum order amount" on the WooCommerce Free shipping
+ * method — WooCommerce remains the authority on what is actually charged.
+ */
+export const FREE_SHIPPING_MIN_RUPEES = 1500;
+
+/** Convert a Store API minor-unit amount (e.g. "15000") into rupees (1500). */
+export function toMajorAmount(amount, minorUnit = 2) {
+  const value = Number(amount);
+  if (!Number.isFinite(value)) return 0;
+  return value / Math.pow(10, Number(minorUnit) || 0);
+}
+
+/** True when a product has selectable variations (WooCommerce variable product). */
+export function isVariableProduct(product) {
+  if (!product) return false;
+  if (product.type === 'variable') return true;
+  if (product.has_options) return true;
+  return Array.isArray(product.variations) && product.variations.length > 0;
 }
