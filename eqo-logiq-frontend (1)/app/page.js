@@ -232,7 +232,7 @@ export default function Page() {
         <div className="flex flex-col-reverse md:flex-row md:items-stretch gap-0">
           {/* Left column — text */}
           <div className="w-full md:w-1/2 reveal flex flex-col justify-center px-0 md:pr-12 md:pl-0 py-16 text-left">
-            <p className="kicker mb-4" style={{color: '#006B96', letterSpacing: '0.18em'}}>THE CAP RING</p>
+            <p className="kicker mb-4" style={{color: '#006B96', letterSpacing: '0.18em'}}>THE RING IN THE CAP</p>
             <h2 className="font-sans font-bold text-white mb-5" style={{fontSize: 'clamp(1.75rem,3vw,2.75rem)', lineHeight: '1.1'}}>
               Silicone, not plastic.<br />It is not a small detail.
             </h2>
