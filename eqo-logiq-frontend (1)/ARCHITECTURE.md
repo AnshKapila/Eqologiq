@@ -208,6 +208,7 @@ function getWpOrigin() {
 ```
 /wp-json/wc/store/v1/          ← WooCommerce Store API (public cart/catalog)
   ├── products
+  ├── products/reviews?product_id={id}   ← PDP reviews, fetched live in the browser
   ├── cart, cart/add-item, cart/update-item, cart/remove-item
   ├── cart/update-customer, cart/select-shipping-rate
   ├── checkout
@@ -219,7 +220,8 @@ function getWpOrigin() {
 
 /wp-json/wp/v2/               ← WordPress core REST
   ├── users/me
-  └── posts
+  ├── posts
+  └── comments?post={id}        ← store replies to PDP reviews, fetched live
 
 /wp-json/eqo/v1/              ← Custom Eqo plugin routes
   ├── register

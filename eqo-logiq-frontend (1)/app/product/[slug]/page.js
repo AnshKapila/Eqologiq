@@ -3,6 +3,8 @@ import { notFound } from 'next/navigation';
 import { ChevronRight, ShieldCheck, FlaskConical, Thermometer, Recycle } from 'lucide-react';
 import ProductClient from './ProductClient';
 import ProductGallery from './ProductGallery';
+import ProductReviews, { ReviewSummary } from './ProductReviews';
+import { ReviewsProvider } from './ReviewsContext';
 import { VariationProvider } from './VariationContext';
 import Reveal from '../../../components/Reveal';
 import {
@@ -198,6 +200,7 @@ export default async function Page({ params }) {
         }
       }) }} />
       <main className="pt-20 bg-brand-base">
+      <ReviewsProvider productId={product.id}>
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-4">
         <nav className="flex items-center gap-2 font-body text-sm text-brand-text/40">
           <Link href="/" className="hover:text-brand-primary transition-colors">
@@ -246,25 +249,13 @@ export default async function Page({ params }) {
               ) : null}
             </div>
 
-            {(reviewCount > 0 || stockText) && (
-              <div className="mb-6">
-                {reviewCount > 0 ? (
-                  <div className="flex items-center gap-2">
-                    <span className="text-base" style={{ color: '#FFC850' }}>
-                      {'★'.repeat(Math.round(averageRating))}
-                      {'☆'.repeat(5 - Math.round(averageRating))}
-                    </span>
-                    <span className="font-body text-sm text-brand-text/60">
-                      Rated {averageRating.toFixed(2)} out of 5 · {reviewCount} customer review
-                      {reviewCount === 1 ? '' : 's'}
-                    </span>
-                  </div>
-                ) : null}
-                {stockText ? (
-                  <p className="font-body text-xs text-brand-secondary mt-1">{stockText}</p>
-                ) : null}
-              </div>
-            )}
+            {/* Not gated on the build-time count: a review posted after the build still shows. */}
+            <div className="mb-6 empty:hidden">
+              <ReviewSummary initialCount={reviewCount} initialAverage={averageRating} />
+              {stockText ? (
+                <p className="font-body text-xs text-brand-secondary mt-1">{stockText}</p>
+              ) : null}
+            </div>
 
             <ProductClient product={product} variationImages={variationImages} />
 
@@ -298,6 +289,9 @@ export default async function Page({ params }) {
           </div>
         </Reveal>
       ) : null}
+
+      <ProductReviews initialCount={reviewCount} />
+      </ReviewsProvider>
     </main>
     </>
   );
