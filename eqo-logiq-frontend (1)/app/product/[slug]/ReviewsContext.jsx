@@ -5,7 +5,7 @@ import { WC_API_BASE, WC_FETCH_OPTIONS, WP_JSON_BASE } from '../../../lib/woocom
 
 const ReviewsContext = createContext(null);
 
-const EMPTY = { status: 'idle', reviews: [], retry: () => {} };
+const EMPTY = { status: 'idle', reviews: [], retry: () => {}, productId: null };
 
 const PAGE_SIZE = 100;
 const MAX_PAGES = 10;
@@ -151,7 +151,7 @@ export function ReviewsProvider({ productId, children }) {
     setAttempt((n) => n + 1);
   }, []);
 
-  const value = useMemo(() => ({ ...state, retry }), [state, retry]);
+  const value = useMemo(() => ({ ...state, retry, productId }), [state, retry, productId]);
 
   return <ReviewsContext.Provider value={value}>{children}</ReviewsContext.Provider>;
 }

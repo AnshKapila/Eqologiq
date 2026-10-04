@@ -229,7 +229,8 @@ function getWpOrigin() {
   ├── update-profile
   ├── change-password
   ├── update-address
-  └── download-invoice/{orderId}
+  ├── download-invoice/{orderId}
+  └── reviews (POST)            ← eqo-reviews plugin (repo: wordpress/eqo-reviews/); JWT required, held for approval
 ```
 
 Custom routes are built by stripping `/wc/store/v1` from `WC_API_BASE`:

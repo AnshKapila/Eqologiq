@@ -3,6 +3,7 @@
 import { useMemo, useState } from 'react';
 import { BadgeCheck } from 'lucide-react';
 import Reveal from '../../../components/Reveal';
+import ReviewForm from './ReviewForm';
 import { summarizeReviews, useReviews } from './ReviewsContext';
 
 const INITIAL_VISIBLE = 3;
@@ -59,7 +60,7 @@ export function ReviewSummary({ initialCount = 0, initialAverage = 0 }) {
 
 function ReviewCard({ review }) {
   return (
-    <article className="py-8 border-b border-brand-text/8 first:pt-0 last:border-b-0">
+    <article className="py-8 border-b border-brand-text/[0.08] first:pt-0 last:border-b-0">
       <div className="flex items-start gap-4">
         <div
           className="w-10 h-10 rounded-full flex-shrink-0 flex items-center justify-center font-sans font-bold text-white text-sm bg-brand-primary"
@@ -122,12 +123,12 @@ function ReviewsSkeleton() {
     <div className="space-y-8 animate-pulse" aria-hidden="true">
       {[0, 1].map((key) => (
         <div key={key} className="flex items-start gap-4">
-          <div className="w-10 h-10 rounded-full bg-brand-text/8" />
+          <div className="w-10 h-10 rounded-full bg-brand-text/[0.08]" />
           <div className="flex-1 space-y-3">
-            <div className="h-3 w-32 rounded bg-brand-text/8" />
-            <div className="h-3 w-24 rounded bg-brand-text/8" />
-            <div className="h-3 w-full rounded bg-brand-text/8" />
-            <div className="h-3 w-2/3 rounded bg-brand-text/8" />
+            <div className="h-3 w-32 rounded bg-brand-text/[0.08]" />
+            <div className="h-3 w-24 rounded bg-brand-text/[0.08]" />
+            <div className="h-3 w-full rounded bg-brand-text/[0.08]" />
+            <div className="h-3 w-2/3 rounded bg-brand-text/[0.08]" />
           </div>
         </div>
       ))}
@@ -136,21 +137,21 @@ function ReviewsSkeleton() {
 }
 
 /**
- * Every published review for the product, with the store's replies, loaded live.
- * Hidden entirely for products nobody has reviewed yet.
+ * Every published review for the product, with the store's replies, loaded live,
+ * and the form signed-in customers use to add their own.
  */
 export default function ProductReviews({ initialCount = 0 }) {
-  const { status, reviews, retry } = useReviews();
+  const { status, reviews, retry, productId } = useReviews();
   const [sort, setSort] = useState('newest');
   const [showAll, setShowAll] = useState(false);
+  const [writing, setWriting] = useState(false);
 
   const summary = useMemo(() => summarizeReviews(reviews), [reviews]);
   const sorted = useMemo(() => [...reviews].sort(SORTS[sort].compare), [reviews, sort]);
 
   if (status === 'idle') return null;
-  if (status === 'ready' && reviews.length === 0) return null;
-  if (status !== 'ready' && initialCount === 0) return null;
 
+  const isEmpty = status === 'ready' && reviews.length === 0;
   const visible = showAll ? sorted : sorted.slice(0, INITIAL_VISIBLE);
   const hiddenCount = sorted.length - INITIAL_VISIBLE;
 
@@ -161,7 +162,14 @@ export default function ProductReviews({ initialCount = 0 }) {
           <div className="lg:w-1/3">
             <p className="kicker text-brand-primary mb-4">Customer reviews</p>
 
-            {status === 'ready' ? (
+            {isEmpty ? (
+              <>
+                <p className="font-sans font-bold text-2xl text-brand-text mb-2">No reviews yet</p>
+                <p className="font-body text-sm text-brand-text/55">Be the first to share what you think.</p>
+              </>
+            ) : null}
+
+            {status === 'ready' && !isEmpty ? (
               <>
                 <div className="flex items-end gap-4 mb-2">
                   <span className="font-sans font-bold text-5xl text-brand-text leading-none">
@@ -181,7 +189,7 @@ export default function ProductReviews({ initialCount = 0 }) {
                     return (
                       <div key={stars} className="flex items-center gap-3">
                         <span className="font-body text-xs text-brand-text/60 w-8">{stars} ★</span>
-                        <div className="flex-1 h-1.5 rounded-full bg-brand-text/8 overflow-hidden">
+                        <div className="flex-1 h-1.5 rounded-full bg-brand-text/[0.08] overflow-hidden">
                           <div className="h-full rounded-full bg-brand-primary" style={{ width: `${share}%` }} />
                         </div>
                         <span className="font-body text-xs text-brand-text/45 w-4 text-right">{tally}</span>
@@ -191,64 +199,82 @@ export default function ProductReviews({ initialCount = 0 }) {
                 </div>
               </>
             ) : null}
+
+            {!writing ? (
+              <button
+                type="button"
+                onClick={() => setWriting(true)}
+                className="mt-8 px-5 py-3 rounded-xl border-2 border-brand-primary font-sans font-bold text-sm text-brand-primary hover:bg-brand-primary hover:text-white transition-colors"
+              >
+                Write a review
+              </button>
+            ) : null}
           </div>
 
-          <div className="lg:w-2/3" aria-live="polite" aria-busy={status === 'loading'}>
-            {status === 'loading' ? <ReviewsSkeleton /> : null}
-
-            {status === 'error' ? (
-              <div className="rounded-2xl border-2 border-brand-text/10 p-6">
-                <p className="font-body text-brand-text/70 mb-4">We couldn&apos;t load reviews right now.</p>
-                <button
-                  type="button"
-                  onClick={retry}
-                  className="px-4 py-2.5 rounded-xl border-2 border-brand-text/15 font-sans font-bold text-sm text-brand-text/70 hover:border-brand-primary hover:text-brand-primary transition-colors"
-                >
-                  Try again
-                </button>
+          <div className="lg:w-2/3">
+            {writing ? (
+              <div className="mb-10">
+                <ReviewForm productId={productId} onPublished={retry} onCancel={() => setWriting(false)} />
               </div>
             ) : null}
 
-            {status === 'ready' ? (
-              <>
-                {sorted.length > 1 ? (
-                  <div className="flex items-center justify-end gap-3 mb-8">
-                    <label htmlFor="review-sort" className="font-body text-sm text-brand-text/55">
-                      Sort by
-                    </label>
-                    <select
-                      id="review-sort"
-                      value={sort}
-                      onChange={(event) => setSort(event.target.value)}
-                      className="font-body text-sm text-brand-text bg-transparent border-2 border-brand-text/15 rounded-xl px-3 py-2 focus:border-brand-primary focus:outline-none"
-                    >
-                      {Object.entries(SORTS).map(([key, option]) => (
-                        <option key={key} value={key}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                ) : null}
+            <div aria-live="polite" aria-busy={status === 'loading'}>
+              {status === 'loading' && initialCount > 0 ? <ReviewsSkeleton /> : null}
 
-                <div>
-                  {visible.map((review) => (
-                    <ReviewCard key={review.id} review={review} />
-                  ))}
-                </div>
-
-                {hiddenCount > 0 ? (
+              {status === 'error' ? (
+                <div className="rounded-2xl border-2 border-brand-text/10 p-6">
+                  <p className="font-body text-brand-text/70 mb-4">We couldn&apos;t load reviews right now.</p>
                   <button
                     type="button"
-                    onClick={() => setShowAll((open) => !open)}
-                    aria-expanded={showAll}
-                    className="mt-8 px-5 py-3 rounded-xl border-2 border-brand-text/15 font-sans font-bold text-sm text-brand-text/70 hover:border-brand-primary hover:text-brand-primary transition-colors"
+                    onClick={retry}
+                    className="px-4 py-2.5 rounded-xl border-2 border-brand-text/15 font-sans font-bold text-sm text-brand-text/70 hover:border-brand-primary hover:text-brand-primary transition-colors"
                   >
-                    {showAll ? 'Show fewer reviews' : `View all ${sorted.length} reviews`}
+                    Try again
                   </button>
-                ) : null}
-              </>
-            ) : null}
+                </div>
+              ) : null}
+
+              {status === 'ready' ? (
+                <>
+                  {sorted.length > 1 ? (
+                    <div className="flex items-center justify-end gap-3 mb-8">
+                      <label htmlFor="review-sort" className="font-body text-sm text-brand-text/55">
+                        Sort by
+                      </label>
+                      <select
+                        id="review-sort"
+                        value={sort}
+                        onChange={(event) => setSort(event.target.value)}
+                        className="font-body text-sm text-brand-text bg-transparent border-2 border-brand-text/15 rounded-xl px-3 py-2 focus:border-brand-primary focus:outline-none"
+                      >
+                        {Object.entries(SORTS).map(([key, option]) => (
+                          <option key={key} value={key}>
+                            {option.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+                  ) : null}
+
+                  <div>
+                    {visible.map((review) => (
+                      <ReviewCard key={review.id} review={review} />
+                    ))}
+                  </div>
+
+                  {hiddenCount > 0 ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowAll((open) => !open)}
+                      aria-expanded={showAll}
+                      className="mt-8 px-5 py-3 rounded-xl border-2 border-brand-text/15 font-sans font-bold text-sm text-brand-text/70 hover:border-brand-primary hover:text-brand-primary transition-colors"
+                    >
+                      {showAll ? 'Show fewer reviews' : `View all ${sorted.length} reviews`}
+                    </button>
+                  ) : null}
+                </>
+              ) : null}
+            </div>
           </div>
         </div>
       </div>

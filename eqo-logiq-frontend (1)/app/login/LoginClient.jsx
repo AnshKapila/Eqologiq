@@ -21,14 +21,17 @@ export default function LoginClient() {
     if (typeof window === 'undefined') return;
     const params = new URLSearchParams(window.location.search);
     const next = params.get('redirect');
-    if (next) setRedirectTo(next);
+    // Same-site paths only: "//host" or "/\host" would make this an open redirect.
+    if (next && next.startsWith('/') && !next.startsWith('//') && !next.startsWith('/\\')) {
+      setRedirectTo(next);
+    }
   }, []);
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.replace('/account/');
+      router.replace(redirectTo);
     }
-  }, [isAuthenticated, router]);
+  }, [isAuthenticated, redirectTo, router]);
 
   async function onSubmit(e) {
     e.preventDefault();
