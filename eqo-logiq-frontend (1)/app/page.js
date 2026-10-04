@@ -412,11 +412,11 @@ export default function Page() {
           {/* Label */}
           <p className="kicker text-brand-text/40" style={{letterSpacing: '0.18em'}}>Also available on</p>
           {/* Myntra */}
-          <Link href="#" aria-label="Myntra" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300">
+          <Link href="https://www.myntra.com/eqo-logiq-water-bottle" target="_blank" rel="noopener noreferrer" aria-label="Myntra" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300">
             <Image src="/images/myntra-logo.png" alt="Available on Myntra marketplace" width={100} height={32} className="h-8 w-auto object-contain" />
           </Link>
           {/* Amazon */}
-          <Link href="#" aria-label="Amazon" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300">
+          <Link href="https://www.amazon.in/stores/EQOLOGIQ/page/D8FC61D8-6344-4C26-805E-F635BA26EFBD?lp_asin=B0F9F8146Q&ref_=ast_bln&store_ref=bl_ast_dp_brandlogo_sto" target="_blank" rel="noopener noreferrer" aria-label="Amazon" className="flex items-center opacity-50 hover:opacity-80 transition-opacity duration-300">
             <Image src="/images/amazon-logo.png" alt="Available on Amazon marketplace" width={100} height={32} className="h-8 w-auto object-contain" />
           </Link>
         </div>
