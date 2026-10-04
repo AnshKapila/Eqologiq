@@ -144,9 +144,9 @@ export default function Page() {
             <div className="absolute inset-0" style={{background: 'linear-gradient(135deg, rgba(153,189,5,0.55) 0%, rgba(0,107,150,0.15) 100%)'}} />
             <div className="absolute inset-0" style={{background: 'linear-gradient(to top, rgba(0,0,0,0.65) 0%, transparent 60%)'}} />
             <div className="relative h-full flex flex-col justify-between p-8 md:p-10" style={{minHeight: 480}}>
-              <span className="inline-block px-4 py-1.5 rounded-full text-xs font-sans font-bold uppercase tracking-widest w-fit" style={{background: 'rgba(153,189,5,0.5)', color: '#A8E6A3', border: '1px solid rgba(153,189,5,0.6)'}}>With Eqo Logic</span>
+              <span className="inline-block px-4 py-1.5 rounded-full text-xs font-sans font-bold uppercase tracking-widest w-fit" style={{background: 'rgba(153,189,5,0.5)', color: '#A8E6A3', border: '1px solid rgba(153,189,5,0.6)'}}>With Eqo Logiq</span>
               <div>
-                <p className="font-sans font-bold text-2xl md:text-3xl text-white leading-tight mb-3">With Eqo Logic</p>
+                <p className="font-sans font-bold text-2xl md:text-3xl text-white leading-tight mb-3">With Eqo Logiq</p>
                 <ul className="mt-4 space-y-2">
                   <li className="flex items-center gap-2.5 font-body text-sm" style={{color: 'rgba(255,255,255,0.70)'}}><span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{background: '#A8E6A3'}} />304 food-grade stainless steel. No leaching under heat or repeated use.</li>
                   <li className="flex items-center gap-2.5 font-body text-sm" style={{color: 'rgba(255,255,255,0.70)'}}><span className="w-1.5 h-1.5 rounded-full flex-shrink-0" style={{background: '#A8E6A3'}} />No plastic in any component. Outer body, inner body, lid, cap, and seal are all steel or food-grade silicone.</li>
