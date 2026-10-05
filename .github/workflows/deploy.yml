@@ -29,7 +29,9 @@ concurrency:
 
 jobs:
   build-and-deploy:
-    runs-on: ubuntu-latest
+    # Pinned rather than ubuntu-latest, which moves from 24.04 to 26.04 gradually
+    # between 2026-10-19 and 2026-11-19, so runs would land on either.
+    runs-on: ubuntu-26.04
     timeout-minutes: 20
     env:
       # Relative to the SSH user's home directory.
