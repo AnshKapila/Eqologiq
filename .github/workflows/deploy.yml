@@ -96,12 +96,13 @@ jobs:
             StrictHostKeyChecking yes
           EOF
 
-      # rsync --delete into the wrong directory would destroy it. backend/ only
-      # exists in the real document root, so require it before writing anything.
+      # rsync --delete into the wrong directory would destroy it, and the
+      # /backend/ exclusion only protects WordPress if it sits directly inside
+      # the target. Require exactly that before writing anything.
       - name: Confirm target directory
         run: |
-          ssh hostinger "test -d '$DEPLOY_PATH/backend'" \
-            || { echo "::error::$DEPLOY_PATH/backend not found on server — refusing to deploy"; exit 1; }
+          ssh hostinger "test -f '$DEPLOY_PATH/backend/wp-config.php'" \
+            || { echo "::error::$DEPLOY_PATH/backend/wp-config.php not found on server — refusing to deploy"; exit 1; }
 
       # --delete removes files the new build no longer has (the manual "delete
       # everything" step). Excluded paths are never touched, deletes included:
@@ -109,18 +110,50 @@ jobs:
       # --delay-updates swaps all changed files in at the end instead of leaving
       # the site half-old/half-new during the upload. --checksum skips files whose
       # content is unchanged, so a typical deploy sends a few MB, not the full site.
+      #
+      # Two passes with identical options. The first is a dry run: rsync reports
+      # exactly what it would change and changes nothing. The real pass only
+      # happens if that report leaves backend/ and .well-known/ alone and
+      # deletes a plausible number of files.
       - name: Deploy with rsync
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
         run: |
-          rsync -rlpz --checksum --chmod=D755,F644 \
-            --delete --delete-delay --delay-updates \
-            --exclude='/backend/' --exclude='/.well-known/' \
-            --itemize-changes --stats \
-            ${{ inputs.dry_run && '--dry-run' || '' }} \
-            out/ "hostinger:$DEPLOY_PATH/"
+          deploy() {
+            rsync -rlpz --checksum --chmod=D755,F644 \
+              --delete --delete-delay --delay-updates \
+              --exclude='/backend/' --exclude='/.well-known/' \
+              --itemize-changes "$@" \
+              out/ "hostinger:$DEPLOY_PATH/"
+          }
+
+          plan="$RUNNER_TEMP/rsync-plan.txt"
+          deploy --dry-run > "$plan"
+          deletions=$(grep -c '^\*deleting' "$plan" || true)
+          echo "Planned: $(wc -l < "$plan") changes, $deletions deletions"
+          grep '^\*deleting' "$plan" || true
+
+          if grep -E '^\S+\s+(backend|\.well-known)(/|$)' "$plan"; then
+            echo "::error::the lines above would change backend/ or .well-known/ — refusing to deploy"
+            exit 1
+          fi
+          if [ "$deletions" -gt 300 ]; then
+            echo "::error::$deletions deletions planned (limit 300) — refusing to deploy"
+            exit 1
+          fi
+
+          if [ "$DRY_RUN" = "true" ]; then
+            echo "Dry run: nothing was changed on the server."
+            exit 0
+          fi
+
+          deploy --stats
 
       - name: Smoke test
         if: ${{ !inputs.dry_run }}
         run: |
+          ssh hostinger "test -f '$DEPLOY_PATH/backend/wp-config.php'" \
+            || { echo "::error::backend/wp-config.php missing after deploy"; exit 1; }
           curl -fsS -o /dev/null https://eqologiq.in/ \
             || { echo "::error::eqologiq.in is not responding after deploy"; exit 1; }
           curl -fsS -o /dev/null https://backend.eqologiq.in/wp-json/ \
