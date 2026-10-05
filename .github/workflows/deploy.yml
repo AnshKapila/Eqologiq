@@ -1,26 +1,28 @@
 name: Deploy frontend to Hostinger
 
-# PHASE 1 — manual only, dry run by default.
-# Deliberately no `push` trigger yet: the server path has not been confirmed,
-# and this action deletes server files that are absent locally. Run it by hand
-# from the Actions tab, read the dry-run log, and confirm what it intends to
-# delete before letting it write anything.
-#
-# PHASE 2 — once a real run has succeeded and the site looks right, restore
-# automatic deploys by uncommenting the two lines below.
-#
-# push:
-#   branches: [main]
+# Builds the static export and mirrors it into public_html over SSH — the same
+# result as deleting everything except backend/ and uploading out/ by hand.
 on:
+  push:
+    branches: [main]
+    # Only frontend changes redeploy; wordpress/ plugin edits do not. The
+    # workflow file is deliberately absent so editing it never deploys by itself.
+    paths:
+      - "eqo-logiq-frontend (1)/**"
+  # Price and stock load live in the browser, but a product page only exists if
+  # the product existed at build time. Rebuild nightly (03:00 IST) so products
+  # added in WordPress get their page without anyone remembering to deploy.
+  schedule:
+    - cron: "30 21 * * *"
   workflow_dispatch:
     inputs:
       dry_run:
-        description: "Dry run — log changes without uploading (untick to deploy for real)"
+        description: "Dry run: list what would change on the server without touching it"
         type: boolean
-        default: true
+        default: false
 
-# Deployments queue rather than cancel: aborting mid-upload would leave the
-# document root half-updated and the sync state file unwritten.
+# Deployments queue rather than cancel: aborting mid-rsync would leave
+# public_html half-updated.
 concurrency:
   group: deploy-hostinger
   cancel-in-progress: false
@@ -28,6 +30,10 @@ concurrency:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      # Relative to the SSH user's home directory.
+      DEPLOY_PATH: domains/eqologiq.in/public_html
     defaults:
       run:
         working-directory: "eqo-logiq-frontend (1)"
@@ -45,55 +51,82 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      # Reads NEXT_PUBLIC_* from the committed .env and pulls live products and
-      # posts from the WordPress backend to generate a page per product/article.
+      # Reads NEXT_PUBLIC_* from the committed .env and pulls live products from
+      # the WordPress backend to generate a page per product. Do not cache
+      # .next/cache: build fetches use `revalidate: false`, so a restored fetch
+      # cache would bake in old product data and nightly builds would never
+      # pick up new products.
       - name: Build static site
         run: npm run build
 
-      # A build can exit 0 having produced very little. Publishing that would
-      # delete the live site, so confirm the export looks real before uploading.
+      # A build can exit 0 having produced very little (e.g. the backend was
+      # down). Publishing that would wipe the live site, so check it looks real.
       - name: Verify build output
         run: |
           test -f out/index.html || { echo "::error::out/index.html missing — refusing to deploy"; exit 1; }
-          test -d out/product   || { echo "::error::out/product missing — refusing to deploy"; exit 1; }
+          test -f out/.htaccess  || { echo "::error::out/.htaccess missing — refusing to deploy"; exit 1; }
+          test -d out/product    || { echo "::error::out/product missing — refusing to deploy"; exit 1; }
           pages=$(find out -name index.html | wc -l)
-          echo "Generated $pages pages, $(du -sh out | cut -f1) total"
-          [ "$pages" -ge 15 ] || { echo "::error::only $pages pages — expected at least 15"; exit 1; }
+          products=$(find out/product -mindepth 2 -name index.html | wc -l)
+          echo "Generated $pages pages ($products product pages), $(du -sh out | cut -f1) total"
+          [ "$pages" -ge 15 ]   || { echo "::error::only $pages pages — expected at least 15"; exit 1; }
+          [ "$products" -ge 5 ] || { echo "::error::only $products product pages — expected at least 5"; exit 1; }
 
-      - name: Deploy to Hostinger via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          port: 21
-          # FTPS = the same port 21 login upgraded to TLS, so the password is not
-          # sent in cleartext. Hostinger supports it. If a run fails with a TLS or
-          # connection error, change this to `ftp` to confirm the credentials work,
-          # then raise FTPS with Hostinger support.
-          protocol: ftps
-          # Relative to the repo root, so the subfolder is included. Trailing slash required.
-          local-dir: "eqo-logiq-frontend (1)/out/"
-          # Where files land on Hostinger. If the FTP account is already scoped to
-          # the domain, this may need to be "./" or "/domains/eqologiq.in/public_html/".
-          server-dir: "public_html/"
-          dry-run: ${{ inputs.dry_run }}
-          # Never wipe the destination and re-upload; sync only what changed.
-          dangerous-clean-slate: false
-          # This action DELETES server files absent from local-dir. Everything the
-          # frontend build does not produce must be listed here or it will be
-          # removed — most importantly the WordPress installation.
-          exclude: |
-            **/backend/**
-            backend/**
-            **/wp-admin/**
-            **/wp-includes/**
-            **/wp-content/**
-            **/wp-config.php
-            **/wp-*.php
-            **/xmlrpc.php
-            **/.htaccess
-            **/.well-known/**
-            **/cgi-bin/**
-            **/.git*
-            **/.git*/**
+      - name: Set up SSH
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          SSH_KNOWN_HOSTS: ${{ secrets.SSH_KNOWN_HOSTS }}
+          SSH_HOST: ${{ secrets.SSH_HOST }}
+          SSH_PORT: ${{ secrets.SSH_PORT }}
+          SSH_USER: ${{ secrets.SSH_USER }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$SSH_PRIVATE_KEY" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          # Pinned host key: the connection fails rather than trusting an
+          # unknown server.
+          printf '%s\n' "$SSH_KNOWN_HOSTS" > ~/.ssh/known_hosts
+          cat > ~/.ssh/config <<EOF
+          Host hostinger
+            HostName $SSH_HOST
+            Port $SSH_PORT
+            User $SSH_USER
+            IdentityFile ~/.ssh/deploy_key
+            IdentitiesOnly yes
+            StrictHostKeyChecking yes
+          EOF
+
+      # rsync --delete into the wrong directory would destroy it. backend/ only
+      # exists in the real document root, so require it before writing anything.
+      - name: Confirm target directory
+        run: |
+          ssh hostinger "test -d '$DEPLOY_PATH/backend'" \
+            || { echo "::error::$DEPLOY_PATH/backend not found on server — refusing to deploy"; exit 1; }
+
+      # --delete removes files the new build no longer has (the manual "delete
+      # everything" step). Excluded paths are never touched, deletes included:
+      # /backend/ is the WordPress install, /.well-known/ is used for SSL renewal.
+      # --delay-updates swaps all changed files in at the end instead of leaving
+      # the site half-old/half-new during the upload. --checksum skips files whose
+      # content is unchanged, so a typical deploy sends a few MB, not the full site.
+      - name: Deploy with rsync
+        run: |
+          rsync -rlpz --checksum --chmod=D755,F644 \
+            --delete --delete-delay --delay-updates \
+            --exclude='/backend/' --exclude='/.well-known/' \
+            --itemize-changes --stats \
+            ${{ inputs.dry_run && '--dry-run' || '' }} \
+            out/ "hostinger:$DEPLOY_PATH/"
+
+      - name: Smoke test
+        if: ${{ !inputs.dry_run }}
+        run: |
+          curl -fsS -o /dev/null https://eqologiq.in/ \
+            || { echo "::error::eqologiq.in is not responding after deploy"; exit 1; }
+          curl -fsS -o /dev/null https://backend.eqologiq.in/wp-json/ \
+            || { echo "::error::backend.eqologiq.in/wp-json is not responding after deploy"; exit 1; }
+          echo "eqologiq.in and backend.eqologiq.in both respond"
+
+      - name: Remove SSH key
+        if: always()
+        run: rm -f ~/.ssh/deploy_key
