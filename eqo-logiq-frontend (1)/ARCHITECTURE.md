@@ -244,7 +244,7 @@ WC_API_BASE.replace('/wc/store/v1', '') + '/eqo/v1/orders'
 
 | Page type | Routes | Data strategy |
 |-----------|--------|---------------|
-| **SSG + build fetch** | `/product/[slug]/` | `generateStaticParams()` from hardcoded `PRODUCT_SLUGS`; `fetchProduct()` hits `{wpOrigin}/wp-json/wc/store/v1/products?slug=…` at build; `dynamicParams = false` |
+| **SSG + build fetch** | `/product/[slug]/` | `generateStaticParams()` from hardcoded `PRODUCT_SLUGS`; `fetchProduct()` hits `{wpOrigin}/wp-json/wc/store/v1/products?slug=…` at build; `dynamicParams = false`. Price and stock text are the exception: `LiveProductContext.jsx` loads them in the browser via `useProducts()` and shows a placeholder until they arrive (build-time values only if that request fails) |
 | **SSG metadata** | `/blog/[slug]/` | WP `/wp-json/wp/v2/posts?slug=…&_embed=1`; fallback static `POST` object |
 | **Build sitemap** | `app/sitemap.js` | Fetches products + posts from `wpOrigin`; `dynamic = 'force-static'` |
 | **Static marketing** | `/`, `/about/`, `/policy/`, etc. | No product API at build; homepage embeds client `HomeProductGrid` |
@@ -384,7 +384,7 @@ There is **no** Next.js API route or middleware for PDF streaming. Security for 
 | `images.unoptimized: true` | Required for static hosting |
 | `trailingSlash: true` | All internal links should use trailing slashes |
 | `dynamicParams = false` | Unknown product/blog slugs → 404 unless in `generateStaticParams` |
-| `next: { revalidate: false }` on build fetches | Product/blog data frozen at build time |
+| `next: { revalidate: false }` on build fetches | Product/blog data frozen at build time (except PDP price/stock, loaded live) |
 | No `app/api/` | All backend traffic is browser → WP REST (or build → absolute WP URL) |
 
 ### SEO infrastructure
@@ -404,6 +404,20 @@ Production:
   Browser → /wp-json/* → same-host WordPress
   next build → absolute fetch to WP_ORIGIN → static out/ files
 ```
+
+### Deployment
+
+`.github/workflows/deploy.yml` builds `out/` on GitHub Actions and rsyncs it over SSH into `~/domains/eqologiq.in/public_html/` on Hostinger. `public_html/backend/` (the WordPress install) and `/.well-known/` are excluded and never touched; every other file not in the new build is deleted.
+
+| Trigger | When |
+|---------|------|
+| Push to `main` | Any change under `eqo-logiq-frontend (1)/` |
+| Nightly | 03:00 IST, so products added in WordPress get their page |
+| Manual | Actions → *Deploy frontend to Hostinger* → *Run workflow* (tick *Dry run* to only list changes) |
+
+Rollback: open an earlier successful run of the workflow and *Re-run all jobs* (GitHub allows this for 30 days). It rebuilds that commit, with the product data as it is now.
+
+Secrets (repo settings → Secrets and variables → Actions): `SSH_HOST`, `SSH_PORT`, `SSH_USER`, `SSH_PRIVATE_KEY`, `SSH_KNOWN_HOSTS`.
 
 ---
 
@@ -425,7 +439,7 @@ Production:
 1. **Dual success pages** (`/checkout/success/` vs `/order-success/`) serve different payment flows; PhonePe return URL configuration lives on the WP/PhonePe plugin side.
 2. **`eqo_order_email` sessionStorage** is never populated in frontend — guest order lookup on `/order-success/` may fail without backend setting it or passing `billing_email` another way.
 3. **Product slug list** in `product/[slug]/page.js` is hardcoded (10 slugs); sitemap pulls live slugs from API — they can diverge.
-4. **No runtime product revalidation** — catalog changes require rebuild for PDPs; shop page updates live via client fetch.
+4. **No runtime product revalidation** — price and stock update live everywhere, but a new product only gets a PDP (and name/description/image edits only reach it) on the next build. The deploy workflow rebuilds nightly for this.
 5. **Planned WP path change** — comment in `woocommerce.js` references future `/backend/wp-json/` migration.
 
 

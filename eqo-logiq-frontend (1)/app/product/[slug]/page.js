@@ -6,10 +6,10 @@ import ProductGallery from './ProductGallery';
 import ProductReviews, { ReviewSummary } from './ProductReviews';
 import { ReviewsProvider } from './ReviewsContext';
 import { VariationProvider } from './VariationContext';
+import { LivePrice, LiveProductProvider, LiveStockText } from './LiveProductContext';
 import Reveal from '../../../components/Reveal';
 import {
   WC_API_BASE,
-  formatProductPrice,
   getProductFallbackImage,
   resolveContentUrls,
   resolveProductImages,
@@ -72,19 +72,6 @@ async function fetchProduct(slug) {
   const url = `${apiBase}/products?slug=${encodeURIComponent(slug)}&per_page=1`;
   const data = await fetchJson(url);
   return Array.isArray(data) ? data[0] : null;
-}
-
-function getRegularPrice(prices) {
-  if (!prices?.regular_price || prices.regular_price === prices.price) return null;
-  return formatProductPrice({ ...prices, price: prices.regular_price });
-}
-
-function getDiscountPercent(prices) {
-  if (!prices?.regular_price || !prices?.price) return null;
-  const regular = Number(prices.regular_price);
-  const sale = Number(prices.price);
-  if (!regular || regular <= sale) return null;
-  return Math.round((1 - sale / regular) * 100);
 }
 
 /**
@@ -167,9 +154,6 @@ export default async function Page({ params }) {
   const product = await fetchProduct(slug);
   if (!product) notFound();
 
-  const price = formatProductPrice(product?.prices);
-  const regularPrice = getRegularPrice(product?.prices);
-  const discountPercent = getDiscountPercent(product?.prices);
   const shortDescription = stripHtml(product?.short_description || '');
   const categoryLabel = product?.categories?.[0]?.name || '';
   const stockText = product?.stock_availability?.text || '';
@@ -235,27 +219,19 @@ export default async function Page({ params }) {
               </p>
             ) : null}
 
-            <div className="flex items-baseline gap-4 mb-2">
-              <span className="font-sans font-bold text-3xl text-brand-primary">{price || '—'}</span>
-              {regularPrice ? (
-                <span className="font-body text-brand-text/40 text-base line-through">
-                  {regularPrice}
-                </span>
-              ) : null}
-              {discountPercent ? (
-                <span className="text-xs font-sans font-bold px-2.5 py-1 rounded-full bg-brand-secondary/10 text-brand-secondary">
-                  {discountPercent}% off
-                </span>
-              ) : null}
-            </div>
+            <LiveProductProvider
+              productId={product.id}
+              initialPrices={product.prices}
+              initialStockText={stockText}
+            >
+              <LivePrice />
 
-            {/* Not gated on the build-time count: a review posted after the build still shows. */}
-            <div className="mb-6 empty:hidden">
-              <ReviewSummary initialCount={reviewCount} initialAverage={averageRating} />
-              {stockText ? (
-                <p className="font-body text-xs text-brand-secondary mt-1">{stockText}</p>
-              ) : null}
-            </div>
+              {/* Not gated on the build-time count: a review posted after the build still shows. */}
+              <div className="mb-6 empty:hidden">
+                <ReviewSummary initialCount={reviewCount} initialAverage={averageRating} />
+                <LiveStockText />
+              </div>
+            </LiveProductProvider>
 
             <ProductClient product={product} variationImages={variationImages} />
 
