@@ -4,7 +4,7 @@ import { ChevronRight, ShieldCheck, FlaskConical, Thermometer, Recycle } from 'l
 import ProductClient from './ProductClient';
 import ProductGallery from './ProductGallery';
 import Reveal from '../../../components/Reveal';
-import { WC_API_BASE, formatProductPrice, stripHtml } from '../../../lib/woocommerce';
+import { WC_API_BASE, formatProductPrice, stripHtml, cleanProductDescription } from '../../../lib/woocommerce';
 
 const PRODUCT_SLUGS = [
   'plastic-free-screw-cap-bottle-single-wall-1-liter',
@@ -69,7 +69,8 @@ export async function generateMetadata({ params }) {
   if (!product) return {};
 
   const image = product?.images?.[0]?.src || '/images/steel-bottle.png';
-  const description = stripHtml(product?.short_description || product?.description || '');
+  const cleanDescription = cleanProductDescription(product?.description || '');
+  const description = stripHtml(product?.short_description || cleanDescription || '');
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
 
   return {
@@ -216,12 +217,12 @@ export default async function Page({ params }) {
         </div>
       </section>
 
-      {product?.description ? (
+      {cleanProductDescription(product?.description) ? (
         <Reveal className="max-w-[1400px] mx-auto px-6 md:px-12 pb-16">
           <div className="border-t border-brand-text/10 pt-16 max-w-2xl product-description">
             <div
               className="font-body text-brand-text/70 leading-relaxed prose prose-brand max-w-none [&_h2]:font-sans [&_h2]:font-bold [&_h2]:text-2xl [&_h2]:text-brand-text [&_h2]:mb-6 [&_h2]:mt-10 [&_h2:first-child]:mt-0 [&_p]:mb-4"
-              dangerouslySetInnerHTML={{ __html: product.description }}
+              dangerouslySetInnerHTML={{ __html: cleanProductDescription(product.description) }}
             />
           </div>
         </Reveal>

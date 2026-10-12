@@ -11,6 +11,7 @@ import Reveal from '../../../components/Reveal';
 import {
   WC_API_BASE,
   getProductFallbackImage,
+  cleanProductDescription,
   resolveContentUrls,
   resolveProductImages,
   stripHtml,
@@ -125,7 +126,8 @@ export async function generateMetadata({ params }) {
   const product = await fetchProduct(slug);
   if (!product) return {};
 
-  const description = stripHtml(product?.short_description || product?.description || '');
+  const cleanDescription = cleanProductDescription(product?.description || '');
+  const description = stripHtml(product?.short_description || cleanDescription || '');
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
   const image =
     toAbsoluteImageUrl(product?.images?.[0]?.src, baseUrl) || `${baseUrl}/images/steel-bottle.png`;
@@ -255,12 +257,12 @@ export default async function Page({ params }) {
         </VariationProvider>
       </section>
 
-      {product?.description ? (
+      {cleanProductDescription(product?.description) ? (
         <Reveal className="max-w-[1400px] mx-auto px-6 md:px-12 pb-16">
           <div className="border-t border-brand-text/10 pt-16 max-w-2xl product-description">
             <div
               className="font-body text-brand-text/70 leading-relaxed prose prose-brand max-w-none [&_h2]:font-sans [&_h2]:font-bold [&_h2]:text-2xl [&_h2]:text-brand-text [&_h2]:mb-6 [&_h2]:mt-10 [&_h2:first-child]:mt-0 [&_p]:mb-4"
-              dangerouslySetInnerHTML={{ __html: resolveContentUrls(product.description) }}
+              dangerouslySetInnerHTML={{ __html: resolveContentUrls(cleanProductDescription(product.description)) }}
             />
           </div>
         </Reveal>

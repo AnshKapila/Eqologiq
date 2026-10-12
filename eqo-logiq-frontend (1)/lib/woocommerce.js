@@ -56,6 +56,12 @@ export function getProductPriceAmount(prices) {
   return Number(prices.price) / Math.pow(10, minorUnit);
 }
 
+export function cleanProductDescription(html = '') {
+  if (!html || typeof html !== 'string') return html || '';
+  const doubtsPattern = /<(?:h[1-6]|p|div)[^>]*>\s*Any\s+doubts\s*\/?\s*questions\s+ask\s+us\s+on\s+Instagram\s*\/?\s*Whatsapp[.\s]*<\/(?:h[1-6]|p|div)>\s*(?:<(?:h[1-6]|p|div)[^>]*>[\s\S]*?happy\s+to\s+answer[\s\S]*?<\/(?:h[1-6]|p|div)>)?/gi;
+  return html.replace(doubtsPattern, '').trim();
+}
+
 export function stripHtml(html = '') {
   return html.replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
 }
@@ -163,7 +169,8 @@ export function resolveProductImageUrl(url) {
  */
 export function resolveContentUrls(html) {
   if (!html || typeof html !== 'string') return html || '';
-  if (!WP_MEDIA_BASE) return html;
+  let output = cleanProductDescription(html);
+  if (!WP_MEDIA_BASE) return output;
 
   const frontendOrigins = new Set(['https://eqologiq.in', 'http://eqologiq.in']);
   if (SITE_URL) {
@@ -173,8 +180,6 @@ export function resolveContentUrls(html) {
       // Ignore an unparseable SITE_URL and keep the defaults.
     }
   }
-
-  let output = html;
 
   for (const origin of frontendOrigins) {
     if (origin === WP_MEDIA_BASE) continue;
