@@ -167,7 +167,7 @@ export default function Page() {
               <span className="w-8 h-[1px] bg-[#006B96] hover:bg-[#005580]" />
               Daily Essentials
             </p>
-            <h2 className="font-sans font-bold text-4xl md:text-5xl text-brand-text">What we make.</h2>
+            <h2 className="font-sans font-bold text-4xl md:text-5xl text-brand-text">What we provide.</h2>
             <p className="font-body text-brand-text/55 text-sm mt-3">Plastic-free steel bottles and oral care. Thirteen products currently available.</p>
           </div>
           <Link href="/shop/" className="inline-flex items-center gap-2 font-sans font-bold text-sm text-brand-primary hover:text-[#005580] transition-colors group self-start md:self-auto">
