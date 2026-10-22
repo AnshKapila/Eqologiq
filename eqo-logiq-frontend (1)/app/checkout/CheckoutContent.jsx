@@ -3,9 +3,14 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import Link from 'next/link';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { ArrowLeft, Package, ShieldCheck, Lock, RotateCcw } from 'lucide-react';
+import { ArrowLeft, Package, ShieldCheck, Lock, RotateCcw, Tag, X } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
-import { formatProductPrice, resolvePaymentRedirectUrl, resolveProductImageUrl } from '../../lib/woocommerce';
+import {
+  formatCouponDiscount,
+  formatProductPrice,
+  resolvePaymentRedirectUrl,
+  resolveProductImageUrl,
+} from '../../lib/woocommerce';
 
 const STATES = [
   'Andhra Pradesh',
@@ -76,6 +81,12 @@ function getGatewayDetail(failed, cartState) {
   return '';
 }
 
+// Store API coupon errors arrive HTML-encoded, e.g. Coupon &quot;abc&quot; does not exist!
+function toPlainMessage(message) {
+  if (!message || typeof window === 'undefined') return message;
+  return new DOMParser().parseFromString(message, 'text/html').body.textContent || message;
+}
+
 function isAddressComplete(form) {
   return Boolean(
     form.name?.trim() &&
@@ -100,6 +111,8 @@ export default function CheckoutContent() {
     submitCheckout,
     updateCustomer,
     selectShippingRate,
+    applyCoupon,
+    removeCoupon,
   } = useCart();
 
   const paymentError = searchParams?.get('payment_error');
@@ -156,6 +169,9 @@ export default function CheckoutContent() {
   const [paymentMethod, setPaymentMethod] = useState('cod');
   const [selectedShippingRate, setSelectedShippingRate] = useState(null);
   const [isUpdatingShipping, setIsUpdatingShipping] = useState(false);
+  const [couponCode, setCouponCode] = useState('');
+  const [couponError, setCouponError] = useState(null);
+  const [isUpdatingCoupon, setIsUpdatingCoupon] = useState(false);
   const addressSyncRef = useRef(null);
 
   const priceMeta = useMemo(
@@ -237,6 +253,37 @@ export default function CheckoutContent() {
     }
   };
 
+  const handleApplyCoupon = async (e) => {
+    e.preventDefault();
+    const code = couponCode.trim();
+    if (!code) return;
+
+    setCouponError(null);
+    setIsUpdatingCoupon(true);
+
+    try {
+      await applyCoupon(code);
+      setCouponCode('');
+    } catch (err) {
+      setCouponError(toPlainMessage(err.message) || 'Unable to apply this coupon.');
+    } finally {
+      setIsUpdatingCoupon(false);
+    }
+  };
+
+  const handleRemoveCoupon = async (code) => {
+    setCouponError(null);
+    setIsUpdatingCoupon(true);
+
+    try {
+      await removeCoupon(code);
+    } catch (err) {
+      setCouponError(toPlainMessage(err.message) || 'Unable to remove this coupon.');
+    } finally {
+      setIsUpdatingCoupon(false);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setCheckoutError(null);
@@ -266,7 +313,10 @@ export default function CheckoutContent() {
         router.push('/account/');
       }
     } catch (err) {
-      setCheckoutError(err.message || 'Checkout failed. Please try again.');
+      setCheckoutError(toPlainMessage(err.message) || 'Checkout failed. Please try again.');
+      // A rejected checkout can change the cart server-side — WooCommerce drops
+      // coupons that are no longer valid — so the totals on screen may be stale.
+      refreshCart();
     }
   };
 
@@ -277,6 +327,7 @@ export default function CheckoutContent() {
   const total = cart?.totals?.total_price
     ? formatProductPrice({ price: cart.totals.total_price, ...priceMeta })
     : subtotal;
+  const appliedCoupons = cart?.coupons || [];
 
   const isPhonePe = paymentMethod === 'phonepe';
   const isCod = paymentMethod === 'cod';
@@ -499,11 +550,82 @@ export default function CheckoutContent() {
                   )}
                 </div>
 
-                <div className="border-t border-brand-text/8 pt-4 mb-4">
+                {items.length > 0 && (
+                  <div className="border-t border-brand-text/8 pt-4 mb-4">
+                    <p className="font-sans font-bold text-sm text-brand-text mb-3">Have a coupon code?</p>
+                    <form onSubmit={handleApplyCoupon} className="flex gap-2">
+                      <input
+                        type="text"
+                        name="coupon_code"
+                        aria-label="Coupon code"
+                        placeholder="Enter code"
+                        autoComplete="off"
+                        className="flex-1 min-w-0 px-4 py-2.5 border border-brand-text/15 rounded-lg font-body text-sm text-brand-text outline-none focus:border-brand-primary transition-colors uppercase placeholder:normal-case"
+                        value={couponCode}
+                        onChange={(e) => {
+                          setCouponCode(e.target.value);
+                          if (couponError) setCouponError(null);
+                        }}
+                        disabled={isUpdatingCoupon || isCheckingOut}
+                      />
+                      <button
+                        type="submit"
+                        disabled={!couponCode.trim() || isUpdatingCoupon || isCheckingOut}
+                        className="px-4 py-2.5 border-2 border-brand-primary text-brand-primary font-sans font-bold text-sm rounded-lg hover:bg-brand-primary hover:text-white transition-all disabled:opacity-50 disabled:hover:bg-transparent disabled:hover:text-brand-primary"
+                      >
+                        {isUpdatingCoupon ? 'Applying…' : 'Apply'}
+                      </button>
+                    </form>
+                    {couponError && (
+                      <p role="alert" className="font-body text-xs text-red-500 mt-2">
+                        {couponError}
+                      </p>
+                    )}
+                    {appliedCoupons.length > 0 && (
+                      <ul className="mt-3 space-y-2">
+                        {appliedCoupons.map((coupon) => (
+                          <li
+                            key={coupon.code}
+                            className="flex items-center gap-2 px-3 py-2 rounded-lg bg-brand-secondary/10 border border-brand-secondary/30"
+                          >
+                            <Tag className="w-3.5 h-3.5 text-brand-secondary flex-shrink-0" />
+                            <span className="flex-1 min-w-0 font-sans font-bold text-xs text-brand-text uppercase tracking-wider truncate">
+                              {coupon.code}
+                            </span>
+                            <button
+                              type="button"
+                              onClick={() => handleRemoveCoupon(coupon.code)}
+                              disabled={isUpdatingCoupon || isCheckingOut}
+                              aria-label={`Remove coupon ${coupon.code}`}
+                              className="p-1 rounded text-brand-text/50 hover:text-red-500 transition-colors disabled:opacity-50"
+                            >
+                              <X className="w-3.5 h-3.5" />
+                            </button>
+                          </li>
+                        ))}
+                      </ul>
+                    )}
+                  </div>
+                )}
+
+                <div className="border-t border-brand-text/8 pt-4 mb-4 space-y-2">
                   <div className="flex justify-between font-body text-sm text-brand-text/70">
                     <span>Subtotal</span>
                     <span>{subtotal}</span>
                   </div>
+                  {appliedCoupons.map((coupon) => {
+                    const discount = formatCouponDiscount(coupon.totals);
+                    if (!discount) return null;
+
+                    return (
+                      <div key={coupon.code} className="flex justify-between font-body text-sm text-green-700">
+                        <span>
+                          Discount <span className="uppercase">({coupon.code})</span>
+                        </span>
+                        <span>{discount}</span>
+                      </div>
+                    );
+                  })}
                 </div>
 
                 {shippingRates.length > 0 && (
@@ -627,7 +749,9 @@ export default function CheckoutContent() {
                 <button
                   type="button"
                   onClick={handleSubmit}
-                  disabled={isCheckingOut || isUpdatingShipping || isUpdating || items.length === 0}
+                  disabled={
+                    isCheckingOut || isUpdatingShipping || isUpdatingCoupon || isUpdating || items.length === 0
+                  }
                   className="w-full py-4 rounded-xl font-sans font-bold text-base text-white transition-colors duration-200 bg-brand-primary hover:bg-[#005580] disabled:opacity-60"
                 >
                   {isCheckingOut

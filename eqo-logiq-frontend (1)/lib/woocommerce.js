@@ -50,6 +50,18 @@ export function formatProductPrice(prices) {
   })}`;
 }
 
+/** What a Store API coupon takes off the order, tax included, e.g. "−₹180"; null when nothing. */
+export function formatCouponDiscount(totals) {
+  const amount = Number(totals?.total_discount || 0) + Number(totals?.total_discount_tax || 0);
+  if (!(amount > 0)) return null;
+
+  return `−${formatProductPrice({
+    price: String(amount),
+    currency_minor_unit: totals.currency_minor_unit ?? 2,
+    currency_prefix: totals.currency_prefix ?? '₹',
+  })}`;
+}
+
 export function getProductPriceAmount(prices) {
   if (!prices?.price) return 0;
   const minorUnit = prices.currency_minor_unit ?? 2;

@@ -456,6 +456,32 @@ export function CartProvider({ children }) {
     [applyCartResponse, postCartRequest]
   );
 
+  const applyCoupon = useCallback(
+    async (code) => {
+      const data = await postCartRequest(`${WC_API_BASE}/cart/apply-coupon`, { code });
+
+      if (isFullCartPayload(data)) {
+        applyCartResponse(data, 'mutation');
+      }
+
+      return data;
+    },
+    [applyCartResponse, postCartRequest]
+  );
+
+  const removeCoupon = useCallback(
+    async (code) => {
+      const data = await postCartRequest(`${WC_API_BASE}/cart/remove-coupon`, { code });
+
+      if (isFullCartPayload(data)) {
+        applyCartResponse(data, 'mutation');
+      }
+
+      return data;
+    },
+    [applyCartResponse, postCartRequest]
+  );
+
   const submitCheckout = useCallback(
     async (formData, { payment_method: paymentMethod = 'cod' } = {}) => {
       setIsCheckingOut(true);
@@ -516,6 +542,8 @@ export function CartProvider({ children }) {
       refreshCart,
       updateCustomer,
       selectShippingRate,
+      applyCoupon,
+      removeCoupon,
       submitCheckout,
       resetCart,
     }),
@@ -537,6 +565,8 @@ export function CartProvider({ children }) {
       refreshCart,
       updateCustomer,
       selectShippingRate,
+      applyCoupon,
+      removeCoupon,
       submitCheckout,
       resetCart,
     ]
