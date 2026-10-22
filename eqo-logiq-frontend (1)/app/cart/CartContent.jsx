@@ -5,6 +5,7 @@ import { ArrowLeft, ShieldCheck, Lock, RotateCcw, Truck, X } from 'lucide-react'
 import { useCart } from '../../context/CartContext';
 import {
   FREE_SHIPPING_MIN_RUPEES,
+  formatCouponDiscount,
   formatProductPrice,
   resolveProductImageUrl,
   toMajorAmount,
@@ -24,11 +25,15 @@ export default function CartContent() {
   const hasShippingTotal = shippingTotalRaw !== null && shippingTotalRaw !== undefined;
   const shippingIsFree = hasShippingTotal && Number(shippingTotalRaw) <= 0;
 
-  const subtotalRupees = toMajorAmount(cart?.totals?.total_items, minorUnit);
-  const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_MIN_RUPEES - subtotalRupees);
+  // WooCommerce measures the free-shipping minimum after coupon discounts (unless
+  // "Apply minimum order rule before coupon discount" is ticked on the method).
+  const qualifyingRupees =
+    toMajorAmount(cart?.totals?.total_items, minorUnit) -
+    toMajorAmount(cart?.totals?.total_discount, minorUnit);
+  const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_MIN_RUPEES - qualifyingRupees);
   const freeShippingProgress = Math.min(
     100,
-    Math.round((subtotalRupees / FREE_SHIPPING_MIN_RUPEES) * 100)
+    Math.round((qualifyingRupees / FREE_SHIPPING_MIN_RUPEES) * 100)
   );
 
   return (
@@ -172,6 +177,19 @@ export default function CartContent() {
                         })}
                       </span>
                     </div>
+                    {(cart?.coupons ?? []).map((coupon) => {
+                      const discount = formatCouponDiscount(coupon.totals);
+                      if (!discount) return null;
+
+                      return (
+                        <div key={coupon.code} className="flex justify-between font-body text-sm text-green-700 mb-2">
+                          <span>
+                            Discount <span className="uppercase">({coupon.code})</span>
+                          </span>
+                          <span>{discount}</span>
+                        </div>
+                      );
+                    })}
                     <div
                       className={`flex justify-between font-body text-sm ${
                         shippingIsFree ? 'text-brand-secondary' : 'text-brand-text/70'
