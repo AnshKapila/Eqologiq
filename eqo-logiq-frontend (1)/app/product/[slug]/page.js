@@ -6,9 +6,10 @@ import ProductGallery from './ProductGallery';
 import ProductReviews, { ReviewSummary } from './ProductReviews';
 import { ReviewsProvider } from './ReviewsContext';
 import { VariationProvider } from './VariationContext';
-import { LivePrice, LiveProductProvider, LiveStockText } from './LiveProductContext';
+import { LivePrice, LiveProductProvider, LiveStockText, ProductVisibilityGate } from './LiveProductContext';
 import Reveal from '../../../components/Reveal';
 import {
+  SHOP_VISIBILITY_PARAM,
   WC_API_BASE,
   getProductFallbackImage,
   cleanProductDescription,
@@ -110,10 +111,24 @@ async function fetchAllProductSlugs() {
   return data.map((product) => product?.slug).filter(Boolean);
 }
 
+/**
+ * Whether WooCommerce shows the product in its shop at build time. A failed
+ * request counts as visible, so a network blip never blanks the catalogue.
+ */
+async function isShopVisible(product) {
+  const origin = getWpOrigin();
+  const apiBase = WC_API_BASE.startsWith('http') ? WC_API_BASE : `${origin}${WC_API_BASE}`;
+  const data = await fetchJson(`${apiBase}/products?per_page=100&${SHOP_VISIBILITY_PARAM}`);
+  if (!Array.isArray(data)) return true;
+  return data.some((entry) => entry?.id === product.id);
+}
+
 export async function generateStaticParams() {
-  // Build a PDP for every published, catalog-visible product. Fall back to the
-  // static list only if the build-time fetch fails, so a network hiccup never
-  // produces zero product pages.
+  // Build a PDP for every published product, hidden ones included, so un-hiding
+  // a product in WP admin brings its page back without a rebuild; the page hides
+  // the product itself while WooCommerce does. Fall back to the static list only
+  // if the build-time fetch fails, so a network hiccup never produces zero
+  // product pages.
   const liveSlugs = await fetchAllProductSlugs();
   const slugs = liveSlugs.length > 0 ? liveSlugs : PRODUCT_SLUGS;
   return slugs.map((slug) => ({ slug }));
@@ -131,8 +146,10 @@ export async function generateMetadata({ params }) {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
   const image =
     toAbsoluteImageUrl(product?.images?.[0]?.src, baseUrl) || `${baseUrl}/images/steel-bottle.png`;
+  const shopVisible = await isShopVisible(product);
 
   return {
+    ...(shopVisible ? {} : { robots: { index: false, follow: false } }),
     title: product.name,
     description: description || `Shop ${product.name} on Eqo Logiq.`,
     openGraph: {
@@ -164,6 +181,7 @@ export default async function Page({ params }) {
   const images = resolveProductImages(product?.images || []);
   const fallbackImage = getProductFallbackImage(product, slug);
   const variationImages = await fetchVariationImages(product);
+  const shopVisible = await isShopVisible(product);
 
   const priceValue = product?.prices?.price ? Number(product.prices.price) / Math.pow(10, product.prices.currency_minor_unit ?? 2) : 0;
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://eqologiq.in';
@@ -186,6 +204,13 @@ export default async function Page({ params }) {
         }
       }) }} />
       <main className="pt-20 bg-brand-base">
+      <LiveProductProvider
+        productId={product.id}
+        initiallyVisible={shopVisible}
+        initialPrices={product.prices}
+        initialStockText={stockText}
+      >
+      <ProductVisibilityGate>
       <ReviewsProvider productId={product.id}>
       <div className="max-w-[1400px] mx-auto px-6 md:px-12 py-4">
         <nav className="flex items-center gap-2 font-body text-sm text-brand-text/40">
@@ -221,19 +246,13 @@ export default async function Page({ params }) {
               </p>
             ) : null}
 
-            <LiveProductProvider
-              productId={product.id}
-              initialPrices={product.prices}
-              initialStockText={stockText}
-            >
-              <LivePrice />
+            <LivePrice />
 
-              {/* Not gated on the build-time count: a review posted after the build still shows. */}
-              <div className="mb-6 empty:hidden">
-                <ReviewSummary initialCount={reviewCount} initialAverage={averageRating} />
-                <LiveStockText />
-              </div>
-            </LiveProductProvider>
+            {/* Not gated on the build-time count: a review posted after the build still shows. */}
+            <div className="mb-6 empty:hidden">
+              <ReviewSummary initialCount={reviewCount} initialAverage={averageRating} />
+              <LiveStockText />
+            </div>
 
             <ProductClient product={product} variationImages={variationImages} />
 
@@ -270,6 +289,8 @@ export default async function Page({ params }) {
 
       <ProductReviews initialCount={reviewCount} />
       </ReviewsProvider>
+      </ProductVisibilityGate>
+      </LiveProductProvider>
     </main>
     </>
   );

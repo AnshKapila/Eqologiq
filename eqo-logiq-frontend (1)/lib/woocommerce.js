@@ -5,6 +5,13 @@ export const WC_API_BASE = `${WP_BASE}/wp-json/wc/store/v1`;
 export const WP_JSON_BASE = `${WP_BASE}/wp-json`;
 export const EQO_API_BASE = `${WP_JSON_BASE}/eqo/v1`;
 
+/**
+ * The Store API also lists products the admin set to "Hidden" (or "Search results
+ * only") unless asked not to. Add this to every request that lists products, so
+ * the storefront shows exactly what WooCommerce's own shop page would.
+ */
+export const SHOP_VISIBILITY_PARAM = 'catalog_visibility=catalog';
+
 export const CART_TOKEN_KEY = 'eqo_cart_token';
 export const CART_NONCE_KEY = 'eqo_cart_nonce';
 

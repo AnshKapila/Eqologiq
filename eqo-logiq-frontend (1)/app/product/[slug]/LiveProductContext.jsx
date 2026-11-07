@@ -1,6 +1,8 @@
 'use client';
 
 import { createContext, useContext, useMemo } from 'react';
+import Link from 'next/link';
+import { ShoppingBag } from 'lucide-react';
 import { useProducts } from '../../../hooks/useProducts';
 import { formatProductPrice } from '../../../lib/woocommerce';
 
@@ -26,19 +28,32 @@ function getDiscountPercent(prices) {
  * one; the build-time values are only a fallback if the request fails. Uses the
  * same request as the shop grid on purpose: the backend's LiteSpeed cache is
  * known to refresh that one when a product is saved.
+ *
+ * That request lists only products WooCommerce shows in its shop, so a product
+ * missing from it has been hidden (or unpublished) in WP admin. Pages are built
+ * for hidden products too, so hiding and un-hiding both apply without a rebuild.
+ * Until the list arrives, or if it fails, go with what the build saw.
  */
-export function LiveProductProvider({ productId, initialPrices, initialStockText, children }) {
-  const { products, loading } = useProducts();
+export function LiveProductProvider({
+  productId,
+  initiallyVisible = true,
+  initialPrices,
+  initialStockText,
+  children,
+}) {
+  const { products, loading, error } = useProducts();
   const live = products.find((product) => product?.id === productId);
+  const visible = loading || error ? initiallyVisible : Boolean(live);
 
   const value = useMemo(
     () => ({
       loading,
+      visible,
       prices: live?.prices || initialPrices,
       stockText: live ? live.stock_availability?.text || '' : initialStockText,
       expectStockText: Boolean(initialStockText),
     }),
-    [loading, live, initialPrices, initialStockText]
+    [loading, visible, live, initialPrices, initialStockText]
   );
 
   return <LiveProductContext.Provider value={value}>{children}</LiveProductContext.Provider>;
@@ -48,10 +63,40 @@ function useLiveProduct() {
   return (
     useContext(LiveProductContext) || {
       loading: false,
+      visible: true,
       prices: null,
       stockText: '',
       expectStockText: false,
     }
+  );
+}
+
+/** Shows the product only while WooCommerce has it visible in the shop. */
+export function ProductVisibilityGate({ children }) {
+  const { visible } = useLiveProduct();
+  if (visible) return children;
+
+  return (
+    <div className="min-h-[70vh] flex items-center justify-center px-6 py-24">
+      <div className="text-center max-w-lg mx-auto">
+        <p className="font-body text-xs uppercase tracking-[0.22em] text-brand-text/40 mb-4">
+          Product unavailable
+        </p>
+        <h1 className="font-sans font-bold text-3xl md:text-4xl text-brand-text mb-5 leading-tight tracking-tight">
+          This product isn&apos;t available right now.
+        </h1>
+        <p className="font-body text-brand-text/60 text-base leading-relaxed mb-10">
+          It may be back soon. In the meantime, have a look at the rest of the range.
+        </p>
+        <Link
+          href="/shop/"
+          className="inline-flex items-center gap-2.5 px-7 py-4 rounded-full bg-brand-text text-white font-sans font-bold text-sm hover:bg-brand-primary transition-colors"
+        >
+          <ShoppingBag className="w-4 h-4" />
+          Browse the Shop
+        </Link>
+      </div>
+    </div>
   );
 }
 

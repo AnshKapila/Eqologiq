@@ -1,4 +1,4 @@
-import { WC_API_BASE } from '../lib/woocommerce';
+import { SHOP_VISIBILITY_PARAM, WC_API_BASE } from '../lib/woocommerce';
 
 export const dynamic = 'force-static';
 function getWpOrigin() {
@@ -25,7 +25,7 @@ export default async function sitemap() {
   // Fetch products
   try {
     const apiBase = WC_API_BASE.startsWith('http') ? WC_API_BASE : `${wpOrigin}${WC_API_BASE}`;
-    const res = await fetch(`${apiBase}/products?per_page=100`);
+    const res = await fetch(`${apiBase}/products?per_page=100&${SHOP_VISIBILITY_PARAM}`);
     if (res.ok) {
       const products = await res.json();
       if (Array.isArray(products)) {

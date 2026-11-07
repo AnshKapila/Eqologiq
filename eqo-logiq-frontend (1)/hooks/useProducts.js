@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useState } from 'react';
-import { WC_API_BASE } from '../lib/woocommerce';
+import { SHOP_VISIBILITY_PARAM, WC_API_BASE } from '../lib/woocommerce';
 
 export function useProducts() {
   const [products, setProducts] = useState([]);
@@ -17,7 +17,7 @@ export function useProducts() {
 
       try {
         // Store API defaults to per_page=10; request more so the grid shows the full catalogue.
-        const response = await fetch(`${WC_API_BASE}/products?per_page=100`);
+        const response = await fetch(`${WC_API_BASE}/products?per_page=100&${SHOP_VISIBILITY_PARAM}`);
         if (!response.ok) throw new Error('Failed to load products.');
 
         const data = await response.json();

@@ -8,7 +8,7 @@ import { ArrowRight, Image as ImageIcon, Infinity, Leaf, Package, Search, Trendi
 import { useAuth } from '../../context/AuthContext';
 import { useSavedItems } from '../../context/SavedItemsContext';
 import { handleDownloadInvoice } from '../../lib/downloadInvoice';
-import { INDIAN_STATE_CODES, WC_API_BASE, EQO_API_BASE, WC_FETCH_OPTIONS, formatProductPrice, resolveProductImageUrl } from '../../lib/woocommerce';
+import { INDIAN_STATE_CODES, SHOP_VISIBILITY_PARAM, WC_API_BASE, EQO_API_BASE, WC_FETCH_OPTIONS, formatProductPrice, resolveProductImageUrl } from '../../lib/woocommerce';
 
 const EMPTY_ADDRESS_FORM = {
   billing_first_name: '',
@@ -206,7 +206,7 @@ export default function AccountClient() {
 
     async function loadUpsellProducts() {
       try {
-        const response = await fetch(`${WC_API_BASE}/products?per_page=3`, {
+        const response = await fetch(`${WC_API_BASE}/products?per_page=3&${SHOP_VISIBILITY_PARAM}`, {
           ...WC_FETCH_OPTIONS,
         });
         const data = await response.json().catch(() => []);
